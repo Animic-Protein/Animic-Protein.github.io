@@ -3,6 +3,8 @@
 
 export const ARCHIVUM_VERBAL_SCHEMA='animic.archivum.verbal/v1';
 export const ARCHIVUM_VERBAL_STATES=Object.freeze(['canonical','provisional','emergent','fertile-discard']);
+const clean=v=>String(v??'').trim();
+const slug=v=>clean(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||'fragment';
 
 export const ARCHIVUM_VERBAL_SEED=Object.freeze([
   {id:'verbal-ecosistema-pensament',text:'El Còdex no representa el pensament: assaja condicions perquè el pensament es transformi.',state:'canonical',context:'Definició d’Ecosistema del Pensament',relations:['Còdex Viu','ANÍMIC Protein'],provenance:{origin:'project-canon',certainty:'confirmed'}},
@@ -17,6 +19,14 @@ export const ARCHIVUM_VERBAL_SEED=Object.freeze([
   {id:'verbal-harmonia',text:'L’harmonia és l’art de conviure en la diferència. El pedal recorda; la retroharmonia retorna; l’harmonia inversa interroga el reflex.',state:'emergent',context:'Harmonia Viva · formulació recuperada',relations:['Harmonia Viva','retroharmonia'],provenance:{origin:'conversation-history',certainty:'recovered'}}
 ]);
 
+export function createVerbalItem({text,state='emergent',context='',relations=[],origin='human-capture',certainty='declared'}={}){
+  const phrase=clean(text);
+  if(!phrase)throw new Error('Cal una frase per conservar a Archivum.');
+  if(!ARCHIVUM_VERBAL_STATES.includes(state))throw new Error('Estat verbal no reconegut.');
+  const rels=[...new Set((Array.isArray(relations)?relations:String(relations||'').split(',')).map(clean).filter(Boolean))];
+  return {id:`verbal-${slug(phrase)}-${Date.now().toString(36)}`,text:phrase,state,context:clean(context),relations:rels,provenance:{origin:clean(origin)||'human-capture',certainty:clean(certainty)||'declared'}};
+}
+
 export function verbalArchiveEntry(item){
   return {
     id:item.id,
@@ -29,6 +39,11 @@ export function verbalArchiveEntry(item){
     technicalSheet:{title:item.text,description:item.context,instrument:'Archivum · sediment verbal',relations:item.relations.join(', '),sourceNote:`${item.provenance.origin} · ${item.provenance.certainty}`},
     record:{source:{id:`source-${item.id}`,kind:'generated',name:'Sediment verbal del Còdex'},fragment:{id:item.id,kind:'verbal-fragment',description:item.text},provenance:{originId:item.provenance.origin,createdBy:'ANÍMIC Protein / Còdex Viu',reversible:true,history:[{at:new Date().toISOString(),action:'archivum.verbal.preserved',state:item.state}]}}
   };
+}
+
+export async function captureVerbalFragment(saveArchiveEntry,input={}){
+  const item=createVerbalItem(input);
+  return saveArchiveEntry(verbalArchiveEntry(item));
 }
 
 export async function seedVerbalArchivum(saveArchiveEntry,loadArchiveEntries){
