@@ -1,41 +1,22 @@
 const $=id=>document.getElementById(id);
-const history=[];
-const randomInt=faces=>Math.floor(Math.random()*faces)+1;
-const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-const profiles={
-  Rastrejador:{rastre:78,mutacio:34,escolta:66,cartografia:72},
-  Herbarium:{rastre:54,mutacio:28,escolta:74,cartografia:48},
-  Mutador:{rastre:44,mutacio:86,escolta:52,cartografia:39},
-  Escoltador:{rastre:61,mutacio:31,escolta:91,cartografia:57},
-  Cartògraf:{rastre:69,mutacio:42,escolta:58,cartografia:89}
-};
+const key='codex-kreator-partida-01';
+const events=JSON.parse(localStorage.getItem(key)||'[]');
+const profiles={Rastrejador:{rastre:78,mutacio:34,escolta:66,cartografia:72},Herbarium:{rastre:54,mutacio:28,escolta:74,cartografia:48},Mutador:{rastre:44,mutacio:86,escolta:52,cartografia:39},Escoltador:{rastre:61,mutacio:31,escolta:91,cartografia:57},Cartògraf:{rastre:69,mutacio:42,escolta:58,cartografia:89}};
 const labels={rastre:'Rastre',mutacio:'Mutació',escolta:'Escolta',cartografia:'Cartografia'};
-function renderStats(){
-  const role=$('role').value;
-  const stats=profiles[role]||profiles.Rastrejador;
-  $('stats').innerHTML=Object.entries(stats).map(([key,value])=>`<div class="stat"><strong>${labels[key]}</strong> · ${value}%<div class="bar"><div class="fill" style="width:${value}%"></div></div></div>`).join('');
-}
-function renderHistory(){
-  $('history').innerHTML=history.length?history.slice().reverse().map(x=>`<div>${x.at} · ${x.kreator} · ${x.alias} · ${x.role} · ${x.axis[0].toUpperCase()} d${x.faces[0]}:${x.result[0]} + ${x.axis[1].toUpperCase()} d${x.faces[1]}:${x.result[1]} · ${x.condition||'indeterminació oberta'} · <strong>ruta, no veritat</strong></div>`).join(''):'Encara no hi ha tirades.';
-}
-async function roll(){
-  const button=$('roll');
-  if(button.disabled)return;
-  button.disabled=true;
-  const faces=[Number($('faces1').value),Number($('faces2').value)];
-  const axis=[$('axis1').value,$('axis2').value];
-  const dice=[$('die1'),$('die2')];
-  dice.forEach(d=>d.classList.add('rolling'));
-  const timer=setInterval(()=>dice.forEach((d,i)=>d.textContent=randomInt(faces[i])),70);
-  await wait(900);
-  clearInterval(timer);
-  const result=faces.map(randomInt);
-  dice.forEach((d,i)=>{d.classList.remove('rolling');d.textContent=result[i]});
-  history.push({at:new Date().toISOString(),kreator:$('kid').value.trim()||'KREATOR-?',alias:$('alias').value.trim()||'sense-àlies',role:$('role').value,profile:{...profiles[$('role').value]},condition:$('condition').value.trim()||null,faces,axis,result,principle:'uncertainty',authority:'route-only',canonical:false});
-  renderHistory();
-  button.disabled=false;
-}
-$('role').addEventListener('change',renderStats);
-$('roll').addEventListener('click',roll);
-renderStats();
-renderHistory();
+const tables={
+ quan:['ara','després d’una pausa','quan reaparegui un rastre','abans de transformar','quan canviï el context','quan una font retorni','després d’escoltar','en el següent cicle','quan la persona ho decideixi'],
+ com:['sense afegir res','per repetició','per omissió','per contrast','invertint la ruta','a través d’un altre òrgan','reduint','desplaçant','deixant-ho obert'],
+ qui:['KREATOR','persona','MASTER','IMPULS','font exterior','LOCUTUS','un instrument','una relació existent','ningú encara'],
+ perque:['per verificar diferència','per conservar rastre','per obrir relació','per provar reversibilitat','per escoltar l’error','per contrastar una font','per evitar certesa falsa','per tornar al Compost','sense causa assignada']
+};
+const randomInt=n=>Math.floor(Math.random()*n)+1, wait=ms=>new Promise(r=>setTimeout(r,ms));
+const save=()=>localStorage.setItem(key,JSON.stringify(events));
+function baseProfile(){return profiles[$('role').value]||profiles.Rastrejador}
+function observed(){const counts={rastre:0,mutacio:0,escolta:0,cartografia:0};events.filter(e=>e.type==='movement').forEach(e=>counts[e.movement]++);const n=Object.values(counts).reduce((a,b)=>a+b,0);return n?Object.fromEntries(Object.entries(counts).map(([k,v])=>[k,Math.round(v/n*100)])):null}
+function statHTML(title,s){return `<div style="grid-column:1/-1" class="muted">${title}</div>`+Object.entries(s).map(([k,v])=>`<div class="stat"><strong>${labels[k]}</strong> · ${v}%<div class="bar"><div class="fill" style="width:${v}%"></div></div></div>`).join('')}
+function render(){ $('stats').innerHTML=statHTML('Perfil de partida',baseProfile());const o=observed();$('observed').innerHTML=o?statHTML('Perfil observat',o):'<div class="muted">Perfil observat: encara sense moviments.</div>';$('history').innerHTML=events.length?events.slice().reverse().map(e=>`<div>${e.at} · ${e.type.toUpperCase()} · ${e.summary}</div>`).join(''):'Encara no hi ha esdeveniments.'; $('ant').classList.toggle('on',$('origin').value==='external'&&$('significant').checked&&$('organ').value.trim().length>0)}
+function axisMeaning(axis,result,faces){const list=tables[axis];const index=Math.min(list.length-1,Math.floor((result-1)*list.length/faces));return list[index]}
+async function roll(){const b=$('roll');if(b.disabled)return;b.disabled=true;const faces=[Number($('faces1').value),Number($('faces2').value)],axis=[$('axis1').value,$('axis2').value],dice=[$('die1'),$('die2')];dice.forEach(d=>d.classList.add('rolling'));const timer=setInterval(()=>dice.forEach((d,i)=>d.textContent=randomInt(faces[i])),70);await wait(900);clearInterval(timer);const result=faces.map(randomInt);dice.forEach((d,i)=>{d.classList.remove('rolling');d.textContent=result[i]});const meaning=result.map((r,i)=>axisMeaning(axis[i],r,faces[i]));events.push({type:'dice',at:new Date().toISOString(),kreator:$('kid').value,role:$('role').value,condition:$('condition').value,faces,axis,result,meaning,principle:'uncertainty',authority:'route-only',canonical:false,summary:`${axis[0].toUpperCase()} d${faces[0]}:${result[0]} → ${meaning[0]} · ${axis[1].toUpperCase()} d${faces[1]}:${result[1]} → ${meaning[1]} · ruta, no veritat`});save();render();b.disabled=false}
+function registerMovement(){const movement=$('movement').value,difference=$('difference').value.trim(),decision=$('decision').value,origin=$('origin').value,agent=$('agent').value.trim()||null,organ=$('organ').value.trim()||null,significant=origin==='external'&&$('significant').checked&&Boolean(organ);events.push({type:'movement',at:new Date().toISOString(),kreator:$('kid').value,alias:$('alias').value,role:$('role').value,profileHypothesis:{...baseProfile()},movement,difference:difference||null,mutatio:$('mutatio').checked,decision,source:{origin,agent},relation:{organ,significant},canonical:false,reversible:true,summary:`${labels[movement]} · ${difference||'diferència no declarada'} · decisió: ${decision}${significant?` · 🐜 ${organ}`:''}`});save();render()}
+function exportTrace(){const payload={experiment:'KREATOR RPG · PARTIDA 01',exportedAt:new Date().toISOString(),constitutionalRule:'L’atzar pot decidir quina ruta s’explora; no què és veritat ni què entra al cànon.',events};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kreator-partida-01.json';a.click();URL.revokeObjectURL(a.href)}
+$('role').addEventListener('change',render);$('origin').addEventListener('change',render);$('significant').addEventListener('change',render);$('organ').addEventListener('input',render);$('roll').addEventListener('click',roll);$('register').addEventListener('click',registerMovement);$('export').addEventListener('click',exportTrace);render();
