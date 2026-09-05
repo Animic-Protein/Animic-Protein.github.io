@@ -9,13 +9,10 @@ const hasPerceptibleDifference=session=>Boolean(clean(session?.record?.fragment?
 const hasTraceableProvenance=session=>Boolean(clean(session?.record?.provenance?.originId)&&clean(session?.record?.source?.id));
 const hasTransformation=session=>Boolean(session?.record?.transformation);
 const hasRelation=session=>Boolean(session?.record?.relation);
+const invalidateSuggestion=session=>{session.suggestedImpulse=null;};
 const assertDifferenceForMovement=(session,action)=>{
   if(hasPerceptibleDifference(session))return;
   throw new Error(`Sense diferència perceptible, el Còdex no pot ${action}. Només quiet o reobserve.`);
-};
-const assertReturnReady=session=>{
-  assertDifferenceForMovement(session,'retornar');
-  if(!hasTraceableProvenance(session))throw new Error('RETURN exigeix procedència traçable.');
 };
 
 export const KREATOR1_IMPULSES=Object.freeze(['quiet','relate','reobserve','transform','return']);
@@ -38,7 +35,7 @@ export function beginKreator1Session({creator='KREATOR 1',sourceName='Font 001',
 export function selectKreator1Fragment(sessionId,{description='',difference=''}={}){
   const registry=load(),session=registry[sessionId];if(!session)throw new Error('Sessió KREATOR 1 desconeguda');
   session.record=evolveRecord(session.record,'fragment',{id:`fragment-${sessionId}-a`,kind:'kreator1-selected-fragment',description:clean(description),difference:clean(difference),status:'selected',perceptibleDifference:Boolean(clean(difference))});
-  session.status='fragment';session.updatedAt=now();save(registry);return session;
+  invalidateSuggestion(session);session.status='fragment';session.updatedAt=now();save(registry);return session;
 }
 
 export function transformKreator1(sessionId,{operation='',description=''}={}){
@@ -46,7 +43,7 @@ export function transformKreator1(sessionId,{operation='',description=''}={}){
   assertDifferenceForMovement(session,'transformar');
   if(!clean(operation))throw new Error('Cal una única operació de transformació');
   session.record=evolveRecord(session.record,'transformation',{kind:'kreator1-first-mutation',operation:clean(operation),description:clean(description),reversible:true,at:now()});
-  session.status='transformation';session.updatedAt=now();save(registry);return session;
+  invalidateSuggestion(session);session.status='transformation';session.updatedAt=now();save(registry);return session;
 }
 
 export function relateKreator1(sessionId,{target='',kind='kreator1-emergent-relation',label=''}={}){
@@ -54,29 +51,45 @@ export function relateKreator1(sessionId,{target='',kind='kreator1-emergent-rela
   assertDifferenceForMovement(session,'relacionar');
   if(!clean(target))return session;
   session.record=evolveRecord(session.record,'relation',{kind,target:clean(target),label:clean(label),suggested:true,decisionRequired:true,canonical:false,reversible:true,traceRef:session.record.provenance?.originId});
-  session.status='relation';session.updatedAt=now();save(registry);return session;
+  invalidateSuggestion(session);session.status='relation';session.updatedAt=now();save(registry);return session;
 }
 
-export function suggestKreator1Impulse(sessionId){
+export function suggestKreator1Impulse(sessionId,{signals={}}={}){
   const registry=load(),session=registry[sessionId];if(!session)throw new Error('Sessió KREATOR 1 desconeguda');
+  const evidence={
+    contextChanged:signals.contextChanged===true,
+    tensionSustained:signals.tensionSustained===true,
+    relationOpportunity:signals.relationOpportunity===true,
+    returnReady:signals.returnReady===true
+  };
   let suggestedImpulse='quiet';
   let basis='No hi ha cap senyal prou fort per moure el fragment.';
-  if(session.status==='fragment'&&!hasPerceptibleDifference(session)){
+  let certainty='low';
+
+  if(evidence.contextChanged){
     suggestedImpulse='reobserve';
-    basis='Hi ha fragment seleccionat però no una diferència perceptible sostinguda.';
-  }else if(hasPerceptibleDifference(session)&&!hasTransformation(session)){
-    suggestedImpulse='transform';
-    basis='Hi ha diferència perceptible i encara no hi ha transformació registrada.';
-  }else if(hasTransformation(session)&&!hasRelation(session)){
-    suggestedImpulse='relate';
-    basis='La transformació existeix, però encara no hi ha relació registrada.';
-  }else if(hasRelation(session)&&hasTraceableProvenance(session)){
+    basis='El context ha canviat; convé reescoltar abans d’intervenir.';
+    certainty='bounded';
+  }else if(evidence.returnReady&&hasPerceptibleDifference(session)&&hasRelation(session)&&hasTraceableProvenance(session)){
     suggestedImpulse='return';
-    basis='Hi ha diferència, transformació o relació i procedència suficient per retornar.';
+    basis='Hi ha senyal explícit de retorn, diferència perceptible, relació i procedència traçable.';
+    certainty='bounded';
+  }else if(evidence.tensionSustained&&hasPerceptibleDifference(session)){
+    suggestedImpulse='transform';
+    basis='Hi ha tensió sostinguda explícita i diferència perceptible; es proposa una única transformació reversible.';
+    certainty='bounded';
+  }else if(evidence.relationOpportunity&&hasPerceptibleDifference(session)){
+    suggestedImpulse='relate';
+    basis='Hi ha una oportunitat relacional explícita i una diferència perceptible; es proposa una única relació reversible.';
+    certainty='bounded';
+  }else if(session.status==='fragment'||hasPerceptibleDifference(session)||hasTransformation(session)||hasRelation(session)){
+    suggestedImpulse='reobserve';
+    basis='Hi ha matèria activa, però l’evidència no basta per inferir transformació, relació o retorn.';
+    certainty='low';
   }
-  session.suggestedImpulse={action:suggestedImpulse,basis,at:now(),executed:false};
-  session.updatedAt=now();
-  session.record.provenance.history=[...(session.record.provenance.history||[]),{at:now(),action:'kreator1.impulse.suggested',ref:sessionId,suggestedImpulse,basis}];
+
+  session.suggestedImpulse={action:suggestedImpulse,basis,certainty,evidence,at:now(),executed:false};
+  session.record.provenance.history=[...(session.record.provenance.history||[]),{at:now(),action:'kreator1.impulse.suggested',ref:sessionId,suggestedImpulse,basis,certainty,evidence}];
   save(registry);
   return session.suggestedImpulse;
 }
@@ -105,6 +118,8 @@ export function closeKreator1Session(sessionId,{humanAction='quiet',decision='',
   refreshed.record.provenance.history=[...(refreshed.record.provenance.history||[]),{
     at:now(),action:'kreator1.session.closed',ref:sessionId,
     suggestedImpulse:suggested.action,
+    suggestedCertainty:suggested.certainty,
+    suggestedEvidence:suggested.evidence,
     humanDecision:refreshed.humanDecision,
     divergence:diverges,
     fertileErrorCandidate:diverges
