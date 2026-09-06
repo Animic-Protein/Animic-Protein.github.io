@@ -26,15 +26,17 @@
     return{path:p,zone,title,organ,signal};
   }
 
-  function propose(c){
-    const s=(c.signal||'').toLowerCase();
-    if(/reobserv|reescolt|alleujament/.test(s)) return{action:'reobserve',uncertainty:'active',text:'Hi ha un senyal que demana reobservació. Conserva el context i comprova si la tensió continua abans d’intervenir.'};
-    if(/relacion|pont|conflu/.test(s)) return{action:'relate',uncertainty:'active',text:'Hi ha una possible relació, però encara no és significat. Prova un únic pont reversible i conserva la divergència si no funciona.'};
-    if(/transform|metabol|mutatio/.test(s)) return{action:'transform',uncertainty:'active',text:'La situació admet una transformació possible. Limita-la a un gest petit, perceptible i reversible; MUTATIO només després de decisió humana.'};
-    if(/retorn|return|fragment/.test(s)) return{action:'return',uncertainty:'active',text:'Hi ha material amb rastre suficient per retornar-lo al circuit sense multiplicar-lo. Fes circular una sola cosa.'};
-    if(c.zone==='Cambra Nua del Temps') return{action:'reobserve',uncertainty:'active',text:'Aquí la primera operació coherent és sostenir el temps una mica més. Reobserva abans de convertir l’absència en explicació.'};
-    if(c.zone==='INTER NOS') return{action:'relate',uncertainty:'active',text:'Estàs en un espai relacional. Formula una sola relació possible i deixa que la Persona decideixi si mereix continuar.'};
-    return{action:'quiet',uncertainty:'insufficient-signal',text:'No hi ha prou senyal local per justificar moviment. El silenci és una proposta vàlida; pots invocar de nou després d’una diferència observable.'};
+  function readSuggestedImpulse(){
+    const candidates=[window.CodexSuggestedImpulse,window.codexSuggestedImpulse,window.Kreator1SuggestedImpulse];
+    const raw=candidates.find(v=>v&&CHOICES.includes(v.action));
+    if(!raw)return null;
+    return{action:raw.action,uncertainty:raw.certainty||raw.uncertainty||'bounded',text:clean(raw.basis||raw.text)||'IMPULS ha proposat aquesta ruta; MASTER només la situa en el context actual.',source:'impuls'};
+  }
+
+  function situate(c){
+    const impulse=readSuggestedImpulse();
+    if(impulse)return impulse;
+    return{action:'quiet',uncertainty:'insufficient-signal',text:`MASTER situa ${c.zone}, però no genera un segon IMPULS. Sense suggestedImpulse disponible, manté quiet i exposa la incertesa.`,source:'master-context'};
   }
 
   function style(){
@@ -51,7 +53,7 @@
     style();
     const button=document.createElement('button');
     button.type='button';button.className='master-invoke';button.textContent='Invocar MASTER';button.setAttribute('aria-haspopup','dialog');
-    const panel=document.createElement('div');panel.className='master-panel';panel.hidden=true;panel.innerHTML=`<section class="master-card" role="dialog" aria-modal="true" aria-labelledby="master-title"><button class="master-close" type="button" aria-label="Tancar MASTER">×</button><p class="master-ey">MASTER · INVOCATIO 1.0</p><h2 id="master-title">Situar, no decidir.</h2><p class="master-context"></p><div class="master-proposal"></div><div class="master-choices" aria-label="Decisió humana"></div><p class="master-result" aria-live="polite"></p><p class="master-note">Invocació reversible · no canònica · LOCUTUS formula · KREATOR decideix</p></section>`;
+    const panel=document.createElement('div');panel.className='master-panel';panel.hidden=true;panel.innerHTML=`<section class="master-card" role="dialog" aria-modal="true" aria-labelledby="master-title"><button class="master-close" type="button" aria-label="Tancar MASTER">×</button><p class="master-ey">MASTER · INVOCATIO 1.0</p><h2 id="master-title">Situar, no decidir.</h2><p class="master-context"></p><div class="master-proposal"></div><div class="master-choices" aria-label="Decisió humana"></div><p class="master-result" aria-live="polite"></p><p class="master-note">Invocació reversible · no canònica · IMPULS proposa · LOCUTUS formula · KREATOR decideix</p></section>`;
     document.body.append(button,panel);
 
     const close=()=>{panel.hidden=true;button.focus()};
@@ -63,8 +65,8 @@
   }
 
   function invoke(panel){
-    const c=context(),p=propose(c),id=`master-${Date.now().toString(36)}`;
-    const record={id,invokedAt:now(),context:c,proposal:p,humanDecision:null,diverges:null,provenance:{kind:'master-invocatio',reversible:true,canonical:false}};
+    const c=context(),p=situate(c),id=`master-${Date.now().toString(36)}`;
+    const record={id,invokedAt:now(),context:c,suggestedImpulse:p.source==='impuls'?p:null,masterSituation:p,humanDecision:null,diverges:null,provenance:{kind:'master-invocatio',reversible:true,canonical:false}};
     const trace=readTrace();trace.push(record);writeTrace(trace);
     panel.hidden=false;
     const card=panel.querySelector('.master-card');card.dataset.decided='false';
@@ -73,15 +75,15 @@
     panel.querySelector('.master-proposal span').textContent=p.text;
     panel.querySelector('.master-result').textContent='';
     const choices=panel.querySelector('.master-choices');choices.replaceChildren();
-    CHOICES.forEach(action=>{const b=document.createElement('button');b.type='button';b.textContent=action;b.dataset.action=action;b.onclick=()=>decide(id,action,p.action,panel);choices.append(b)});
+    CHOICES.forEach(action=>{const b=document.createElement('button');b.type='button';b.textContent=action;b.dataset.action=action;b.onclick=()=>decide(id,action,p.source==='impuls'?p.action:null,panel);choices.append(b)});
     window.dispatchEvent(new CustomEvent('codex:master-invoked',{detail:record}));
   }
 
   function decide(id,action,suggested,panel){
     const trace=readTrace();const rec=trace.find(x=>x.id===id);if(!rec)return;
-    rec.humanDecision=action;rec.decidedAt=now();rec.diverges=action!==suggested;writeTrace(trace);
+    rec.humanDecision=action;rec.decidedAt=now();rec.diverges=suggested? action!==suggested:null;writeTrace(trace);
     const card=panel.querySelector('.master-card');card.dataset.decided='true';
-    panel.querySelector('.master-result').textContent=rec.diverges?`KREATOR decideix ${action}. Divergeix de MASTER (${suggested}); la divergència queda al rastre.`:`KREATOR decideix ${action}. Coincideix amb la proposta, però continua essent decisió humana.`;
+    panel.querySelector('.master-result').textContent=suggested?(rec.diverges?`KREATOR decideix ${action}. Divergeix d’IMPULS (${suggested}); la divergència queda al rastre.`:`KREATOR decideix ${action}. Coincideix amb IMPULS, però continua essent decisió humana.`):`KREATOR decideix ${action}. No hi havia suggestedImpulse: MASTER només havia situat la incertesa.`;
     window.dispatchEvent(new CustomEvent('codex:master-decision',{detail:rec}));
   }
 
