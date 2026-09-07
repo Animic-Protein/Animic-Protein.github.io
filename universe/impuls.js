@@ -17,7 +17,7 @@
   const relationDensity=()=>{const living=readArray(KEYS.germs).filter(g=>g.life!=='compost');const ids=new Set(living.map(g=>g.id));const rel=readArray(KEYS.relations).filter(r=>[r?.aId,r?.bId,r?.sourceId,r?.targetId].some(id=>ids.has(id)));return living.length?rel.length/living.length:0};
   const latestTemporal=()=>temporalRecords().sort((a,b)=>String(b?.provenance?.createdAt||b?.source?.createdAt||'').localeCompare(String(a?.provenance?.createdAt||a?.source?.createdAt||'')))[0]||null;
 
-  function decide(){
+  function suggest(){
     const pressure=activePressure();
     const temporal=latestTemporal();
     const density=relationDensity();
@@ -33,9 +33,11 @@
     const box=document.createElement('aside');box.id='impulsPanel';box.style.cssText='margin:2rem auto 0;width:min(560px,100%);padding:1rem 1.1rem;border:1px solid var(--l);border-radius:18px;background:#06131f;text-align:left';stage.appendChild(box);return box;
   }
   function render(){
-    const box=ensure();if(!box)return;const d=decide();
-    box.innerHTML=`<p class="ey" style="margin:0 0 .35rem">IMPULS · ${d.state}</p><p style="margin:.2rem 0;color:var(--t)"><strong>${d.label}</strong></p><p style="margin:.35rem 0;color:var(--m)">${d.text}</p>${d.href==='#'?'':`<a class="go" href="${d.href}" style="margin-top:.6rem">Seguir aquest únic gest</a>`}<p style="margin:.6rem 0 0;color:#607988;font-size:.75rem">Suggeriment reversible · no canònic · la persona decideix</p>`;
+    const box=ensure();if(!box)return;const d=suggest();
+    box.innerHTML=`<p class="ey" style="margin:0 0 .35rem">IMPULS · ${d.state}</p><p style="margin:.2rem 0;color:var(--t)"><strong>${d.label}</strong></p><p style="margin:.35rem 0;color:var(--m)">${d.text}</p>${d.href==='#'?'':`<a class="go" href="${d.href}" style="margin-top:.6rem">Seguir aquest únic gest</a>`}<p style="margin:.6rem 0 0;color:#607988;font-size:.75rem">suggestedImpulse · suggeriment reversible · no canònic · KREATOR/persona decideix</p>`;
+    window.dispatchEvent(new CustomEvent('codex:suggested-impulse',{detail:{...d,canonical:false,reversible:true,decided:false}}));
   }
   ['storage','animic:pressure-updated','animic:homeostasis-updated','codex:temporal-difference','codex:ant-relation'].forEach(name=>window.addEventListener(name,()=>window.setTimeout(render,0)));
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render,{once:true});else render();
+  window.CodexImpulse={suggest};
 })();
