@@ -21,7 +21,7 @@ export const TEMPORAL_FRAGMENT_TARGETS=Object.freeze(Object.fromEntries(Object.v
 
 export function relateTemporalFragment(record,destinationKey){
  const dest=TEMPORAL_DESTINATIONS[destinationKey];if(!dest)throw new Error('Destí temporal desconegut');
- const next=evolveRecord(record,'relation',{kind:dest.kind,target:dest.target,label:dest.label,href:dest.href,traceRef:record.provenance?.originId||record.source?.id,suggested:false,humanDecision:true,decisionRequired:true,decisionResolved:true,canonical:false,reversible:true});
+ const next=evolveRecord(record,'relation',{kind:dest.kind,target:dest.target,label:dest.label,href:dest.href,traceRef:record.provenance?.originId||record.source?.id,suggested:false,humanDecision:true,decisionRequired:false,decisionResolved:true,canonical:false,reversible:true});
  const registry=load();const key=Object.keys(registry).find(k=>sameRoot(registry[k],record));if(!key)throw new Error('No s’ha pogut localitzar l’arrel del fragment');registry[key]=next;save(registry);return{record:next,relation:next.relation.at(-1),deduplicated:false,destination:dest};
 }
 
