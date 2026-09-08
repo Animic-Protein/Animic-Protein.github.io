@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IMPULS · Anímic Protein</title>
+<style>
+:root{--n:#02070c;--t:#f4fbff;--m:#94aab7;--c:#00c8ff;--o:#e3a629;--g:#3fff67;--l:#23465d}*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% 0,#103d5e 0,transparent 34rem),var(--n);color:var(--t);font:16px/1.5 Arial,sans-serif}main{width:min(760px,calc(100% - 28px));margin:auto;padding:8vh 0}.ey{color:var(--c);letter-spacing:.18em;text-transform:uppercase;font-size:.72rem}h1{font:400 clamp(3.4rem,12vw,7rem)/.88 Georgia,serif;margin:.18em 0}h1 em{color:var(--o);font-weight:400}.lead{color:var(--m);font-size:1.1rem;max-width:620px}.panel{margin:2rem 0;padding:1.3rem;border:1px solid var(--o);border-radius:24px;background:radial-gradient(circle at 10% 0,#17384a,#06131f 70%);box-shadow:0 0 45px #00c8ff18}.state{font:1.8rem Georgia,serif;margin:.25rem 0}.text{color:var(--m)}.meta{color:#78909c;font-size:.78rem}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem}.btn,a.btn{border:1px solid var(--l);border-radius:999px;background:transparent;color:var(--t);padding:.7rem 1rem;text-decoration:none;cursor:pointer}.btn.primary{border-color:var(--g)}.decision{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--l)}.choices{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid var(--l);border-radius:999px;background:#06131f;color:var(--m);padding:.55rem .8rem;cursor:pointer}.choice.selected{border-color:var(--g);color:var(--t)}.trace{margin-top:.9rem;color:var(--m);min-height:1.5em}.back{display:inline-block;margin-top:1.5rem;color:var(--m)}
+</style>
+</head>
+<body><main>
+<p class="ey">ANÍMIC PROTEIN · CÒDEX VIU</p>
+<h1>IMPULS<br><em>proposa.</em></h1>
+<p class="lead">Això no és una ordre ni una decisió. El Còdex llegeix el rastre disponible i formula un únic gest possible. Tu pots seguir-lo, ignorar-lo o decidir una altra cosa.</p>
+<section class="panel" id="panel" aria-live="polite">
+<p class="ey" id="ey">IMPULS · quiet</p><p class="state" id="label">No forcis res</p><p class="text" id="text"></p><p class="meta">suggestedImpulse · reversible · no canònic · KREATOR/persona decideix</p>
+<div class="actions"><a class="btn primary" id="follow" href="#" hidden>Seguir proposta</a><button class="btn" id="refresh">Recalcular des del rastre</button></div>
+<div class="decision"><p class="ey">DECISIÓ HUMANA</p><div class="choices" id="choices"></div><p class="trace" id="trace"></p></div>
+</section>
+<a class="back" href="./">← Tornar a Universe</a>
+</main>
+<script>
+(()=>{'use strict';
+const KEYS={pressure:'animic-protein-branch-pressure-v1',homeo:'animic-protein-constitutional-homeostasis-v1',germs:'animic-protein-germina-v2',relations:'animic-protein-inter-nos-v2',temporal:'animic.codex.temporal-fragments/v1'};
+const readArray=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(v)?v:[]}catch{return[]}};
+const readObject=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'{}');return v&&typeof v==='object'&&!Array.isArray(v)?v:{}}catch{return{}}};
+const pressure=()=>readArray(KEYS.pressure).reduce((best,p)=>Number(p?.score||0)>Number(best?.score||0)?p:best,{score:0,components:{}});
+const latestTemporal=()=>Object.values(readObject(KEYS.temporal)).sort((a,b)=>String(b?.provenance?.createdAt||b?.source?.createdAt||'').localeCompare(String(a?.provenance?.createdAt||a?.source?.createdAt||'')))[0]||null;
+function suggest(){const p=pressure(),t=latestTemporal(),living=readArray(KEYS.germs).filter(g=>g.life!=='compost'),ids=new Set(living.map(g=>g.id)),rels=readArray(KEYS.relations).filter(r=>[r?.aId,r?.bId,r?.sourceId,r?.targetId].some(id=>ids.has(id))),density=living.length?rels.length/living.length:0;
+if(readArray(KEYS.homeo).some(h=>Number(h?.relief||0)>0&&Number(h?.pressureBasis||0)>0))return{state:'reobserve',label:'Reescolta',text:'Hi ha alleujament homeostàtic actiu. Comprova si el context encara és el mateix abans d’intervenir.',href:'../#homeostasi'};
+if(t&&Math.abs(Number(t?.fragment?.difference||0))>=1)return{state:'return',label:'Retorna el fragment',text:'Hi ha una diferència perceptible amb procedència. Deixa-la circular cap a un únic òrgan pertinent.',href:'../cambra-nua-2/fragment-circulation.html'};
+if(Number(p.score||0)>0&&((Number(p?.components?.conflicts)||0)+(Number(p?.components?.metabolism)||0)+(Number(p?.components?.compost)||0))>0)return{state:'transform',label:'Metabolitza',text:'La pressió conté fricció real. Pot merèixer una transformació, però no una conclusió automàtica.',href:'../fusio-total/'};
+if(living.length>=6&&density<.5)return{state:'relate',label:'Relaciona abans de podar',text:'Hi ha matèria viva amb poca densitat relacional. Prova una relació abans d’afegir o eliminar.',href:'../inter-nos-creative/'};
+return{state:'quiet',label:'No forcis res',text:'No hi ha cap senyal prou fort per justificar moviment. El silenci també és un estat operatiu.',href:null};}
+const ey=document.getElementById('ey'),label=document.getElementById('label'),text=document.getElementById('text'),follow=document.getElementById('follow'),trace=document.getElementById('trace');let current;
+function render(){current=suggest();ey.textContent='IMPULS · '+current.state;label.textContent=current.label;text.textContent=current.text;if(current.href){follow.hidden=false;follow.href=current.href}else follow.hidden=true;trace.textContent='';document.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));}
+['quiet','relate','reobserve','transform','return'].forEach(a=>{const b=document.createElement('button');b.className='choice';b.textContent=a;b.onclick=()=>{document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const diverges=current&&current.state!==a;trace.textContent=diverges?'Discrepància conservada: el Còdex va proposar '+current.state+' i tu has decidit '+a+'.':'Decisió humana registrada localment: '+a+'.';};document.getElementById('choices').appendChild(b)});
+document.getElementById('refresh').onclick=render;render();})();
+</script></body></html>
