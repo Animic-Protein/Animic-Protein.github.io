@@ -1,81 +1,121 @@
 # MUTATIO · HISTORY TALES
 
-## Protocol 0.1 · Història que no va passar, transformació que sí podem observar
+## Protocol 0.2 · De la font al metabolisme
 
 **MUTATIO no falsifica el passat. L'obre.**
 
-History Tales és una sèrie d'Anímic Protein · Còdex Viu que parteix d'un fet històric documentable i introdueix una sola mutació impossible, explícitament declarada com a ficció. La pregunta no és «va passar?», sinó «què transforma imaginar que hagués passat?».
+History Tales és una sèrie d'Anímic Protein · Còdex Viu que parteix d'un nucli històric documentable i introdueix una sola mutació impossible, explícitament declarada com a ficció. La pregunta no és «va passar?», sinó «què transforma imaginar que hagués passat?».
 
-### Contracte
+## Contracte 0.2
 
-`fet històric verificable → MUTATIO impossible → conseqüència imaginada → rastre → retorn a la història real`
+`font → nucli històric verificable → suport propi → MUTATIO mínima → experiència → rastre → decisió humana → retorn → metabolisme`
 
-Cada cas manté dos estrats inseparables:
+**History Tales comparteix constitució, no format. La font decideix el suport abans que l'estètica.**
+
+No convertir una font en làmina si el seu propi suport ja conté la forma necessària per a la MUTATIO.
+
+## Dos estrats inseparables però diferenciables
 
 1. **HISTÒRIA** — data, lloc, persones, objectes i fonts verificables.
-2. **MUTATIO** — desviació especulativa visible i reversible.
+2. **MUTATIO** — desviació especulativa perceptible, declarada i reversible.
 
-### Llei de frontera epistemològica
+## Frontera epistemològica
 
 > **Podem fer ciència. Podem fer ciència-ficció. Però mai farem pseudociència.**
 
-Cap fotografia, enregistrament, cita o document generat per History Tales pot presentar-se com a evidència històrica autèntica. Les cites atribuïdes a personatges històrics només poden aparèixer com a cita real si existeix una font verificable; en cas contrari s'han d'etiquetar com a text fictici / dramatització AP.
+Cap fotografia, enregistrament, cita, film, veu o document generat per History Tales pot presentar-se com a evidència històrica autèntica. Una cita atribuïda a una persona històrica només és cita real si té font verificable; en cas contrari és text fictici / dramatització AP.
 
-### Regles Occam + Incertesa
+## Cicle d'estats
 
-- una sola mutació principal per relat;
+`PROTOCOL → BETA → CAS EXECUTAT → METABOLITZAT`
+
+Els estats no són una escala de prestigi. Són graus de relació amb una experiència real.
+
+### PROTOCOL
+Existeix una hipòtesi de MUTATIO, però encara falta provenance suficient, suport adequat o materialització. Un protocol **no simula haver estat executat**.
+
+### BETA
+El nucli històric té provenance suficient, HISTÒRIA i MUTATIO estan separades, hi ha una experiència executable i els quatre tests passen estructuralment. BETA no equival a cas real executat.
+
+### CAS EXECUTAT
+Una persona ha travessat l'experiència i ha produït una decisió humana observable. Cal conservar un rastre mínim de l'execució sense convertir-lo en perfilatge de la persona.
+
+### METABOLITZAT
+Un cas executat ha produït una diferència que pot retornar al Còdex: principi, relació, compost, instrument o modificació constitucional. Metabolitzar **no significa declarar correcta la interpretació**. Significa que l'execució ha canviat alguna cosa de manera traçable i reversible.
+
+Un cas pot retornar a BETA o Compost si l'execució no sosté la hipòtesi.
+
+## Regla de promoció
+
+Cap canvi d'estat és automàtic.
+
+- `PROTOCOL → BETA`: exigeix provenance + frontera + suport + quatre tests.
+- `BETA → CAS EXECUTAT`: exigeix travessa humana real + rastre + decisió humana.
+- `CAS EXECUTAT → METABOLITZAT`: exigeix diferència perceptible que modifiqui o relacioni una part concreta del Còdex.
+- qualsevol estat pot tornar enrere si apareix una font millor, una contradicció o una fallada de reversibilitat.
+
+**El Còdex pot suggerir una promoció. La decisió final és humana.**
+
+## Gramàtica perceptiva
+
+`percebre → observar → diferenciar → reobservar → MUTATIO → decidir`
+
+> **MUTATIO pot ser la diferència que obliga a mirar una altra vegada.**
+
+`observació 1 ≠ observació 2`
+
+La incertesa pot ser resultat funcional: `no ho sé / no ho he percebut / dubto` no és error del protocol.
+
+## Occam + Incertesa
+
+- una sola MUTATIO principal per cas;
 - la ficció no substitueix la font;
 - la persona decideix què relaciona i què conserva;
 - tota MUTATIO és reversible;
 - la incertesa es mostra, no s'amaga;
-- el rastre conserva tant la història real com la desviació imaginada.
+- el rastre conserva història i desviació sense confondre-les;
+- una experiència no incorpora un òrgan del Còdex si aquest no modifica realment el comportament.
 
-### Els quatre tests
+## Els quatre tests
 
-- **Diferència perceptible** — la mutació ha de canviar realment la lectura del fet.
-- **Traçabilitat** — història i ficció han de poder separar-se.
-- **Relació** — la mutació ha d'activar almenys un òrgan del Còdex.
-- **Reversibilitat** — retirar la ficció ha de permetre recuperar el relat històric documentat.
+- **Diferència perceptible** — la MUTATIO canvia realment la lectura o segona mirada.
+- **Traçabilitat** — història, ficció, font i decisió poden distingir-se.
+- **Relació** — la MUTATIO activa funcionalment almenys un òrgan del Còdex.
+- **Reversibilitat** — retirar la ficció recupera el nucli històric documentat.
 
-## Primera constel·lació
+## Primera constel·lació · estat 0.2
 
-| ID | Títol | Punt històric | MUTATIO | Òrgan dominant | Estat |
-|---|---|---|---|---|---|
-| HT·01 | Reconciliation of the War of Currents | New York World's Fair · 1939 | Tesla presenta una reconciliació simbòlica AC/DC amb Edison representat post mortem; la Rosa apareix com a llegat impossible | Rosa de l'Escolta | BETA |
-| HT·02 | The Machine That Refused to Answer | Cultura de síntesi de parla / món tecnològic de 1939 | una màquina destinada a parlar ha d'escoltar abans de respondre | INTER NOS | PROTOCOL |
-| HT·03 | Elektro Stops | imaginari robòtic de la fira | el robot rep una ordre i no respon; la fallada no es repara immediatament | Compost · Error fèrtil I | PROTOCOL |
-| HT·04 | The Other Futurama | visions urbanes de futur de 1939 | una ruta apareix sense destí prescrit | Instrument Z | PROTOCOL |
-| HT·05 | Inside the Perisphere, Someone Waits | arquitectura i circulació de la fira | una persona interromp voluntàriament el ritme de circulació | Cambra Nua del Temps | PROTOCOL |
-| HT·06 | The Night Tomorrow Went Dark | il·luminació i espectacle tecnològic de la fira | en la foscor només persisteix una Rosa diminuta | Rosa + Cambra | PROTOCOL |
+| ID | Operació pròpia | Òrgan dominant | Estat actual |
+|---|---|---|---|
+| HT·01 | reobservar una diferència | Rosa de l'Escolta | BETA · EXPERIÈNCIA |
+| HT·02 | suspendre la resposta i escoltar | INTER NOS | BETA · VODER 1939 VERIFICAT |
+| HT·03 | interrompre i sostenir la fallada | Compost · Error fèrtil I | BETA · EXPERIÈNCIA |
+| HT·04 | desviar sense prescriure destí | Instrument Z | BETA · EXPERIÈNCIA |
+| HT·05 | interrompre la circulació amb espera | Cambra Nua del Temps | BETA · EXPERIÈNCIA |
+| HT·06 | sostreure una condició i observar què queda | Rosa · Cambra | BETA · EXPERIÈNCIA |
+| HT·07 | alterar una sola unitat de la segona mirada | Rosa · RECORDARE · Cambra | BETA · EXPERIÈNCIA PERCEPTIVA |
 
-Els detalls històrics de HT·02—HT·06 s'han de verificar abans de convertir cada protocol en una fitxa publicada com a relat.
+Cap dels set casos passa a **CAS EXECUTAT** només perquè la pàgina funcioni. Cal una travessa humana registrada.
 
-## Model de dada mínim
+## Rastre mínim d'execució
 
 ```json
 {
-  "id": "HT-01",
-  "kind": "history-tale",
-  "history": {
-    "claim": "...",
-    "sources": [],
-    "confidence": "verified|partial|open"
-  },
-  "mutatio": {
-    "single_difference": "...",
-    "status": "explicit-fiction"
-  },
-  "relation": {
-    "codex_organ": "rosa|inter-nos|z|cambra|compost|centre"
-  },
-  "humanDecision": null,
-  "provenance": {
-    "source.kind": "research+generated",
-    "visual_status": "speculative-reconstruction"
-  },
-  "reversible": true
+  "id":"HT-XX",
+  "protocol":"0.2",
+  "state":"beta|executed|metabolized",
+  "source.kind":"research+generated",
+  "history.confidence":"verified|partial|open",
+  "mutatio.status":"explicit-fiction",
+  "perceivedDifference":null,
+  "humanDecision":null,
+  "relation":null,
+  "return":"history|beta|compost|codex",
+  "reversible":true
 }
 ```
+
+No cal guardar identitat personal per validar una execució.
 
 ## Inscripció canònica
 
