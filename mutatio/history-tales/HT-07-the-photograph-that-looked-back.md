@@ -2,7 +2,7 @@
 
 **MUTATIO · History Tales · Anímic Protein / Còdex Viu**  
 **Salt temporal:** White Sands · New Mexico · 24 October 1946  
-**Estat:** PROTOCOL · RESEARCH GROUNDED  
+**Estat:** BETA · PRINCIPI PERCEPTIU APROVAT · FRAGMENT-FILM EN EXECUCIÓ  
 **Font / suport:** pel·lícula científica de 35 mm / seqüència temporal  
 **Materialització:** FRAGMENT-FILM · no làmina  
 **Òrgan candidat:** Rosa de l'Escolta  
@@ -21,6 +21,39 @@ Nova gramàtica:
 `font històrica → naturalesa del suport → MUTATIO mínima → materialització pertinent → rastre → decisió humana → retorn`
 
 **Regla d'Occam:** no convertir una font en làmina si el seu propi suport ja conté la forma necessària per a la MUTATIO.
+
+## PRINCIPI PERCEPTIU · APROVAT
+
+La cadena operativa queda aprovada així:
+
+`percebre → observar → diferenciar → reobservar → MUTATIO → decidir`
+
+### Definicions mínimes
+
+- **Percebre** — alguna cosa entra al camp sensible sense exigir encara interpretació.
+- **Observar** — la persona sosté l'atenció sobre allò percebut.
+- **Diferenciar** — emergeix una diferència respecte del que s'esperava, recordava o acabava de veure.
+- **Reobservar** — es torna a mirar després que ja existeixi un rastre de la primera observació.
+- **MUTATIO** — la diferència altera la relació amb el material, encara que l'objecte no hagi estat transformat físicament.
+- **Decidir** — només la persona decideix què fer amb aquesta transformació perceptiva.
+
+> **MUTATIO pot ser la diferència que obliga a mirar una altra vegada.**
+
+### Reobservació no és repetició
+
+`observació 1 ≠ observació 2`
+
+Entre totes dues ja existeixen rastre, memòria, expectativa i diferència. Per això la segona mirada arriba modificada.
+
+Aquesta distinció impedeix reduir MUTATIO a un efecte visual o a una simple reiteració del mateix estímul.
+
+### Decisió humana
+
+MUTATIO pot provocar o fer possible la reobservació, però no pot decidir el significat de la diferència.
+
+Després de MUTATIO la persona conserva, com a mínim:
+
+`wait / reobserve / relate / transform / return / continue`
 
 ## HISTÒRIA
 
@@ -72,6 +105,18 @@ HT·07 no necessita cartell, pòster ni fitxa visual monumental com a obra princ
 
 Pot existir una fitxa tècnica al Còdex per documentar-la, però **la fitxa no és la peça**.
 
+## PROVA PERCEPTIVA HT·07
+
+HT·07 funciona com a primer assaig explícit del principi aprovat.
+
+**Primera passada:** no s'avisa del moment exacte de MUTATIO.  
+**Registre:** `percebut / no percebut / dubte`.  
+**Segona passada:** reobservació de la mateixa seqüència.  
+**Registre:** localització de la diferència i canvi produït en l'escolta/mirada.  
+**Final:** decisió humana; el Còdex no interpreta el resultat per la persona.
+
+L'èxit no exigeix que tothom detecti el fotograma a la primera passada. El dubte pot ser part funcional de la prova, sempre que la diferència sigui recuperable i traçable en reobservació.
+
 ## COLOR
 
 El registre històric roman blanc i negre. Si apareix color AP, queda restringit al fotograma MUTATIO: cobalt/verd arsènic microscòpic, més pròxim a una contaminació del suport que a una il·luminació.
@@ -85,7 +130,7 @@ El registre històric roman blanc i negre. Si apareix color AP, queda restringit
 5. **IMPACT** — el vehicle desapareix; el film persisteix.
 6. **RETURN** — sabem exactament quina diferència pertany a MUTATIO.
 
-## PROVENANCE PROVISIONAL
+## PROVENANCE
 
 ```json
 {
@@ -97,19 +142,21 @@ El registre històric roman blanc i negre. Si apareix color AP, queda restringit
   "history.medium": "35mm-motion-picture-film",
   "history.confidence": "institutionally-grounded",
   "mutatio.status": "explicit-fiction",
+  "mutatio.perceptualPrinciple": "approved",
+  "perceptualFlow": ["perceive", "observe", "differentiate", "reobserve", "mutatio", "decide"],
   "materialization.kind": "fragment-film",
   "visual.status": "not-a-plate",
   "dominantOrgan": "rosa-de-lescolta",
   "relations": ["recordare", "cambra-nua-del-temps", "inter-nos"],
-  "humanDecision": "pending-execution",
+  "humanDecision": "preserved",
   "reversible": true
 }
 ```
 
 ## QUATRE TESTS
 
-**Diferència perceptible:** prevista — un únic fotograma altera la relació observador/observat.  
-**Traçabilitat:** sí per disseny — seqüència històrica i fotograma MUTATIO són separables.  
+**Diferència perceptible:** sí per protocol — la diferència és recuperable en reobservació encara que pugui produir dubte inicial.  
+**Traçabilitat:** sí — seqüència històrica i fotograma MUTATIO són separables.  
 **Relació:** sí — Rosa/INTER NOS aporten reciprocitat; RECORDARE conserva el rastre; Cambra introdueix la durada mínima.  
 **Reversibilitat:** sí — retirar el fotograma MUTATIO retorna la seqüència al seu estrat documental.
 
@@ -125,6 +172,8 @@ El registre històric roman blanc i negre. Si apareix color AP, queda restringit
 
 HT·07 no afirma que la Terra respongués, mirés ni produís cap senyal. Aquesta reciprocitat és exclusivament MUTATIO.
 
-## PRINCIPI QUE EMERGEIX
+## PRINCIPIS QUE EMERGEIXEN
 
 > **History Tales comparteix constitució, no format. La font decideix el suport abans que l'estètica.**
+
+> **MUTATIO pot transformar la segona mirada sense necessitat de transformar físicament l'objecte.**
