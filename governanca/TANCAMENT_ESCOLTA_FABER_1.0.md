@@ -1,6 +1,6 @@
 # Tancament d'escolta i retorn 1.0
 
-**Estat:** tancat conceptualment
+**Estat:** incorporació operativa publicada · ECO 01 pendent d'evidència primària
 **Origen:** metabolització de Michel Faber, *Listen: On Music, Sound and Us*, capítol «Somewhat Marred by an Echo».
 
 Aquest document no atribueix al llibre les formulacions pròpies del Còdex. Faber entra com a font de ressonància; les derivacions següents són d'Anímic Protein.
@@ -72,6 +72,17 @@ Formulacions pròpies preservades:
 - **No corregeixis immediatament allò que ressona: escolta primer què està retornant.**
 
 Aquesta última formulació es considera ressonància acústica d'Error Fèrtil, no un principi nou.
+
+## 7 · Travessa operativa
+
+**ECO 01 · El lloc que respon** materialitza aquesta incorporació sense crear cap òrgan nou. Manté una font constant, activa tres captures locals després de gest humà, reserva la procedència fins després de l'escolta, registra `same / different / unknown` i exigeix una decisió humana abans de generar el rastre.
+
+L'experiència implementa `audible.kind = relational-property` i distingeix `transformation.material` de `transformation.relational`. La formiga només apareix quan la persona ha declarat una diferència perceptible.
+
+**Límit:** el protocol publicat no és encara un cas real. Requereix tres captures físiques i la preservació externa de l'evidència primària abans de poder ser metabolitzat o enviat al Compost.
+
+- [Executar ECO 01](../beta/travesses/eco-01/)
+- [Fitxa d'Arrels–Pensament](../arrels/michel-faber-listen-retorn.md)
 
 ## Criteri editorial de tancament
 
