@@ -3,7 +3,7 @@
 **MUTATIO · History Tales · Anímic Protein / Còdex Viu**  
 **Nucli històric:** AT&T / Bell Labs Voder · New York World's Fair · 1939  
 **Òrgan dominant:** INTER NOS  
-**Estat:** BETA · nucli històric verificat · experiència pendent
+**Estat:** BETA · nucli històric verificat · experiència web executable · original separat no localitzat
 
 ## HISTÒRIA
 
@@ -61,5 +61,9 @@ INTER NOS no apareix com a tecnologia històrica. Apareix com a òrgan contempor
 **Traçabilitat:** Voder històric i facultat fictícia d'escolta romanen separats.  
 **Relació:** INTER NOS és funcional perquè transforma emissió unilateral en pregunta de reciprocitat.  
 **Reversibilitat:** retirar la MUTATIO retorna al Voder documentat.
+
+## Suport persistent actual
+
+L'experiència executable viu a `beta/ht-02.html`. L'absència de l'original visual separat es conserva com a buit explícit i no es resol amb una falsa recuperació.
 
 > **Podem fer ciència. Podem fer ciència-ficció. Però mai farem pseudociència.**
