@@ -1,6 +1,6 @@
 # Tancament d'escolta i retorn 1.0
 
-**Estat:** incorporació operativa publicada · ECO 01 pendent d'evidència primària
+**Estat:** incorporació operativa publicada · ECO 01 · CAS REAL 01 tancat com a execució · custòdia externa pendent de verificació
 **Origen:** metabolització de Michel Faber, *Listen: On Music, Sound and Us*, capítol «Somewhat Marred by an Echo».
 
 Aquest document no atribueix al llibre les formulacions pròpies del Còdex. Faber entra com a font de ressonància; les derivacions següents són d'Anímic Protein.
@@ -79,7 +79,7 @@ Aquesta última formulació es considera ressonància acústica d'Error Fèrtil,
 
 L'experiència implementa `audible.kind = relational-property` i distingeix `transformation.material` de `transformation.relational`. La formiga només apareix quan la persona ha declarat una diferència perceptible.
 
-**Límit:** el protocol publicat no és encara un cas real. Requereix tres captures físiques i la preservació externa de l'evidència primària abans de poder ser metabolitzat o enviat al Compost.
+**Actualització 2026-09-12:** ECO 01 · CAS REAL 01 ja és una execució real tancada amb tres retorns preservats localment (`different`, `different`, `unknown`). La custòdia externa continua pendent de verificació i no autoritza encara la promoció a METABOLITZAT. No cal repetir la travessa; el moviment següent és forense i queda registrat a Archivum · Custòdia 1.0.
 
 - [Executar ECO 01](../beta/travesses/eco-01/)
 - [Fitxa d'Arrels–Pensament](../arrels/michel-faber-listen-retorn.md)

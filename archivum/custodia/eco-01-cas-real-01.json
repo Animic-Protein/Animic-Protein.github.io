@@ -1,0 +1,114 @@
+{
+  "schema": "animic.archivum.custodia/1.0",
+  "id": "custody-eco-01-real-case-01",
+  "recordVersion": "1.0",
+  "assessedAt": "2026-09-12",
+  "subject": {
+    "id": "eco-01-cas-real-01",
+    "title": "ECO 01 · El lloc que respon · CAS REAL 01",
+    "executionDate": "2026-09-11",
+    "status": "closed_real_execution",
+    "metabolized": false
+  },
+  "custodySummary": {
+    "state": "local_evidence_external_verification_pending",
+    "capturesPreserved": "3/3",
+    "binaryTransferred": false,
+    "repeatExperiment": false
+  },
+  "evidence": [
+    {
+      "id": "eco-acta-provisional",
+      "role": "case_record",
+      "custodyState": "repository_preserved",
+      "locator": "beta/travesses/eco-01/CAS-REAL-01-2026-09-11-v0.1.md",
+      "verification": {
+        "kind": "git_blob_sha1",
+        "value": "39c8deb95ff79a37d1d937fbeafc296fe2896f2b"
+      },
+      "sourceClaim": "Acta provisional traçable del cas real."
+    },
+    {
+      "id": "eco-acta-closure",
+      "role": "closure",
+      "custodyState": "repository_preserved",
+      "locator": "beta/travesses/eco-01/ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md",
+      "verification": {
+        "kind": "git_blob_sha1",
+        "value": "b343a44ac3f1b1f202ac8251beb433676558efa8"
+      },
+      "sourceClaim": "Tancament de l’execució; custòdia externa no verificada."
+    },
+    {
+      "id": "eco-return-1",
+      "role": "primary_audio",
+      "custodyState": "local_only",
+      "locator": null,
+      "verification": {
+        "kind": "displayed_session_metadata",
+        "displayedSizeKb": 116,
+        "digest": null
+      },
+      "sourceClaim": "Retorn 1 preservat localment; observació humana different."
+    },
+    {
+      "id": "eco-return-2",
+      "role": "primary_audio",
+      "custodyState": "local_only",
+      "locator": null,
+      "verification": {
+        "kind": "displayed_session_metadata",
+        "displayedSizeKb": 2902,
+        "digest": null
+      },
+      "sourceClaim": "Retorn 2 preservat localment; observació humana different."
+    },
+    {
+      "id": "eco-return-3",
+      "role": "primary_audio",
+      "custodyState": "local_only",
+      "locator": null,
+      "verification": {
+        "kind": "displayed_session_metadata",
+        "displayedSizeKb": 989,
+        "digest": null
+      },
+      "sourceClaim": "Retorn 3 preservat localment; observació humana unknown."
+    },
+    {
+      "id": "eco-final-trace",
+      "role": "primary_trace_json",
+      "custodyState": "local_only",
+      "locator": null,
+      "verification": {
+        "kind": "none",
+        "digest": null
+      },
+      "sourceClaim": "Rastre final generat; ID extern, SHA-256 i valor exacte de humanDecision encara no contrastats."
+    }
+  ],
+  "gaps": [
+    "IDs o rutes externes dels tres àudios i del JSON final.",
+    "MIME, mida real en bytes i SHA-256 dels quatre originals.",
+    "Valor exacte de humanDecision llegit del JSON final."
+  ],
+  "decision": {
+    "owner": "KREATOR/persona",
+    "doNotRepeat": true,
+    "automaticPromotion": false,
+    "nextAllowedAction": "forensic_external_verification"
+  },
+  "attribution": {
+    "source": "Michel Faber · Listen: On Music, Sound and Us",
+    "role": "font de ressonància",
+    "metabolization": "Anímic Protein"
+  },
+  "provenance": {
+    "sources": [
+      "beta/travesses/eco-01/CAS-REAL-01-2026-09-11-v0.1.md",
+      "beta/travesses/eco-01/ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md"
+    ],
+    "canonicalStatus": "effective_when_merged_to_main",
+    "reversible": true
+  }
+}

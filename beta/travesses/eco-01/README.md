@@ -1,6 +1,6 @@
 # ECO 01 · El lloc que respon
 
-**Estat:** Travessa executable · pendent d'evidència primària  
+**Estat:** Travessa executable · CAS REAL 01 tancat com a execució · evidència 3/3 local · custòdia externa pendent  
 **Origen:** metabolització d'Anímic Protein a partir de Michel Faber, *Listen: On Music, Sound and Us*, capítol «Somewhat Marred by an Echo».  
 **Òrgans existents:** Rosa de l'Escolta · RECORDARE · Cambra Nua del Temps · Looperum/Looparium · MUTATIO · INTER NOS · Error Fèrtil / Compost.
 
@@ -56,4 +56,7 @@ provenance
 
 ## Límit constitucional
 
-Completar la interfície no converteix ECO 01 en cas real. Només pot ser promogut després d'una execució física amb tres captures i evidència primària preservada. Sense això, torna a quedar obert o pot anar al Compost.
+La interfície per si sola no converteix cap sessió futura en cas real. **CAS REAL 01 ja va ser executat i tancat el 2026-09-11** amb tres captures locals; no s’ha de repetir per completar la custòdia. La verificació externa posterior versionarà el rastre amb rutes, MIME, mides i SHA-256, sense alterar l’execució.
+
+- [Acta de tancament del CAS REAL 01](./ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md)
+- [Registre d’Archivum · Custòdia](../../../archivum/custodia/eco-01-cas-real-01.json)
