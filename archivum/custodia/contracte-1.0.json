@@ -1,0 +1,85 @@
+{
+  "schema": "animic.archivum.custodia/1.0",
+  "id": "archivum-custodia-1.0",
+  "organ": "Archivum",
+  "version": "1.0",
+  "purpose": "Distingir existència, localització, integritat i verificació sense moure ni canonitzar binaris automàticament.",
+  "states": [
+    {
+      "id": "repository_preserved",
+      "meaning": "Fitxer present al repositori canònic amb ruta i blob Git verificables."
+    },
+    {
+      "id": "local_only",
+      "meaning": "Original preservat al dispositiu; cap custòdia externa verificada."
+    },
+    {
+      "id": "external_unverified",
+      "meaning": "Una font declara custòdia externa, però Archivum no en pot verificar ruta ni integritat."
+    },
+    {
+      "id": "externally_verified",
+      "meaning": "Ruta externa accessible i empremta contrastada."
+    },
+    {
+      "id": "derivative_preserved",
+      "meaning": "Representació o reconstrucció preservada; no equival a l’original."
+    },
+    {
+      "id": "missing_original",
+      "meaning": "Original esperat no localitzat; el buit és explícit."
+    },
+    {
+      "id": "not_materialized",
+      "meaning": "El binari descrit encara no existeix com a lliurable."
+    }
+  ],
+  "requiredEvidenceFields": [
+    "id",
+    "role",
+    "custodyState",
+    "locator",
+    "verification",
+    "sourceClaim"
+  ],
+  "rules": [
+    "conservar_no_equival_canonitzar",
+    "projecte_tancat_no_equival_originals_complets",
+    "copia_local_no_equival_custodia_externa",
+    "derivat_no_equival_original",
+    "buit_explicat_no_equival_error",
+    "cap_binari_es_transfereix_sense_decisio_humana",
+    "qualsevol_verificacio_posterior_crea_versio"
+  ],
+  "verification": {
+    "digestAlgorithm": "sha256",
+    "inventMissingValues": false,
+    "humanDecisionRequired": true,
+    "automaticPromotion": false
+  },
+  "binaryPolicy": {
+    "binaryTransferred": false,
+    "metadataOnly": true
+  },
+  "transitions": {
+    "local_only": [
+      "externally_verified"
+    ],
+    "external_unverified": [
+      "externally_verified",
+      "missing_original"
+    ],
+    "missing_original": [
+      "externally_verified"
+    ],
+    "not_materialized": [
+      "repository_preserved",
+      "externally_verified"
+    ],
+    "derivative_preserved": [
+      "repository_preserved"
+    ],
+    "repository_preserved": [],
+    "externally_verified": []
+  }
+}

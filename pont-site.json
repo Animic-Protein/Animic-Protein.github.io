@@ -23,7 +23,7 @@
     "reversibility_required": true,
     "divergence_check": "github-actions",
     "memory_rule": "recordar_no_equival_aprendre_ni_legislar",
-    "current_construction": "cambra_nua_del_temps_2_1_sala_blanca"
+    "current_construction": "archivum_custodia_1_0"
   },
   "organs": {
     "inter_nos": {
@@ -41,6 +41,12 @@
       "status": "active_experimental_descendant",
       "edition": "2.1-sala-blanca",
       "visual_mode": "white_room_colored_light"
+    },
+    "archivum": {
+      "url": "https://animic-protein.github.io/portal-multimedia/#custodia",
+      "role": "custodia_verificable_de_metadades_i_evidencies",
+      "status": "custodia_1_0_two_initial_records",
+      "binary_transfer": "none"
     }
   },
   "laboratories": {

@@ -1,0 +1,129 @@
+{
+  "schema": "animic.archivum.custodia/1.0",
+  "id": "custody-history-tales-v1.1",
+  "recordVersion": "1.0",
+  "assessedAt": "2026-09-12",
+  "subject": {
+    "id": "mutatio-history-tales",
+    "title": "MUTATIO · History Tales",
+    "version": "1.1",
+    "status": "closed_audited",
+    "caseStatus": "HT-01_HT-07_beta_not_executed"
+  },
+  "custodySummary": {
+    "state": "mixed_explicit_gaps",
+    "projectClosed": true,
+    "reopenRequired": false,
+    "binaryTransferred": false
+  },
+  "evidence": [
+    {
+      "id": "ht-manifest",
+      "role": "manifest",
+      "custodyState": "repository_preserved",
+      "locator": "mutatio/history-tales/MANIFEST-ACTIUS-1.0.md",
+      "verification": {
+        "kind": "git_blob_sha1",
+        "value": "66465b812627c597f129200713eb8556d49d31e6"
+      },
+      "sourceClaim": "Manifest canònic del tancament documental."
+    },
+    {
+      "id": "ht-closure",
+      "role": "closure",
+      "custodyState": "repository_preserved",
+      "locator": "mutatio/history-tales/ACTA-TANCAMENT-2026-09-10-v1.1.md",
+      "verification": {
+        "kind": "git_blob_sha1",
+        "value": "306ac4250526f7d07baca17bf58a1daf8a01cd95"
+      },
+      "sourceClaim": "Acta de tancament auditada v1.1."
+    },
+    {
+      "id": "ht-web-experiences",
+      "role": "experience_set",
+      "custodyState": "repository_preserved",
+      "locator": [
+        "beta/ht-01.html",
+        "beta/ht-02.html",
+        "beta/ht-03.html",
+        "beta/ht-04.html",
+        "beta/ht-05.html",
+        "beta/ht-06.html",
+        "beta/ht-07.html"
+      ],
+      "verification": {
+        "kind": "git_blob_sha1_set",
+        "values": [
+          "b90330d0afe86f7e94166e9323c57ac4c6b96811",
+          "9443f02b6c954f6c1c6e8fceda85105e09acbf59",
+          "11b4f0e07338f04785c5df83bb5240b6b1d40b61",
+          "b94c34f6230f4fce6e91e095faae1f19a99aa6fc",
+          "3e46cb7a9826760393fc048cc4faba86679f9106",
+          "7715dddb5a0f77262c884f5bed51bf5b96b496c7",
+          "d093d98f5c05b0d08e7fd40ae3459d565e88c779"
+        ]
+      },
+      "sourceClaim": "Set d’experiències web executable HT·01—HT·07."
+    },
+    {
+      "id": "ht-selected-originals",
+      "role": "original_set",
+      "custodyState": "external_unverified",
+      "locator": null,
+      "verification": {
+        "kind": "none",
+        "value": null
+      },
+      "sourceClaim": "El manifest declara originals seleccionats a Biblioteca; no hi ha ruta persistent ni SHA-256 contrastats.",
+      "names": [
+        "La rosa de l’escolta a l’Expo del 1939.png",
+        "Elektro at the 1939 World’s Fair.png",
+        "Futurama i la ruta desconeguda.png",
+        "Dins del Perisferi: Algú Espera.png",
+        "Dossier Futurama: Una Nit d’Ombres.png"
+      ]
+    },
+    {
+      "id": "ht-02-original",
+      "role": "original",
+      "custodyState": "missing_original",
+      "locator": null,
+      "verification": {
+        "kind": "none",
+        "value": null
+      },
+      "sourceClaim": "Original separat no localitzat."
+    },
+    {
+      "id": "ht-07-temporal-binary",
+      "role": "original_temporal",
+      "custodyState": "not_materialized",
+      "locator": null,
+      "verification": {
+        "kind": "none",
+        "value": null
+      },
+      "sourceClaim": "No existeix encara GIF, MP4 o WebM canònic; la web i la representació editorial no són el binari temporal."
+    }
+  ],
+  "gaps": [
+    "Ruta persistent i SHA-256 dels originals declarats a Biblioteca.",
+    "Recuperació demostrable de l’original separat HT·02.",
+    "Materialització versionada del binari temporal HT·07."
+  ],
+  "decision": {
+    "owner": "KREATOR/persona",
+    "automaticPromotion": false,
+    "reopenOnlyByConditionsInClosure": true
+  },
+  "provenance": {
+    "metabolizedBy": "Anímic Protein",
+    "sources": [
+      "mutatio/history-tales/MANIFEST-ACTIUS-1.0.md",
+      "mutatio/history-tales/ACTA-TANCAMENT-2026-09-10-v1.1.md"
+    ],
+    "canonicalStatus": "effective_when_merged_to_main",
+    "reversible": true
+  }
+}
