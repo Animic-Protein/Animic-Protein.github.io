@@ -30,7 +30,7 @@ Les transicions de custòdia creen versió. No sobrescriuen el registre anterior
 
 ## Primera aplicació
 
-1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; cinc originals seleccionats verificats externament amb identificador i SHA-256; HT·02 absent; HT·07 no materialitzat.
+1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; cinc originals seleccionats i el binari temporal HT·07 verificats externament amb identificador i SHA-256; HT·02 continua absent.
 2. **ECO 01 · CAS REAL 01:** execució real tancada; tres àudios i rastre JSON preservats localment; custòdia externa i empremtes pendents; no repetir l’experiment.
 
 ## Límits
@@ -43,6 +43,7 @@ Les transicions de custòdia creen versió. No sobrescriuen el registre anterior
 ## Rutes
 
 - Contracte executable: ../archivum/custodia/contracte-1.0.json
-- History Tales v1.1: ../archivum/custodia/history-tales-v1.1.json
+- History Tales v1.1 · custòdia v1.2: ../archivum/custodia/history-tales-v1.1-custody-v1.2.json
+- Registre predecessor preservat: ../archivum/custodia/history-tales-v1.1.json
 - ECO 01 · CAS REAL 01: ../archivum/custodia/eco-01-cas-real-01.json
 - Interfície: ../portal-multimedia/#custodia
