@@ -15,7 +15,12 @@ function recordCard(record){
 }
 async function load(panel){
  const list=panel.querySelector('#custodyRecords'),state=panel.querySelector('#custodyState');
- try{const records=await Promise.all(RECORD_URLS.map(async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(String(r.status));return r.json()}));list.replaceChildren(...records.map(recordCard));state.textContent='2 registres carregats · cap binari transferit.'}
+ try{
+  const records=await Promise.all(RECORD_URLS.map(async url=>{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(String(r.status));return r.json()}));
+  const binaryTransferred=records.some(record=>record.custodySummary?.binaryTransferred!==false);
+  list.replaceChildren(...records.map(recordCard));
+  state.textContent=binaryTransferred?'Atenció: almenys un registre no acredita el límit binari.':records.length+' registres carregats · cap binari transferit.';
+ }
  catch{state.textContent='No s’han pogut carregar els registres. El contracte continua disponible al repositori.'}
 }
 function mount(){
