@@ -1,6 +1,6 @@
 # ARCHIVUM · CUSTÒDIA 1.0
 
-**Estat:** evolució proposada per integrar a main  
+**Estat:** actiu a main  
 **Data:** 12 de setembre de 2026  
 **Òrgan:** Archivum; no neix cap òrgan nou.
 
@@ -30,7 +30,7 @@ Les transicions de custòdia creen versió. No sobrescriuen el registre anterior
 
 ## Primera aplicació
 
-1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; originals externs sense ruta verificada; HT·02 absent; HT·07 no materialitzat.
+1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; cinc originals seleccionats verificats externament amb identificador i SHA-256; HT·02 absent; HT·07 no materialitzat.
 2. **ECO 01 · CAS REAL 01:** execució real tancada; tres àudios i rastre JSON preservats localment; custòdia externa i empremtes pendents; no repetir l’experiment.
 
 ## Límits

@@ -1,48 +1,43 @@
 {
-  "schema": "animic.archivum.custodia/1.0",
-  "id": "custody-history-tales-v1.1",
-  "recordVersion": "1.0",
   "assessedAt": "2026-09-12",
-  "subject": {
-    "id": "mutatio-history-tales",
-    "title": "MUTATIO · History Tales",
-    "version": "1.1",
-    "status": "closed_audited",
-    "caseStatus": "HT-01_HT-07_beta_not_executed"
-  },
   "custodySummary": {
-    "state": "mixed_explicit_gaps",
+    "binaryTransferred": false,
     "projectClosed": true,
     "reopenRequired": false,
-    "binaryTransferred": false
+    "state": "mixed_explicit_gaps",
+    "verifiedExternalOriginals": 5
+  },
+  "decision": {
+    "automaticPromotion": false,
+    "owner": "KREATOR/persona",
+    "reopenOnlyByConditionsInClosure": true
   },
   "evidence": [
     {
-      "id": "ht-manifest",
-      "role": "manifest",
       "custodyState": "repository_preserved",
+      "id": "ht-manifest",
       "locator": "mutatio/history-tales/MANIFEST-ACTIUS-1.0.md",
+      "role": "manifest",
+      "sourceClaim": "Manifest canònic del tancament documental.",
       "verification": {
         "kind": "git_blob_sha1",
         "value": "66465b812627c597f129200713eb8556d49d31e6"
-      },
-      "sourceClaim": "Manifest canònic del tancament documental."
+      }
     },
     {
-      "id": "ht-closure",
-      "role": "closure",
       "custodyState": "repository_preserved",
+      "id": "ht-closure",
       "locator": "mutatio/history-tales/ACTA-TANCAMENT-2026-09-10-v1.1.md",
+      "role": "closure",
+      "sourceClaim": "Acta de tancament auditada v1.1.",
       "verification": {
         "kind": "git_blob_sha1",
         "value": "306ac4250526f7d07baca17bf58a1daf8a01cd95"
-      },
-      "sourceClaim": "Acta de tancament auditada v1.1."
+      }
     },
     {
-      "id": "ht-web-experiences",
-      "role": "experience_set",
       "custodyState": "repository_preserved",
+      "id": "ht-web-experiences",
       "locator": [
         "beta/ht-01.html",
         "beta/ht-02.html",
@@ -52,6 +47,8 @@
         "beta/ht-06.html",
         "beta/ht-07.html"
       ],
+      "role": "experience_set",
+      "sourceClaim": "Set d’experiències web executable HT·01—HT·07.",
       "verification": {
         "kind": "git_blob_sha1_set",
         "values": [
@@ -63,67 +60,147 @@
           "7715dddb5a0f77262c884f5bed51bf5b96b496c7",
           "d093d98f5c05b0d08e7fd40ae3459d565e88c779"
         ]
-      },
-      "sourceClaim": "Set d’experiències web executable HT·01—HT·07."
+      }
     },
     {
-      "id": "ht-selected-originals",
-      "role": "original_set",
-      "custodyState": "external_unverified",
-      "locator": null,
-      "verification": {
-        "kind": "none",
-        "value": null
+      "custodyState": "externally_verified",
+      "id": "ht-01-original",
+      "locator": {
+        "fileId": "file_00000000b01881f48f343262ebda96de",
+        "libraryFileId": "libfile_82fb311b6814819182495764d2aba7db",
+        "path": "/Xats anímic protein/La rosa de l’escolta a l’Expo del 1939.png",
+        "provider": "chatgpt_library"
       },
-      "sourceClaim": "El manifest declara originals seleccionats a Biblioteca; no hi ha ruta persistent ni SHA-256 contrastats.",
-      "names": [
-        "La rosa de l’escolta a l’Expo del 1939.png",
-        "Elektro at the 1939 World’s Fair.png",
-        "Futurama i la ruta desconeguda.png",
-        "Dins del Perisferi: Algú Espera.png",
-        "Dossier Futurama: Una Nit d’Ombres.png"
-      ]
-    },
-    {
-      "id": "ht-02-original",
       "role": "original",
-      "custodyState": "missing_original",
-      "locator": null,
+      "sourceClaim": "Nom i binari contrastats amb la selecció exacta del manifest; no transferit a GitHub.",
       "verification": {
-        "kind": "none",
-        "value": null
-      },
-      "sourceClaim": "Original separat no localitzat."
+        "dimensions": "1374x1145",
+        "kind": "sha256",
+        "sizeBytes": 2806899,
+        "value": "19ef3c71bd70711b4ceda2b41e3729fd8920927a50bb4611b44b869a97c9b0c3",
+        "verifiedAt": "2026-09-12"
+      }
     },
     {
-      "id": "ht-07-temporal-binary",
-      "role": "original_temporal",
-      "custodyState": "not_materialized",
+      "custodyState": "externally_verified",
+      "id": "ht-03-original",
+      "locator": {
+        "fileId": "file_000000003418820c938d234a35c7a1a3",
+        "libraryFileId": "libfile_8d4591f457108191993ff95d1e32f218",
+        "path": "/Xats anímic protein/Elektro at the 1939 World’s Fair.png",
+        "provider": "chatgpt_library"
+      },
+      "role": "original",
+      "sourceClaim": "Nom i binari contrastats amb la selecció exacta del manifest; no transferit a GitHub.",
+      "verification": {
+        "dimensions": "1374x1145",
+        "kind": "sha256",
+        "sizeBytes": 2703386,
+        "value": "a41c35dc8f7fd30de8ad1785262a87d4aeedb0c36ae532ac4902e8aa3cb0f1c7",
+        "verifiedAt": "2026-09-12"
+      }
+    },
+    {
+      "custodyState": "externally_verified",
+      "id": "ht-04-original",
+      "locator": {
+        "fileId": "file_000000007a1882468a5ab85a0bef7d28",
+        "libraryFileId": "libfile_1bc916e057408191bda6a2a40d34d6fd",
+        "path": "/Xats anímic protein/Futurama i la ruta desconeguda.png",
+        "provider": "chatgpt_library"
+      },
+      "role": "original",
+      "sourceClaim": "Nom i binari contrastats amb la selecció exacta del manifest; no transferit a GitHub.",
+      "verification": {
+        "dimensions": "1536x1024",
+        "kind": "sha256",
+        "sizeBytes": 3307678,
+        "value": "13840c5406be0044f78dd018c768f324d0758a5eff4fa18632290db9269385fd",
+        "verifiedAt": "2026-09-12"
+      }
+    },
+    {
+      "custodyState": "externally_verified",
+      "id": "ht-05-original",
+      "locator": {
+        "fileId": "file_00000000dbb48210bcb44fda31d5c7fb",
+        "libraryFileId": "libfile_bbdf690b55d88191a0ee2a283b0f0685",
+        "path": "/Xats anímic protein/Dins del Perisferi: Algú Espera.png",
+        "provider": "chatgpt_library"
+      },
+      "role": "original",
+      "sourceClaim": "Nom i binari contrastats amb la selecció exacta del manifest; no transferit a GitHub.",
+      "verification": {
+        "dimensions": "1536x1024",
+        "kind": "sha256",
+        "sizeBytes": 2889191,
+        "value": "1de15b1c9c051c336251b02ef651376a8afc1f0e6810b5e95d03878514efe3dd",
+        "verifiedAt": "2026-09-12"
+      }
+    },
+    {
+      "custodyState": "externally_verified",
+      "id": "ht-06-original",
+      "locator": {
+        "fileId": "file_000000007b3c820b8801256fc21e3f9a",
+        "libraryFileId": "libfile_2511935e643c81919a911409bced960b",
+        "path": "/Xats anímic protein/Dossier Futurama: Una Nit d’Ombres.png",
+        "provider": "chatgpt_library"
+      },
+      "role": "original",
+      "sourceClaim": "Nom i binari contrastats amb la selecció exacta del manifest; no transferit a GitHub.",
+      "verification": {
+        "dimensions": "1536x1024",
+        "kind": "sha256",
+        "sizeBytes": 2589179,
+        "value": "05253b60919bbd5e75664c02246c8f1b1547593059cfc5b55a1216875e141cc9",
+        "verifiedAt": "2026-09-12"
+      }
+    },
+    {
+      "custodyState": "missing_original",
+      "id": "ht-02-original",
       "locator": null,
+      "role": "original",
+      "sourceClaim": "Original separat no localitzat.",
       "verification": {
         "kind": "none",
         "value": null
-      },
-      "sourceClaim": "No existeix encara GIF, MP4 o WebM canònic; la web i la representació editorial no són el binari temporal."
+      }
+    },
+    {
+      "custodyState": "not_materialized",
+      "id": "ht-07-temporal-binary",
+      "locator": null,
+      "role": "original_temporal",
+      "sourceClaim": "No existeix encara GIF, MP4 o WebM canònic; la web i la representació editorial no són el binari temporal.",
+      "verification": {
+        "kind": "none",
+        "value": null
+      }
     }
   ],
   "gaps": [
-    "Ruta persistent i SHA-256 dels originals declarats a Biblioteca.",
     "Recuperació demostrable de l’original separat HT·02.",
     "Materialització versionada del binari temporal HT·07."
   ],
-  "decision": {
-    "owner": "KREATOR/persona",
-    "automaticPromotion": false,
-    "reopenOnlyByConditionsInClosure": true
-  },
+  "id": "custody-history-tales-v1.1",
   "provenance": {
+    "canonicalStatus": "effective_on_main",
     "metabolizedBy": "Anímic Protein",
+    "reversible": true,
     "sources": [
       "mutatio/history-tales/MANIFEST-ACTIUS-1.0.md",
       "mutatio/history-tales/ACTA-TANCAMENT-2026-09-10-v1.1.md"
-    ],
-    "canonicalStatus": "effective_when_merged_to_main",
-    "reversible": true
+    ]
+  },
+  "recordVersion": "1.1",
+  "schema": "animic.archivum.custodia/1.0",
+  "subject": {
+    "caseStatus": "HT-01_HT-07_beta_not_executed",
+    "id": "mutatio-history-tales",
+    "status": "closed_audited",
+    "title": "MUTATIO · History Tales",
+    "version": "1.1"
   }
 }
