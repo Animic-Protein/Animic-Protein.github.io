@@ -1,4 +1,4 @@
-const RECORD_URLS=['../archivum/custodia/history-tales-v1.1.json','../archivum/custodia/eco-01-cas-real-01.json'];
+const RECORD_URLS=['../archivum/custodia/history-tales-v1.1-custody-v1.2.json','../archivum/custodia/eco-01-cas-real-01.json'];
 const LABELS={repository_preserved:'Repositori verificat',local_only:'Només local',external_unverified:'Extern no verificat',externally_verified:'Extern verificat',derivative_preserved:'Derivat preservat',missing_original:'Original absent',not_materialized:'No materialitzat'};
 const OPEN=new Set(['local_only','external_unverified','missing_original','not_materialized']);
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
