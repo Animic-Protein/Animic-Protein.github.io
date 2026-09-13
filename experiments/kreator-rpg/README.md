@@ -1,6 +1,8 @@
-# KREATOR RPG · arquitectura experimental 0.1
+# KREATOR RPG · arquitectura experimental 0.4
 
-> EXPERIMENT. No és nucli canònic del Còdex Viu. Només podrà metabolitzar-se després d'una partida real i decisió humana explícita.
+> EXPERIMENT. Evolució de KRATOR. No és nucli canònic del Còdex Viu. Només podrà metabolitzar-se després d'una partida real i decisió humana explícita.
+
+La interfície evolucionada de Partida 01 conserva la fitxa viva, MASTER invocable i els dos DAUS configurables. L’ordre causal reparat és `MASTER → INCERTESA/DAUS → ruta → humanDecision → efecte/MUTATIO → provenance`.
 
 ## KREATOR SHEET 0.1
 
@@ -17,7 +19,7 @@ Camps mínims:
 
 La fitxa registra què ha passat. No converteix freqüència, puntuació ni rol en valor, rang o cànon.
 
-## MASTER 0.1
+## MASTER 0.4
 
 MASTER és una funció de situació. Pot:
 - proposar una condició;
@@ -31,7 +33,7 @@ MASTER no pot:
 - alterar provenance;
 - substituir KREATOR/persona en una decisió humana requerida.
 
-## Protocol DAUS 0.1
+## Protocol DAUS 0.4
 
 Dos daus romanen sempre visibles a la interfície experimental.
 
@@ -46,7 +48,9 @@ Cada dau pot adoptar `d6`, `d7`, `d8` o `d9` de manera independent. Una tirada:
 
 **L'atzar pot decidir quina ruta s'explora; no pot decidir què és veritat ni què entra al cànon.**
 
-Si el resultat exigeix una acció irreversible o canònica, la tirada s'atura davant la decisió humana.
+Si el resultat exigeix una acció irreversible o canònica, la tirada s’atura davant la decisió humana.
+
+La Partida 01 proposa per defecte `d7 × d9`, i manté `d6`, `d7`, `d8` i `d9` seleccionables independentment. Ni una tirada ni un retorn de MASTER poden activar el botó d’efecte: cal un esdeveniment `human-decision` previ i compatible.
 
 ## Primera partida real
 

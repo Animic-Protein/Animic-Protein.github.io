@@ -23,12 +23,14 @@
     "reversibility_required": true,
     "divergence_check": "github-actions",
     "memory_rule": "recordar_no_equival_aprendre_ni_legislar",
-    "current_construction": "reentrada_subjecte_1_0",
+    "current_construction": "kreator1_sessio01_ordre_causal_1_1",
     "reentry_contract": {
       "version": "1.0",
       "impuls": "1.2",
       "mutatio_receptor": "0.2",
-      "subject_required_before_destination": true
+      "subject_required_before_destination": true,
+      "kreator_session": "1.1-causal",
+      "master_optional_before_human_decision": true
     }
   },
   "organs": {
@@ -60,6 +62,13 @@
       "url": "https://animic-protein.github.io/fusio-total/",
       "role": "laboratori_coniunctio",
       "canonical_status": "no_automatic"
+    },
+    "kreator_rpg_0_4": {
+      "url": "https://animic-protein.github.io/experiments/kreator-rpg/",
+      "role": "evolucio_de_krator_amb_master_i_daus_configurables",
+      "status": "experimental_no_canonical",
+      "default_dice": "d7xd9",
+      "effect_requires_prior_human_decision": true
     }
   }
 }
