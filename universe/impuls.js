@@ -39,7 +39,7 @@
     return currentProposal;
   }
   function writeDecision(record){
-    const records=readArray(DECISIONS_KEY);records.push(record);
+    const records=readArray(DECISIONS_KEY).filter(item=>item?.id!==record.id);records.push(record);
     try{localStorage.setItem(DECISIONS_KEY,JSON.stringify(records.slice(-20)))}catch{}
   }
   function recordDecision(action,target){
@@ -50,16 +50,18 @@
       status:'resolved',
       suggestedImpulse:{id:p.id,state:p.state,label:p.label,text:p.text,href:p.href,emittedAt:p.emittedAt,canonical:false,reversible:true,decided:false},
       humanDecision:{action,acceptedSuggestion,at:now()},
-      effect:{kind:target&&target!=='#'?'navigate':'remain',href:target||'#',executed:false},
+      effect:{kind:target&&target!=='#'?'navigate':'remain',href:target||'#',initiated:false},
       provenance:{kind:'impulse-response',organ:'IMPULS',version:VERSION,origin:'universe',canonical:false,reversible:true}
     };
     writeDecision(record);
+    if(target&&target!=='#'){
+      record.effect.initiated=true;
+      record.effect.initiatedAt=now();
+      writeDecision(record);
+    }
     window.dispatchEvent(new CustomEvent('codex:human-decision',{detail:record}));
     renderResolved(record);
-    if(target&&target!=='#'){
-      record.effect.executed=true;
-      setTimeout(()=>location.assign(target),220);
-    }
+    if(target&&target!=='#')setTimeout(()=>location.assign(target),220);
   }
 
   function ensure(){
