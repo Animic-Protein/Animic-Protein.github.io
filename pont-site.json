@@ -23,7 +23,13 @@
     "reversibility_required": true,
     "divergence_check": "github-actions",
     "memory_rule": "recordar_no_equival_aprendre_ni_legislar",
-    "current_construction": "archivum_custodia_1_0"
+    "current_construction": "reentrada_subjecte_1_0",
+    "reentry_contract": {
+      "version": "1.0",
+      "impuls": "1.2",
+      "mutatio_receptor": "0.2",
+      "subject_required_before_destination": true
+    }
   },
   "organs": {
     "inter_nos": {
