@@ -12,7 +12,7 @@ A més, el rastre inicial d’IMPULS conservava `effect.executed:false` fins i t
 
 ## Decisió
 
-MUTATIO rep únicament les decisions resoltes amb `humanDecision.action=transform` dirigides a Fusió Total.
+MUTATIO examina únicament l’última decisió humana resolta. Només la rep si conserva `humanDecision.action=transform`, està dirigida a Fusió Total i acredita `effect.initiated=true`. Una decisió posterior quieta o divergent no pot reactivar una transformació anterior.
 
 Rebre una decisió no executa cap transformació. El receptor demana un únic destí humà:
 
@@ -30,12 +30,13 @@ El registre de recepció conserva:
 
 - identificador de decisió i de proposta;
 - acceptació o divergència prèvia;
-- destí escollit;
+- destí escollit i ancoratge real dins Fusió Total;
+- `effect.initiated` i `initiatedAt` quan la navegació s’ha iniciat;
 - estat `resolved|pending`;
 - `canonical:false`;
 - `reversible:true`.
 
-La memòria és local i limitada a vint recepcions sota `animic.codex.mutatio-receptions/v1`.
+La memòria és local i limitada a vint recepcions sota `animic.codex.mutatio-receptions/v1`. Instrument Z activa el panell real `#z`; Compost retorna al node real `#compost`; pendent no navega.
 
 ## Reversibilitat
 
