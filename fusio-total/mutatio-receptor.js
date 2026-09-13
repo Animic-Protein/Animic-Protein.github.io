@@ -7,7 +7,11 @@
   const read=key=>{try{const value=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(value)?value:[]}catch{return[]}};
   const write=(key,records)=>{try{localStorage.setItem(key,JSON.stringify(records.slice(-20)))}catch{}};
   const now=()=>new Date().toISOString();
-  const latestTransform=()=>read(DECISIONS_KEY).slice().reverse().find(record=>record?.status==='resolved'&&record?.humanDecision?.action==='transform'&&record?.effect?.kind==='navigate'&&String(record?.effect?.href||'').includes('fusio-total'))||null;
+  const latestDecision=()=>read(DECISIONS_KEY).slice().reverse().find(record=>record?.status==='resolved')||null;
+  const latestTransform=()=>{
+    const record=latestDecision(),href=String(record?.effect?.href||'');
+    return record?.humanDecision?.action==='transform'&&record?.effect?.kind==='navigate'&&record?.effect?.initiated===true&&['../fusio-total/','../fusio-total','./fusio-total/','./fusio-total','/fusio-total/','/fusio-total'].includes(href)?record:null;
+  };
   const receptionFor=decisionId=>read(RECEPTIONS_KEY).find(record=>record?.decisionId===decisionId)||null;
 
   function saveReception(record){
@@ -28,13 +32,15 @@
     return `<button type="button" data-mutatio-destination="${destination}" style="margin:.45rem .35rem 0 0;padding:.65rem .85rem;border:1px solid var(--o);border-radius:999px;background:transparent;color:var(--t);cursor:pointer">${label}</button>`;
   }
   function resolve(decision,destination,target){
+    const resolvedAt=now(),effect={kind:target?'navigate':'remain',href:target||'#',initiated:false};
+    if(target){effect.initiated=true;effect.initiatedAt=resolvedAt}
     const record={
       id:`mutatio-reception-${decision.id}`,
       decisionId:decision.id,
       proposalId:decision.suggestedImpulse?.id||null,
-      receivedAt:now(),
-      humanResolution:{destination,at:now()},
-      effect:{kind:target?'navigate':'remain',href:target||'#',initiated:Boolean(target)},
+      receivedAt:resolvedAt,
+      humanResolution:{destination,at:resolvedAt},
+      effect,
       status:destination==='pending'?'pending':'resolved',
       provenance:{kind:'mutatio-reception',version:VERSION,canonical:false,reversible:true}
     };
@@ -46,8 +52,8 @@
   function bind(decision){
     document.querySelectorAll('[data-mutatio-destination]').forEach(control=>control.addEventListener('click',()=>{
       const destination=control.dataset.mutatioDestination;
-      if(destination==='instrument-z')resolve(decision,destination,'../#instrument-z');
-      else if(destination==='compost')resolve(decision,destination,'../#compost');
+      if(destination==='instrument-z')resolve(decision,destination,'#z');
+      else if(destination==='compost')resolve(decision,destination,'#compost');
       else resolve(decision,'pending',null);
     }));
     document.getElementById('forget-mutatio-reception')?.addEventListener('click',()=>{forgetReception(decision.id);render()});
