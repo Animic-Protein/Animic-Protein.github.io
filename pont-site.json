@@ -23,12 +23,14 @@
     "reversibility_required": true,
     "divergence_check": "github-actions",
     "memory_rule": "recordar_no_equival_aprendre_ni_legislar",
-    "current_construction": "reentrada_subjecte_1_0",
+    "current_construction": "kreator1_sessio01_ordre_causal_1_1",
     "reentry_contract": {
       "version": "1.0",
       "impuls": "1.2",
       "mutatio_receptor": "0.2",
-      "subject_required_before_destination": true
+      "subject_required_before_destination": true,
+      "kreator_session": "1.1-causal",
+      "master_optional_before_human_decision": true
     }
   },
   "organs": {
