@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const VERSION='0.1';
+  const VERSION='0.2';
   const DECISIONS_KEY='animic.codex.impulse-decisions/v1';
   const RECEPTIONS_KEY='animic.codex.mutatio-receptions/v1';
   const read=key=>{try{const value=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(value)?value:[]}catch{return[]}};
@@ -39,6 +39,8 @@
       decisionId:decision.id,
       proposalId:decision.suggestedImpulse?.id||null,
       receivedAt:resolvedAt,
+      subjectRef:decision.humanDecision?.subjectRef||null,
+      basis:decision.suggestedImpulse?.basis||null,
       humanResolution:{destination,at:resolvedAt},
       effect,
       status:destination==='pending'?'pending':'resolved',
@@ -52,7 +54,8 @@
   function bind(decision){
     document.querySelectorAll('[data-mutatio-destination]').forEach(control=>control.addEventListener('click',()=>{
       const destination=control.dataset.mutatioDestination;
-      if(destination==='instrument-z')resolve(decision,destination,'#z');
+      if(destination==='impuls')resolve(decision,'reobserve-subject','../universe/?impuls=1');
+      else if(destination==='instrument-z')resolve(decision,destination,'#z');
       else if(destination==='compost')resolve(decision,destination,'#compost');
       else resolve(decision,'pending',null);
     }));
@@ -63,14 +66,18 @@
     const decision=latestTransform();
     if(!decision){panel.style.display='none';panel.innerHTML='';return}
     panel.style.display='block';
-    const reception=receptionFor(decision.id);
+    const reception=receptionFor(decision.id),subjectRef=decision.humanDecision?.subjectRef||null;
     if(reception){
       const label=reception.humanResolution?.destination||'pending';
-      panel.innerHTML=`<p class="ey">MUTATIO · RECEPTOR 0.1</p><h2 style="margin:.25rem 0">Decisió rebuda i preservada.</h2><p style="color:var(--m)">IMPULS havia proposat <b>${decision.suggestedImpulse?.state||'—'}</b>; la persona va decidir <b>transform</b>. Destí humà: <b>${label}</b>.</p><p class="law">Rebre no equival a transformar. Cap cànon ha estat modificat.</p><button id="forget-mutatio-reception" type="button" class="quiet">Retirar aquesta recepció</button>`;
+      panel.innerHTML=`<p class="ey">MUTATIO · RECEPTOR 0.2</p><h2 style="margin:.25rem 0">Decisió rebuda i preservada.</h2><p style="color:var(--m)">IMPULS havia proposat <b>${decision.suggestedImpulse?.state||'—'}</b>; la persona va decidir <b>transform</b>. Destí humà: <b>${label}</b>.</p><p class="law">Rebre no equival a transformar. Cap cànon ha estat modificat.</p><button id="forget-mutatio-reception" type="button" class="quiet">Retirar aquesta recepció</button>`;
       bind(decision);return;
     }
     const divergence=decision.humanDecision?.acceptedSuggestion===false?'La decisió divergeix de la proposta original. Aquesta discrepància es conserva.':'La persona ha acceptat la proposta de transformació.';
-    panel.innerHTML=`<p class="ey">MUTATIO · RECEPTOR 0.1</p><h2 style="margin:.25rem 0">La decisió ha arribat.</h2><p style="color:var(--m)">${divergence} Encara no hi ha prou base per transformar automàticament: cal escollir un únic destí reversible.</p><p style="color:var(--m);font-size:.82rem">Decisió <code>${decision.id}</code> · proposta <code>${decision.suggestedImpulse?.id||'sense-id'}</code></p><div role="group" aria-label="Destí humà de MUTATIO">${button('Contrastar amb Instrument Z','instrument-z')}${button('Portar al Compost','compost')}${button('Deixar pendent','pending')}</div><p class="law">humanDecision no és transformació automàtica.</p>`;
+    if(!subjectRef){
+      panel.innerHTML=`<p class="ey">MUTATIO · RECEPTOR 0.2</p><h2 style="margin:.25rem 0">Decisió rebuda; subjecte absent.</h2><p style="color:var(--m)">${divergence} MUTATIO no pot oferir Instrument Z ni Compost perquè la decisió no identifica què s’ha de contrastar o conservar.</p><div role="group" aria-label="Resolució humana del subjecte absent">${button('Tornar a IMPULS','impuls')}${button('Deixar pendent','pending')}</div><p class="law">Sense subjecte no hi ha transformació.</p>`;
+      bind(decision);return;
+    }
+    panel.innerHTML=`<p class="ey">MUTATIO · RECEPTOR 0.2</p><h2 style="margin:.25rem 0">La decisió ha arribat.</h2><p style="color:var(--m)">${divergence} Encara no hi ha prou base per transformar automàticament: cal escollir un únic destí reversible.</p><p style="color:var(--m);font-size:.82rem">Subjecte <code>${subjectRef}</code> · decisió <code>${decision.id}</code> · proposta <code>${decision.suggestedImpulse?.id||'sense-id'}</code></p><div role="group" aria-label="Destí humà de MUTATIO">${button('Contrastar amb Instrument Z','instrument-z')}${button('Portar al Compost','compost')}${button('Deixar pendent','pending')}</div><p class="law">humanDecision no és transformació automàtica.</p>`;
     bind(decision);
   }
 
