@@ -328,7 +328,7 @@
           <article class="node">
             <strong>◌ Cambra</strong><span>Temps exposat</span>
           </article>
-          <article class="node">
+          <article class="node" id="compost">
             <strong>∞ Compost</strong><span>Error fèrtil</span>
           </article>
           <article class="node">
@@ -419,6 +419,19 @@
         document
           .getElementById("inter-nos")
           .scrollIntoView({ behavior: "smooth" });
+      const activateHash = () => {
+        const id = location.hash.slice(1);
+        if (id === "z") document.querySelector('[data-tab="z"]')?.click();
+        if (id === "compost") {
+          document.querySelector('[data-tab="mapa"]')?.click();
+          setTimeout(
+            () => document.getElementById("compost")?.scrollIntoView({ behavior: "smooth", block: "center" }),
+            60,
+          );
+        }
+      };
+      window.addEventListener("hashchange", activateHash);
+      activateHash();
       const score = () =>
         (document.getElementById("score").textContent =
           Math.round((+q.value + +qp.value) / 2) + "%");
