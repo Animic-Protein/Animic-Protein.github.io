@@ -10,7 +10,7 @@ Cap transformació o relació no pot començar abans que KREATOR hagi registrat 
 
 ## Travessa, MASTER i l’herència RPG/DAUS
 
-KREATOR RPG/DAUS és l’antecedent experimental d’aquesta travessa. No s’elimina ni es confon amb el nucli causal.
+KREATOR RPG és l’evolució de KRATOR i la interfície evolucionada d’aquesta travessa. Conserva la fitxa viva, MASTER invocable i dos DAUS amb cares seleccionables `d6`, `d7`, `d8` o `d9` —inclosa la configuració `d7 × d9`. No s’elimina ni es confon amb el nucli causal.
 
 Entre `suggestedImpulse` i `humanDecision`, KREATOR pot invocar MASTER. MASTER situa el context i pot retornar una opció; KREATOR encara l’ha de justificar i registrar. Una tirada de DAUS pot introduir una condició d’indeterminació en la travessa, però no produeix veritat, cànon, decisió ni execució automàtica.
 
@@ -35,3 +35,5 @@ El tram entre claudàtors és invocable i reversible. No substitueix KREATOR.
 > IMPULS proposa. MASTER situa. KREATOR decideix. MUTATIO transforma. El Còdex conserva el rastre.
 
 Estat canònic de la reparació: `1.1-causal`.
+
+Aplicació experimental preservada: `KREATOR RPG 0.4 · evolució de KRATOR`.
