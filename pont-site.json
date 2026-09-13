@@ -62,6 +62,13 @@
       "url": "https://animic-protein.github.io/fusio-total/",
       "role": "laboratori_coniunctio",
       "canonical_status": "no_automatic"
+    },
+    "kreator_rpg_0_4": {
+      "url": "https://animic-protein.github.io/experiments/kreator-rpg/",
+      "role": "evolucio_de_krator_amb_master_i_daus_configurables",
+      "status": "experimental_no_canonical",
+      "default_dice": "d7xd9",
+      "effect_requires_prior_human_decision": true
     }
   }
 }
