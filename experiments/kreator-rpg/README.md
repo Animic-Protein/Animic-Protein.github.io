@@ -4,6 +4,8 @@
 
 La interfície evolucionada de Partida 01 conserva la fitxa viva, MASTER invocable i els dos DAUS configurables. L’ordre causal reparat és `MASTER → INCERTESA/DAUS → ruta → humanDecision → efecte/MUTATIO → provenance`.
 
+La superfície 0.4.1 adopta un únic portal navegable: MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des de les targetes del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública: no es manté una còpia divergent en una Site separada.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
