@@ -8,6 +8,8 @@ La superfície 0.4.3 adopta un únic portal horitzontal steampunk: el portal cen
 
 La capa 0.4.4 estén el llenguatge steampunk a tota la màquina sense canviar-ne el contracte: plaques de ferro i llautó, reblons, canonades, indicadors, controls bisellats i llum cobalt arriben també al circuit de branques i a la travessa funcional. El moviment ornamental respecta `prefers-reduced-motion`; la llegibilitat, l’ordre causal i els controls originals es preserven.
 
+La revisió 0.4.5 tanca la lògica de la travessa: la combinació visible per defecte coincideix amb `d7 × d9`; una decisió humana requereix una tirada prèvia; la ruta i la diferència queden fixades dins la decisió; modificar-les invalida l’autorització anterior; `QUIET` no pot iniciar cap efecte; i tancar sense efecte crea un esdeveniment `closure` autoritzat i exportable. Les invocacions RECORDARE i STRATUM tenen ruta de reserva, l’historial escapa text introduït i l’exportació JSON retarda la retirada de l’URL per funcionar amb fiabilitat a Safari/iOS.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
