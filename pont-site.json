@@ -67,7 +67,7 @@
       "url": "https://animic-protein.github.io/experiments/kreator-rpg/",
       "role": "evolucio_de_krator_amb_master_i_daus_configurables",
       "status": "experimental_no_canonical",
-      "interface": "portal_unic_0.4.1",
+      "interface": "portal_horizontal_steampunk_0.4.2",
       "integrated_invocations": ["master", "recordare", "stratum_excavar"],
       "default_dice": "d7xd9",
       "effect_requires_prior_human_decision": true

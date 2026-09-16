@@ -4,7 +4,7 @@
 
 La interfície evolucionada de Partida 01 conserva la fitxa viva, MASTER invocable i els dos DAUS configurables. L’ordre causal reparat és `MASTER → INCERTESA/DAUS → ruta → humanDecision → efecte/MUTATIO → provenance`.
 
-La superfície 0.4.1 adopta un únic portal navegable: MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des de les targetes del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública: no es manté una còpia divergent en una Site separada.
+La superfície 0.4.2 adopta un únic portal horitzontal steampunk: el portal central, MASTER, DAUS i RECORDARE comparteixen el cockpit superior, mentre EXCAVAR i els òrgans formen un rail operatiu únic. MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública: no es manté una còpia divergent en una Site separada.
 
 ## KREATOR SHEET 0.1
 
