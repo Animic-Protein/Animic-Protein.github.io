@@ -6,6 +6,8 @@ La interfície evolucionada de Partida 01 conserva la fitxa viva, MASTER invocab
 
 La superfície 0.4.3 adopta un únic portal horitzontal steampunk: el portal central, MASTER, DAUS i RECORDARE comparteixen el cockpit superior, mentre les branques clicables formen un circuit operatiu únic. A 0.4.3 es fan explícites les tres funcions que quedaven amagades: IMPULS proposa, KREATOR 1 decideix i LOOPERUM transforma temps audible. LOCUTUS continua dins d’INTER NOS; Retrodansa, Harmonia, Herbarium i Silenci continuen sota la Rosa; Looparium continua dins d’Archivum. Així s’evita confondre una capa interna o consultiva amb un portal independent. MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública.
 
+La capa 0.4.4 estén el llenguatge steampunk a tota la màquina sense canviar-ne el contracte: plaques de ferro i llautó, reblons, canonades, indicadors, controls bisellats i llum cobalt arriben també al circuit de branques i a la travessa funcional. El moviment ornamental respecta `prefers-reduced-motion`; la llegibilitat, l’ordre causal i els controls originals es preserven.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
