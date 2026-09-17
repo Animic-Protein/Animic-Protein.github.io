@@ -14,6 +14,8 @@ La revisió 0.4.6 completa el camp interrogatiu de DAUS amb els sis eixos `QUÈ 
 
 La revisió 0.4.7 converteix els punts successius del gràfic XYZ en una trajectòria de partida. Mostra fins a dotze tirades, ordenades i unides, a partir dels esdeveniments `dice` ja conservats localment. La línia és una projecció visual reversible del rastre: no afegeix una memòria paral·lela, no interpreta patrons i no altera cap autorització humana.
 
+La revisió 0.4.8 recupera CONVIVIUM com a capa relacional transversal i obre la cohort KREATOR RPG 02–05. Una mateixa experiència parametritzada separa identitat local, missió, eixos inicials, historial i exportació de cada participant. Les diferències pilot són audible, espacial, relacional i temporal. CONVIVIUM aporta full de ruta, importació manual dels quatre JSON i Atlas visual; no publica contactes, no sincronitza rastres i no promou cap resultat. Retrodansa i Zajj‑viu només s’obren com a traduccions col·lectives després de quatre tancaments i una nova decisió humana.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
