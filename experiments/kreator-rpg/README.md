@@ -12,6 +12,8 @@ La revisió 0.4.5 tanca la lògica de la travessa: la combinació visible per de
 
 La revisió 0.4.6 completa el camp interrogatiu de DAUS amb els sis eixos `QUÈ · ON · QUAN · COM · QUI · PER QUÈ`. `QUÈ × ON` és la parella inicial perquè qualsevol tensió pugui adquirir un material perceptible i una situació abans de proposar una ruta. La persona pot combinar visualment dos eixos; la tirada conserva la parella i els significats al rastre JSON. Un gràfic XYZ projecta `QUI ↔ QUÈ` sobre X, `QUAN ↔ ON` sobre Y i `PER QUÈ ↔ COM` sobre Z; durant la tirada el punt explora el camp i, en aturar-se, mostra la configuració executada. Aquest desplaçament d’atenció afavoreix flexibilitat associativa, però no és un diagnòstic ni una mesura neurocientífica, i no altera l’ordre causal de 0.4.5. La constel·lació Llenguatge Viu queda disponible com a retorn transversal: anomena i relaciona, però no decideix.
 
+La revisió 0.4.7 converteix els punts successius del gràfic XYZ en una trajectòria de partida. Mostra fins a dotze tirades, ordenades i unides, a partir dels esdeveniments `dice` ja conservats localment. La línia és una projecció visual reversible del rastre: no afegeix una memòria paral·lela, no interpreta patrons i no altera cap autorització humana.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
