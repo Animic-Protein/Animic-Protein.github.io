@@ -10,6 +10,8 @@ La capa 0.4.4 estén el llenguatge steampunk a tota la màquina sense canviar-ne
 
 La revisió 0.4.5 tanca la lògica de la travessa: la combinació visible per defecte coincideix amb `d7 × d9`; una decisió humana requereix una tirada prèvia; la ruta i la diferència queden fixades dins la decisió; modificar-les invalida l’autorització anterior; `QUIET` no pot iniciar cap efecte; i tancar sense efecte crea un esdeveniment `closure` autoritzat i exportable. Les invocacions RECORDARE i STRATUM tenen ruta de reserva, l’historial escapa text introduït i l’exportació JSON retarda la retirada de l’URL per funcionar amb fiabilitat a Safari/iOS.
 
+La revisió 0.4.6 completa el camp interrogatiu de DAUS amb els sis eixos `QUÈ · ON · QUAN · COM · QUI · PER QUÈ`. `QUÈ × ON` és la parella inicial perquè qualsevol tensió pugui adquirir un material perceptible i una situació abans de proposar una ruta. La persona pot combinar visualment dos eixos; la tirada conserva la parella i els significats al rastre JSON. Un gràfic XYZ projecta `QUI ↔ QUÈ` sobre X, `QUAN ↔ ON` sobre Y i `PER QUÈ ↔ COM` sobre Z; durant la tirada el punt explora el camp i, en aturar-se, mostra la configuració executada. Aquest desplaçament d’atenció afavoreix flexibilitat associativa, però no és un diagnòstic ni una mesura neurocientífica, i no altera l’ordre causal de 0.4.5. La constel·lació Llenguatge Viu queda disponible com a retorn transversal: anomena i relaciona, però no decideix.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
@@ -57,6 +59,14 @@ Cada dau pot adoptar `d6`, `d7`, `d8` o `d9` de manera independent. Una tirada:
 Si el resultat exigeix una acció irreversible o canònica, la tirada s’atura davant la decisió humana.
 
 La Partida 01 proposa per defecte `d7 × d9`, i manté `d6`, `d7`, `d8` i `d9` seleccionables independentment. Ni una tirada ni un retorn de MASTER poden activar el botó d’efecte: cal un esdeveniment `human-decision` previ i compatible.
+
+Els sis eixos interrogatius tenen funcions diferents:
+- `QUÈ`: material, rastre o fenomen que entra en atenció;
+- `ON`: cos, espai, memòria o relació on pot ser percebut;
+- `QUAN`: moment o condició temporal;
+- `COM`: procediment o qualitat del gest;
+- `QUI`: posició o font implicada;
+- `PER QUÈ`: hipòtesi causal, mai certesa.
 
 ## Primera partida real
 
