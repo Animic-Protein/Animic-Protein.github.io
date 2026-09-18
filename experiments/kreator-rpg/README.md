@@ -16,6 +16,10 @@ La revisió 0.4.7 converteix els punts successius del gràfic XYZ en una traject
 
 La revisió 0.4.8 recupera CONVIVIUM com a capa relacional transversal i obre la cohort KREATOR RPG 02–05. Una mateixa experiència parametritzada separa identitat local, missió, eixos inicials, historial i exportació de cada participant. Les diferències pilot són audible, espacial, relacional i temporal. CONVIVIUM aporta full de ruta, importació manual dels quatre JSON i Atlas visual; no publica contactes, no sincronitza rastres i no promou cap resultat. Retrodansa i Zajj‑viu només s’obren com a traduccions col·lectives després de quatre tancaments i una nova decisió humana.
 
+La matèria sonora opcional **Allò que es cou** acompanya el Dock i CONVIVIUM com a atmosfera de llindar. Parteix de *Sausage in oily frying pan sizzling* de pooky1 (Freesound, CC0) i conserva la seva relació amb ORDO → RETRODANSA. S'activa només després d'un gest humà, es pot silenciar sempre, manté la preferència local i no genera esdeveniments, decisions ni provenance.
+
+**SPECTRUM ANNALIS** converteix el centre d'INVOCATIO en receptor visual. Analitza en temps real la matèria sonora ambiental o un fitxer local d'àudio/vídeo seleccionat per la persona. El fitxer roman al dispositiu, es pot retirar immediatament i no s'importa, exporta, interpreta ni incorpora al rastre. En absència de senyal, el receptor només mostra espera; el moviment mecànic del Dock respecta `prefers-reduced-motion`.
+
 ## KREATOR SHEET 0.1
 
 Cada KREATOR és una identitat operativa persistent, no un perfil psicològic.
