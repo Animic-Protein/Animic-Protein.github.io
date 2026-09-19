@@ -4,7 +4,7 @@
 
 La interfície evolucionada de Partida 01 conserva la fitxa viva, MASTER invocable i els dos DAUS configurables. L’ordre causal reparat és `MASTER → INCERTESA/DAUS → ruta → humanDecision → efecte/MUTATIO → provenance`.
 
-La superfície 0.4.3 adopta un únic portal horitzontal steampunk: el portal central, MASTER, DAUS i RECORDARE comparteixen el cockpit superior, mentre les branques clicables formen un circuit operatiu únic. A 0.4.3 es fan explícites les tres funcions que quedaven amagades: IMPULS proposa, KREATOR 1 decideix i LOOPERUM transforma temps audible. LOCUTUS continua dins d’INTER NOS; Retrodansa, Harmonia, Herbarium i Silenci continuen sota la Rosa; Looparium continua dins d’Archivum. Així s’evita confondre una capa interna o consultiva amb un portal independent. MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública.
+La superfície 0.4.3 adopta un únic portal horitzontal steampunk: el portal central, MASTER, DAUS i RECORDARE comparteixen el cockpit superior, mentre les branques clicables formen un circuit operatiu únic. A 0.4.3 es fan explícites les tres funcions que quedaven amagades: IMPULS proposa, KREATOR ocupa la posició humana de decisió i LOOPERUM transforma temps audible. LOCUTUS continua dins d’INTER NOS; Retrodansa, Harmonia, Herbarium i Silenci continuen sota la Rosa; Looparium continua dins d’Archivum. Així s’evita confondre una capa interna o consultiva amb un portal independent. MASTER, RECORDARE i STRATUM/EXCAVAR s’invoquen des del mateix `INVOCATIO DOCK`; els llançadors flotants transversals no es mostren en aquesta pantalla. La Beta funcional continua sent el motor i GitHub Pages n’és l’única ruta pública.
 
 La capa 0.4.4 estén el llenguatge steampunk a tota la màquina sense canviar-ne el contracte: plaques de ferro i llautó, reblons, canonades, indicadors, controls bisellats i llum cobalt arriben també al circuit de branques i a la travessa funcional. El moviment ornamental respecta `prefers-reduced-motion`; la llegibilitat, l’ordre causal i els controls originals es preserven.
 
@@ -83,3 +83,8 @@ Abans de metabolitzar aquesta arquitectura al Còdex:
 - conservar el rastre de moviments i tirades;
 - observar si els daus produeixen diferència perceptible o només ornament;
 - decidir humanament: metabolitzar, revisar o enviar al Compost.
+
+
+## Revisió 0.4.11 · coherència del portal
+
+La revisió 0.4.11 consolida el Dock viu sense ampliar la fisiologia: actualitza la versió visible i l'exportació JSON, substitueix la denominació visible `KREATOR 1` per `KREATOR` com a posició humana general i manté KREATOR 01–05 només com a identitats de la cohort CONVIVIUM. SPECTRUM ANNALIS i la matèria sonora passen a respectar exclusivitat perceptiva: quan entra una font local d'àudio/vídeo, l'ambient s'atura i la seva preferència queda apagada; si després s'activa voluntàriament l'ambient, el fitxer local es pausa. Cap d'aquests gestos entra a la cadena causal ni al provenance.
