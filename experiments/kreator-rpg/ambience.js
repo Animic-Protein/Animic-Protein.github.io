@@ -75,6 +75,8 @@
     });
   }
 
+  window.addEventListener('codex:ambience-stop', stop);
+
   button.addEventListener('click', () => {
     if (desired && !audio.paused) stop();
     else start();
@@ -87,6 +89,8 @@
   audio.addEventListener('play', () => { if (desired && !audio.muted) render('playing'); else stop(); });
   audio.addEventListener('pause', () => render(desired ? 'pending' : 'off'));
   audio.addEventListener('volumechange', () => { if (!desired && (!audio.muted || audio.volume !== 0)) { audio.muted = true; audio.volume = 0; render('off'); } });
+
+  window.CodexAmbience = { start, stop, isDesired: () => desired };
 
   render(desired ? 'pending' : 'off');
   if (desired) start();
