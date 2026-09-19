@@ -131,7 +131,7 @@
       status.textContent = 'RECEPTOR NO DISPONIBLE';
       return;
     }
-    if (ambience && !ambience.paused) ambience.pause();
+    if (ambience && (!ambience.paused || window.CodexAmbience?.isDesired?.())) window.dispatchEvent(new CustomEvent('codex:ambience-stop'));
     if (objectUrl) URL.revokeObjectURL(objectUrl);
     objectUrl = URL.createObjectURL(file);
     media.src = objectUrl;
@@ -174,6 +174,7 @@
 
   ambienceToggle?.addEventListener('pointerdown', () => connect(ambience, 'ambience'), { capture: true });
   ambience?.addEventListener('play', () => {
+    if (media.src && !media.paused) { media.pause(); transport.textContent = 'REPRODUEIX'; }
     connect(ambience, 'ambience');
     status.textContent = 'REBUT · ALLÒ QUE ES COU';
   });
