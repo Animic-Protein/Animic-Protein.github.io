@@ -9,6 +9,7 @@
   const targetVolume = 0.14;
   let desired = readPreference() === 'on';
   let fadeFrame = 0;
+  let stopToken = 0;
 
   function readPreference() {
     try { return localStorage.getItem(storageKey); } catch { return null; }
@@ -43,7 +44,9 @@
   }
 
   async function start() {
+    stopToken += 1;
     desired = true;
+    audio.muted = false;
     audio.volume = 0;
     try {
       await audio.play();
@@ -57,9 +60,19 @@
 
   function stop() {
     desired = false;
+    const token = ++stopToken;
     writePreference('off');
+    cancelAnimationFrame(fadeFrame);
+    audio.muted = true;
+    audio.volume = 0;
+    audio.pause();
     render('off');
-    fadeTo(0, 350, () => audio.pause());
+    requestAnimationFrame(() => {
+      if (token !== stopToken || desired) return;
+      audio.muted = true;
+      audio.pause();
+      render('off');
+    });
   }
 
   button.addEventListener('click', () => {
@@ -71,8 +84,9 @@
     if (desired && audio.paused && !button.contains(event.target)) start();
   }, { capture: true, passive: true });
 
-  audio.addEventListener('play', () => render('playing'));
-  audio.addEventListener('pause', () => { if (desired) render('pending'); });
+  audio.addEventListener('play', () => { if (desired && !audio.muted) render('playing'); else stop(); });
+  audio.addEventListener('pause', () => render(desired ? 'pending' : 'off'));
+  audio.addEventListener('volumechange', () => { if (!desired && (!audio.muted || audio.volume !== 0)) { audio.muted = true; audio.volume = 0; render('off'); } });
 
   render(desired ? 'pending' : 'off');
   if (desired) start();
