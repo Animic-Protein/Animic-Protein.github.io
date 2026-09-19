@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071016">
-  <title>KREATOR RPG 0.4.8 · Cohort CONVIVIUM</title>
+  <title>KREATOR RPG 0.4.10 · Cohort CONVIVIUM</title>
   <style>
     :root{color-scheme:dark;--ink:#02070b;--panel:#07131b;--steel:#153441;--blue:#68ddff;--gold:#e0b25a;--copper:#a76b3f;--green:#55e3a0;--red:#ff7868;--text:#eef8fa;--muted:#8eaab3;--brass:#c79443;--iron:#111a1d}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100svh;background:radial-gradient(circle at 46% 18rem,#0b3a50 0,transparent 28rem),repeating-linear-gradient(90deg,#ffffff04 0 1px,transparent 1px 80px),repeating-linear-gradient(0deg,#0000 0 31px,#a76b3f0b 32px),linear-gradient(#02080c,#07151a 48%,#02070b);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.18;background-image:repeating-radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1px 4px);background-size:170px 130px;mix-blend-mode:soft-light}button,a,input,select,textarea{font:inherit}button,a{color:inherit}.shell{width:min(1500px,calc(100% - 42px));margin:auto}.mast{border-bottom:3px double #8a6338;background:linear-gradient(90deg,#03080beb,#0b1b20f4 48%,#03080beb);backdrop-filter:blur(16px);position:sticky;top:0;z-index:30;box-shadow:0 9px 25px #000b,inset 0 -1px #d9a95533}.brandbar{min-height:68px;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:12px;font:400 18px/1.18 Georgia,serif;letter-spacing:.12em;color:var(--blue);text-decoration:none;text-shadow:0 0 14px #4edbff66}.brand:before{content:"⚙";font-size:31px;color:var(--brass);text-shadow:0 0 10px #db9a3a88}.brand span{display:block}.promise{padding-left:28px;border-left:1px solid #765635;letter-spacing:.27em;font-size:11px;color:#b8d0d6}.reentry{margin-left:auto;letter-spacing:.22em;font-size:11px;color:#c1d3d8}.reentry:before{content:"";display:inline-block;width:7px;height:7px;margin-right:10px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}.nav{display:flex;justify-content:space-between;gap:22px;overflow:auto;border-top:1px solid #46331f;scrollbar-width:none}.nav a{position:relative;padding:12px 0 10px;text-decoration:none;white-space:nowrap;letter-spacing:.12em;font-size:11px;color:#a9d9e7;border-bottom:2px solid transparent}.nav a:before{content:"";position:absolute;left:50%;bottom:4px;width:3px;height:3px;border-radius:50%;background:#79512f;transform:translateX(-50%)}.nav a[aria-current="page"]{color:#fff;border-color:var(--gold);text-shadow:0 0 10px #e0b25a88}.nav a[aria-current="page"]:before{background:var(--gold);box-shadow:0 0 8px var(--gold)}
@@ -38,9 +38,17 @@
     @keyframes bubbles{from{background-position:0 110px,0 170px,0 210px,0 150px}to{background-position:0 -110px,0 -170px,0 -210px,0 -150px}}
     @keyframes waterline{0%,100%{width:48px;opacity:.7}50%{width:112px;opacity:1}}
 
+    /* 0.4.10 · DAUS amb rotació mecànica perceptible */
+    .dice-visual{perspective:520px;overflow:visible}
+    .dice-visual .die-art{transform-style:preserve-3d;will-change:transform;animation:dieOrbitA 5.2s cubic-bezier(.45,.05,.55,.95) infinite}
+    .dice-visual .die-art:nth-child(2){animation-name:dieOrbitB;animation-delay:-2.15s}
+    .module.gold:hover .die-art,.module.gold:focus-within .die-art{animation-duration:2.4s}
+    @keyframes dieOrbitA{0%,100%{transform:rotateX(0) rotateY(0) rotateZ(-4deg)}25%{transform:rotateX(18deg) rotateY(92deg) rotateZ(4deg)}50%{transform:rotateX(0) rotateY(180deg) rotateZ(-3deg)}75%{transform:rotateX(-18deg) rotateY(272deg) rotateZ(5deg)}}
+    @keyframes dieOrbitB{0%,100%{transform:rotateX(0) rotateY(0) rotateZ(5deg)}25%{transform:rotateX(-20deg) rotateY(-92deg) rotateZ(-4deg)}50%{transform:rotateX(0) rotateY(-180deg) rotateZ(3deg)}75%{transform:rotateX(20deg) rotateY(-272deg) rotateZ(-5deg)}}
+
     @media(max-width:1180px){.cockpit{grid-template-columns:.7fr 1fr}.primary-rail{grid-column:1/-1}.instrument-rail{grid-template-columns:repeat(6,1fr)}.pipeline{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:760px){.shell{width:min(100% - 24px,1500px)}.brandbar{min-height:60px;gap:11px}.brand:before{font-size:24px}.promise,.sound-label{display:none}.reentry{font-size:9px}.sound-toggle{width:38px;justify-content:center;padding:6px}.nav{justify-content:flex-start}.cockpit{grid-template-columns:1fr;padding-top:22px}.cockpit:before{display:none}.intro{padding:25px}.portal{min-height:360px}.primary-rail{grid-template-columns:1fr}.rail-head{display:block}.rail-head>p{margin-top:8px}.instrument-rail{grid-template-columns:repeat(2,1fr)}.instrument:last-child{grid-column:1/-1}.session-mission{grid-template-columns:1fr}.session-mission .action{width:100%}.pipeline,.work-grid{grid-template-columns:1fr}.pipeline>.step:not(:last-child):after{right:50%;top:auto;bottom:-9px;width:3px;height:9px}.footer{display:block}.footer span{display:block;margin-bottom:9px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.portal,.portal:before,.portal:after,.portal-core,.portal .pulse,.cockpit:before,.primary-rail .module,.primary-rail .module .sigil,.instrument-rail:after{animation:none}.instrument{transition:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.portal,.portal:before,.portal:after,.portal-core,.portal .pulse,.cockpit:before,.primary-rail .module,.primary-rail .module .sigil,.instrument-rail:after,.dice-visual .die-art{animation:none}.instrument{transition:none}}
   </style>
 </head>
 <body>
@@ -53,7 +61,7 @@
     <section class="shell cockpit" aria-label="Invocatio Dock · una sola interfície horitzontal">
       <header class="plate intro">
         <p class="ey">ANÍMIC PROTEIN · EVOLUCIÓ DE KRATOR</p>
-        <h1>KREATOR RPG <em>0.4.8</em></h1>
+        <h1>KREATOR RPG <em>0.4.10</em></h1>
         <p class="hero-copy">Una sola entrada.<br>Moltes possibilitats.<br>Una màquina viva.</p>
         <p class="causal"><strong>MASTER → DAUS → RUTA →<br>KREATOR DECIDEIX → MUTATIO → PROVENANCE</strong></p>
         <p class="quote">“El joc també és una forma seriosa d’escolta.”</p>
@@ -100,7 +108,7 @@
     <input id="kid" type="hidden" value="KREATOR-01"><input id="alias" type="hidden" value="EL RASTREJADOR"><select id="role" hidden><option>Rastrejador</option><option>Escoltador</option><option>Cartògraf</option><option>Mutador</option></select><div id="stats" hidden></div><div id="observed" hidden></div>
   </main>
 
-  <footer class="shell footer"><span>ANÍMIC PROTEIN — CÒDEX VIU · DISPOSICIONS PER A UN PENSAMENT CREATIU</span><span class="sound-credit">MATÈRIA SONORA · <a href="https://freesound.org/people/pooky1/sounds/432151/">ALLÒ QUE ES COU · POOKY1 · CC0</a></span><span>CONVIVIUM · KREATOR 01–05 · v0.4.8</span></footer>
+  <footer class="shell footer"><span>ANÍMIC PROTEIN — CÒDEX VIU · DISPOSICIONS PER A UN PENSAMENT CREATIU</span><span class="sound-credit">MATÈRIA SONORA · <a href="https://freesound.org/people/pooky1/sounds/432151/">ALLÒ QUE ES COU · POOKY1 · CC0</a></span><span>CONVIVIUM · KREATOR 01–05 · v0.4.10</span></footer>
   <audio data-ambience-audio src="./assets/allo-que-es-cou.mp3" preload="none" loop playsinline></audio>
   <video data-spectrum-media hidden playsinline></video>
   <script src="../../formiga.js"></script>
