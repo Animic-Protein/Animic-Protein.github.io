@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#03090d">
+    <title>Cartographia Mutabilis · Còdex Viu</title>
+    <meta name="description" content="Mapa Viu relacional d’Anímic Protein · Còdex Viu.">
+    <link rel="stylesheet" href="./cartographia.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a href="../">← CÒDEX VIU</a>
+      <span>ESTRAT RELACIONAL RECUPERAT · 2026-08-25</span>
+      <a href="../universe/">VEURE FISIOLOGIA →</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">MAPA VIU · CARTOGRAPHIA MUTABILIS</p>
+        <h1>El Còdex com a<br><em>relació visible.</em></h1>
+        <p class="lead">No és un índex ni un òrgan que decideix. Mostra constel·lacions, permet aproximar dos nodes i conserva una relació local, provisional i reversible.</p>
+        <div class="status"><b>Funció actual</b> Vista relacional transversal · <b>Genealogia</b> PR #2–#5 · <b>Límit</b> relacionar ≠ canonitzar</div>
+      </section>
+
+      <section class="workspace" aria-labelledby="map-title">
+        <div class="heading">
+          <div><p class="eyebrow">SET CONSTEL·LACIONS FUNDACIONALS</p><h2 id="map-title">Mapa Viu</h2></div>
+          <p>Toca un node per revelar-lo. Activa <strong>Relaciona</strong> en dos nodes per obrir INTER NOS.</p>
+        </div>
+
+        <div class="map-shell">
+          <div class="map" id="map" aria-label="Constel·lacions de Cartographia Mutabilis">
+            <button class="core" data-node="codex"><span>✦</span><b>Còdex Viu</b><small>centre relacional</small></button>
+          </div>
+
+          <aside class="inspector" aria-live="polite">
+            <p class="eyebrow">NODE ACTIU</p>
+            <h3 id="node-title">Còdex Viu</h3>
+            <p id="node-desc">Centre relacional de l’organisme. Tot pot connectar-se, transformar-se i retornar sense perdre procedència.</p>
+            <div class="actions">
+              <button id="relate">Relaciona</button>
+              <button id="seed">Sembra</button>
+            </div>
+            <div class="output" id="output">Cap relació activa.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="memory" aria-labelledby="memory-title">
+        <div><p class="eyebrow">INTER NOS · MEMÒRIA LOCAL</p><h2 id="memory-title">Relacions conservades</h2></div>
+        <p>Estats recuperats: <i>canònica</i>, <i>emergent</i>, <i>sembrada</i> i <i>compostada</i>. Aquesta pàgina només conserva rastres en aquest navegador.</p>
+        <ol id="relations"><li class="empty">Encara no hi ha cap relació local.</li></ol>
+        <button class="quiet" id="clear">Retirar relacions locals</button>
+      </section>
+
+      <section class="genealogy">
+        <p><b>Què s’ha recuperat?</b> La funció relacional del Mapa Viu publicat el 25 d’agost de 2026: set constel·lacions, nodes revelables, relació per parelles, sembra i memòria reversible.</p>
+        <p><b>Què no fa?</b> No substitueix la fisiologia de CONIUNCTIO, no excava com STRATUM i no converteix cap relació en cànon.</p>
+        <nav><a href="../universe/">CONIUNCTIO · fisiologia operativa</a><a href="../stratum/">STRATUM · genealogia documentada</a><a href="../inter-nos-creative/">INTER NOS · escolta recíproca</a></nav>
+      </section>
+    </main>
+
+    <dialog id="seed-dialog">
+      <form method="dialog">
+        <button class="close" value="cancel" aria-label="Tancar">×</button>
+        <p class="eyebrow">SEMBRA REVERSIBLE</p>
+        <h2>Deixa una possibilitat</h2>
+        <label>Llavor <textarea id="seed-text" placeholder="Una intuïció que encara no és llei…"></textarea></label>
+        <button class="primary" id="keep-seed" value="default">Conservar com a sembrada</button>
+      </form>
+    </dialog>
+
+    <script src="./cartographia.js"></script>
+  </body>
+</html>
