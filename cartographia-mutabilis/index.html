@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <meta name="theme-color" content="#03090d">
+    <meta name="theme-color" content="#02060b">
     <title>Cartographia Mutabilis · Còdex Viu</title>
     <meta name="description" content="Mapa Viu relacional d’Anímic Protein · Còdex Viu.">
     <link rel="stylesheet" href="./cartographia.css">
   </head>
   <body>
+    <div class="cosmos" aria-hidden="true"><i></i><i></i><i></i></div>
+
     <header class="topbar">
       <a href="../">← CÒDEX VIU</a>
       <span>ESTRAT RELACIONAL RECUPERAT · 2026-08-25</span>
@@ -31,6 +33,12 @@
 
         <div class="map-shell">
           <div class="map" id="map" aria-label="Constel·lacions de Cartographia Mutabilis">
+            <svg class="relation-field" id="relation-field" aria-hidden="true">
+              <line id="relation-glow"></line>
+              <line id="relation-line"></line>
+            </svg>
+            <div class="orbit orbit-a" aria-hidden="true"></div>
+            <div class="orbit orbit-b" aria-hidden="true"></div>
             <button class="core" data-node="codex"><span>✦</span><b>Còdex Viu</b><small>centre relacional</small></button>
           </div>
 

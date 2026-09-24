@@ -14,12 +14,17 @@ const title=document.querySelector('#node-title');
 const desc=document.querySelector('#node-desc');
 const output=document.querySelector('#output');
 const relationList=document.querySelector('#relations');
+const relationField=document.querySelector('#relation-field');
+const relationLine=document.querySelector('#relation-line');
+const relationGlow=document.querySelector('#relation-glow');
 const relateButton=document.querySelector('#relate');
 const seedButton=document.querySelector('#seed');
+const clearButton=document.querySelector('#clear');
 const seedDialog=document.querySelector('#seed-dialog');
 const storageKey='animic-cartographia-mutabilis-relations-v1';
 let active='codex';
 let queue=[];
+let tracedPair=[];
 let relations=readRelations();
 
 for(const group of constellations){
@@ -43,6 +48,7 @@ map.addEventListener('click',event=>{
   const [label,description]=descriptions.get(active);
   title.textContent=label;desc.textContent=description;
   document.querySelectorAll('[data-node]').forEach(node=>node.classList.toggle('active',node.dataset.node===active));
+  if(queue.length===1&&queue[0]!==active)drawRelation([queue[0],active],'preview');
 });
 
 relateButton.addEventListener('click',()=>{
@@ -55,12 +61,14 @@ relateButton.addEventListener('click',()=>{
   }
   syncQueue();
   if(queue.length===2){
-    const labels=queue.map(id=>descriptions.get(id)[0]);
-    const known=canonicalPair(queue);
-    relations.unshift({at:new Date().toISOString(),nodes:[...queue],state:known?'canònica':'emergent'});
+    const pair=[...queue];
+    const labels=pair.map(id=>descriptions.get(id)[0]);
+    const known=canonicalPair(pair);
+    relations.unshift({at:new Date().toISOString(),nodes:pair,state:known?'canònica':'emergent'});
     relations=relations.slice(0,24);
     localStorage.setItem(storageKey,JSON.stringify(relations));
     output.textContent=`INTER NOS · ${labels.join(' ↔ ')} · ${known?'relació canònica':'relació emergent'} · no canonitza`;
+    tracedPair=pair;drawRelation(pair,known?'canonical':'emergent');
     queue=[];syncQueue();renderRelations();
   }
 });
@@ -75,8 +83,8 @@ document.querySelector('#keep-seed').addEventListener('click',event=>{
   output.textContent=`Llavor sembrada a ${descriptions.get(active)[0]} · provisional i reversible`;
   document.querySelector('#seed-text').value='';renderRelations();
 });
-document.querySelector('#clear').addEventListener('click',()=>{
-  relations=[];localStorage.removeItem(storageKey);renderRelations();output.textContent='Relacions locals retirades.';
+clearButton.addEventListener('click',()=>{
+  relations=[];queue=[];tracedPair=[];localStorage.removeItem(storageKey);renderRelations();syncQueue();drawRelation([]);output.textContent='Relacions locals retirades.';
 });
 
 function canonicalPair(pair){
@@ -85,14 +93,41 @@ function canonicalPair(pair){
 }
 function syncQueue(){
   document.querySelectorAll('[data-node]').forEach(node=>node.classList.toggle('queued',queue.includes(node.dataset.node)));
-  if(queue.length===1)output.textContent=`Primer node: ${descriptions.get(queue[0])[0]}. Tria un segon node i prem Relaciona.`;
-  else if(queue.length===0&& !relations.length)output.textContent='Cap relació activa.';
+  if(queue.length===1){
+    output.textContent=`Primer node: ${descriptions.get(queue[0])[0]}. Tria un segon node i prem Relaciona.`;
+    if(queue[0]===active)drawRelation([]);
+  }else if(queue.length===0&&!relations.length){
+    output.textContent='Cap relació activa.';drawRelation([]);
+  }else if(queue.length===0&&tracedPair.length===2){
+    drawRelation(tracedPair,canonicalPair(tracedPair)?'canonical':'emergent');
+  }
+}
+function drawRelation(pair,state='emergent'){
+  if(pair.length!==2){relationField.classList.remove('visible','canonical');return;}
+  const nodes=pair.map(id=>map.querySelector(`[data-node="${id}"]`));
+  if(nodes.some(node=>!node))return;
+  const mapBox=map.getBoundingClientRect();
+  const points=nodes.map(node=>{const box=node.getBoundingClientRect();return {x:box.left+box.width/2-mapBox.left,y:box.top+box.height/2-mapBox.top};});
+  for(const line of [relationGlow,relationLine]){
+    line.setAttribute('x1',points[0].x);line.setAttribute('y1',points[0].y);
+    line.setAttribute('x2',points[1].x);line.setAttribute('y2',points[1].y);
+  }
+  relationField.classList.toggle('canonical',state==='canonical');
+  relationField.classList.add('visible');
 }
 function readRelations(){
   try{const value=JSON.parse(localStorage.getItem(storageKey)||'[]');return Array.isArray(value)?value:[]}catch{return []}
 }
 function renderRelations(){
+  document.querySelectorAll('[data-node]').forEach(node=>node.classList.remove('remembered'));
+  clearButton.disabled=!relations.length;
   if(!relations.length){relationList.innerHTML='<li class="empty">Encara no hi ha cap relació local.</li>';return;}
+  const latestPair=relations.find(item=>item.nodes?.length===2);
+  if(latestPair){
+    tracedPair=[...latestPair.nodes];
+    tracedPair.forEach(id=>map.querySelector(`[data-node="${id}"]`)?.classList.add('remembered'));
+    requestAnimationFrame(()=>drawRelation(tracedPair,latestPair.state==='canònica'?'canonical':'emergent'));
+  }
   relationList.replaceChildren(...relations.map(item=>{
     const li=document.createElement('li');
     const labels=item.nodes.map(id=>descriptions.get(id)?.[0]||id).join(' ↔ ');
@@ -101,4 +136,6 @@ function renderRelations(){
     li.append(content,state);return li;
   }));
 }
+
+window.addEventListener('resize',()=>{if(tracedPair.length===2)drawRelation(tracedPair,canonicalPair(tracedPair)?'canonical':'emergent')});
 renderRelations();
