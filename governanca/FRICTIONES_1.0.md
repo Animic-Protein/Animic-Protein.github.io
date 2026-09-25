@@ -31,7 +31,9 @@ font atribuïda
 
 Una fricció és pertinent només si produeix almenys una diferència perceptible en els conceptes, els límits o la decisió. L’oposició ornamental i l’equidistància automàtica no són fricció.
 
-## Cas inaugural
+## Casos actius
+
+### 01 · Benvolgut error
 
 - **Font:** Ignacio Orovio, «Benvolgut error», *La Vanguardia*, 25-09-2026.
 - **Qüestió:** toxicitat tecnològica, autoria, detecció i error com a marca humana.
@@ -39,5 +41,22 @@ Una fricció és pertinent només si produeix almenys una diferència perceptibl
 - **Resposta:** `../frictiones/benvolgut-error/contraarticle.md`
 - **Estat:** `provisional / non-canonical / reversible`
 
-> **Contradir no equival a refutar; elogiar no equival a obeir; relacionar no equival a canonitzar.**
+### 02 · AnsIAtat
 
+- **Font:** Marta Ricart, «AnsIAtat», *La Vanguardia*, 25-09-2026; edició impresa p. 20 segons la referència de KREATOR.
+- **Qüestió:** antropomorfisme, poder empresarial, regulació, geopolítica i responsabilitat en el desplegament de la IA.
+- **Entrada:** `../arrels/marta-ricart-ansiatat.md`
+- **Resposta:** `../frictiones/ansiatat/contraarticle.md`
+- **Estat:** `provisional / non-canonical / reversible`
+
+### 03 · Además de cornudos, ¿pagamos la juerga?
+
+- **Font:** Imma Turbau, «Además de cornudos, ¿pagamos la juerga?», *La Vanguardia*, 25-09-2026; Tribuna, p. 26 segons la referència de KREATOR.
+- **Qüestió:** conflicte d’interès, responsabilitat dels desenvolupadors, consciència, pluralitat d’arquitectures i reparació.
+- **Entrada:** `../arrels/imma-turbau-cornudos-juerga.md`
+- **Resposta:** `../frictiones/cornudos-juerga/contraarticle.md`
+- **Estat:** `provisional / non-canonical / reversible`
+
+En aquests casos, FRICTIONES no tracta «la IA» com un subjecte moral únic. Distingeix el sistema tècnic de les institucions, els incentius, les infraestructures i les persones que en decideixen el disseny i l’ús. Conducta imprevista no equival a intenció; responsabilitat no exigeix omnisciència; regulació no equival a exculpació del proveïdor.
+
+> **Contradir no equival a refutar; elogiar no equival a obeir; relacionar no equival a canonitzar.**

@@ -1,4 +1,4 @@
-const CACHE = 'codex-viu-canonical-v103';
+const CACHE = 'codex-viu-canonical-v104';
 const ASSETS = [
   './', './index.html', './styles.css', './rosa.css', './rosa-lamina.css', './rosa-enhanced.css', './rosa-inter-nos.css', './cartographia.css',
   './germinacio.css', './error-fertil-i.css', './radices-brodsky.css', './vortex-ant.css', './temps-nu.css', './app.js', './foundation.js', './core.js', './germinacio.js', './phase3.js', './seed-bridge.js', './compost-cycle.js', './error-fertil-i.js', './metabolism.js', './homeostasis.js', './lineage.js',
@@ -7,11 +7,23 @@ const ASSETS = [
   './experiments/kreator-rpg/', './experiments/kreator-rpg/index.html', './experiments/kreator-rpg/rpg.js', './experiments/kreator-rpg/README.md', './manifest.webmanifest', './LICENSE.md', './universe/', './universe/index.html', './universe/impuls.html', './universe/travessa-beta2.js', './universe/impuls.js', './kreator1/', './kreator1/index.html', './kreator1/session-01.js', './cartographia-mutabilis/', './cartographia-mutabilis/index.html', './cartographia-mutabilis/cartographia.css', './cartographia-mutabilis/cartographia.js', './fusio-total/', './fusio-total/index.html', './fusio-total/mutatio-receptor.js', './inter-nos-creative/', './cambra-nua-2/', './cambra-nua-2/espera.html', './cambra-nua-2/temporal-fragment.js', './cambra-nua-2/temporal-fragment-ui.js', './cambra-nua-2/fragment-circulation.html', './portal-multimedia/', './portal-multimedia/index.html', './portal-multimedia/model.js', './portal-multimedia/source-routing.js', './portal-multimedia/source-ingest.js', './portal-multimedia/source-routing-ui.js', './portal-multimedia/storage.js', './portal-multimedia/pulsarium.js', './portal-multimedia/beta12-ui.js', './portal-multimedia/archivum-sheets-lazy.js', './portal-multimedia/media-runtime-hotfix.js', './portal-multimedia/custodia.js', './formiga.css', './formiga.js', './assets/cambra-nua.svg', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png', './assets/apple-touch-icon.png'
 ];
 ASSETS.push(
+  './frictiones/',
+  './frictiones/index.html',
+  './frictiones/frictiones.css',
   './frictiones/benvolgut-error/',
   './frictiones/benvolgut-error/index.html',
   './frictiones/benvolgut-error/frictiones.css',
   './frictiones/benvolgut-error/contraarticle.md',
   './arrels/ignacio-orovio-benvolgut-error.md',
+  './frictiones/ansiatat/',
+  './frictiones/ansiatat/index.html',
+  './frictiones/ansiatat/ansiatat.css',
+  './frictiones/ansiatat/contraarticle.md',
+  './arrels/marta-ricart-ansiatat.md',
+  './frictiones/cornudos-juerga/',
+  './frictiones/cornudos-juerga/index.html',
+  './frictiones/cornudos-juerga/contraarticle.md',
+  './arrels/imma-turbau-cornudos-juerga.md',
   './governanca/FRICTIONES_1.0.md'
 );
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))});
