@@ -21,21 +21,21 @@
       <section class="hero">
         <p class="eyebrow">MAPA VIU · CARTOGRAPHIA MUTABILIS</p>
         <h1>El Còdex com a<br><em>relació visible.</em></h1>
-        <p class="lead">No és un índex ni un òrgan que decideix. Mostra constel·lacions, permet aproximar dos nodes i conserva una relació local, provisional i reversible.</p>
-        <div class="status"><b>Funció actual</b> Vista relacional transversal · <b>Genealogia</b> PR #2–#5 · <b>Límit</b> relacionar ≠ canonitzar</div>
+        <p class="lead">No és un índex ni un òrgan que decideix. Detecta proximitats, proposa figures i espera la decisió humana abans de conservar-les.</p>
+        <div class="status"><b>Funció actual</b> Constel·lació viva · <b>Escala</b> 2–5 nodes · <b>Límit</b> relacionar ≠ canonitzar; proposar ≠ decidir</div>
       </section>
 
       <section class="workspace" aria-labelledby="map-title">
         <div class="heading">
           <div><p class="eyebrow">SET CONSTEL·LACIONS FUNDACIONALS</p><h2 id="map-title">Mapa Viu</h2></div>
-          <p>Toca un node per revelar-lo. Activa <strong>Relaciona</strong> en dos nodes per obrir INTER NOS.</p>
+          <p>Toca un node i afegeix-lo a la figura. Conserva una parella o deixa emergir una constel·lació de tres a cinc nodes.</p>
         </div>
 
         <div class="map-shell">
           <div class="map" id="map" aria-label="Constel·lacions de Cartographia Mutabilis">
             <svg class="relation-field" id="relation-field" aria-hidden="true">
-              <line id="relation-glow"></line>
-              <line id="relation-line"></line>
+              <path id="relation-glow"></path>
+              <path id="relation-line"></path>
             </svg>
             <div class="orbit orbit-a" aria-hidden="true"></div>
             <div class="orbit orbit-b" aria-hidden="true"></div>
@@ -46,10 +46,22 @@
             <p class="eyebrow">NODE ACTIU</p>
             <h3 id="node-title">Còdex Viu</h3>
             <p id="node-desc">Centre relacional de l’organisme. Tot pot connectar-se, transformar-se i retornar sense perdre procedència.</p>
+            <label class="relation-kind">Tipus de relació
+              <select id="relation-type">
+                <option value="resonance">Ressonància activa</option>
+                <option value="causality">Causalitat</option>
+                <option value="hypothesis">Hipòtesi</option>
+                <option value="reciprocity">Reciprocitat</option>
+                <option value="tension">Tensió fèrtil</option>
+              </select>
+            </label>
             <div class="actions">
-              <button id="relate">Relaciona</button>
+              <button id="relate">Afegeix a la figura</button>
               <button id="seed">Sembra</button>
+              <button id="keep-pair" disabled>Conserva parella</button>
+              <button id="propose-figure" disabled>Proposa constel·lació</button>
             </div>
+            <div class="selection" id="selection" aria-live="polite">0 / 5 nodes seleccionats</div>
             <div class="output" id="output">Cap relació activa.</div>
           </aside>
         </div>
@@ -57,14 +69,14 @@
 
       <section class="memory" aria-labelledby="memory-title">
         <div><p class="eyebrow">INTER NOS · MEMÒRIA LOCAL</p><h2 id="memory-title">Relacions conservades</h2></div>
-        <p>Estats recuperats: <i>canònica</i>, <i>emergent</i>, <i>sembrada</i> i <i>compostada</i>. Aquesta pàgina només conserva rastres en aquest navegador.</p>
+        <p>Parelles, llavors i constel·lacions amb decisió humana i provenance. Aquesta pàgina només conserva rastres reversibles en aquest navegador.</p>
         <ol id="relations"><li class="empty">Encara no hi ha cap relació local.</li></ol>
         <button class="quiet" id="clear">Retirar relacions locals</button>
       </section>
 
       <section class="genealogy">
-        <p><b>Què s’ha recuperat?</b> La funció relacional del Mapa Viu publicat el 25 d’agost de 2026: set constel·lacions, nodes revelables, relació per parelles, sembra i memòria reversible.</p>
-        <p><b>Què no fa?</b> No substitueix la fisiologia de CONIUNCTIO, no excava com STRATUM i no converteix cap relació en cànon.</p>
+        <p><b>Què ha evolucionat?</b> La relació per parelles pot obrir ara figures de tres a cinc nodes, tipades com a causalitat, ressonància, hipòtesi, reciprocitat o tensió.</p>
+        <p><b>Què no fa?</b> Cartographia suggereix una figura; només la persona pot deixar-la en QUIET o sembrar-la. Cap figura es converteix automàticament en cànon.</p>
         <nav><a href="../universe/">CONIUNCTIO · fisiologia operativa</a><a href="../stratum/">STRATUM · genealogia documentada</a><a href="../inter-nos-creative/">INTER NOS · escolta recíproca</a></nav>
       </section>
     </main>
@@ -76,6 +88,21 @@
         <h2>Deixa una possibilitat</h2>
         <label>Llavor <textarea id="seed-text" placeholder="Una intuïció que encara no és llei…"></textarea></label>
         <button class="primary" id="keep-seed" value="default">Conservar com a sembrada</button>
+      </form>
+    </dialog>
+
+    <dialog id="figure-dialog">
+      <form method="dialog" id="figure-form">
+        <button class="close" value="cancel" aria-label="Tancar">×</button>
+        <p class="eyebrow">SUGGESTED FIGURE · DECISIÓ HUMANA PENDENT</p>
+        <h2>Una figura ha emergit</h2>
+        <p id="figure-nodes" class="figure-nodes"></p>
+        <label>Nom provisional <input id="figure-name" maxlength="80" required></label>
+        <label>Per què podria existir? <textarea id="figure-rationale" maxlength="360" placeholder="Una hipòtesi, no una conclusió…"></textarea></label>
+        <div class="decision-actions">
+          <button class="quiet-decision" id="quiet-figure" value="quiet">QUIET · no materialitzar</button>
+          <button class="primary" id="seed-figure" value="seed">SEMBRAR · decisió humana</button>
+        </div>
       </form>
     </dialog>
 
