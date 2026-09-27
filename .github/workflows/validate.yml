@@ -36,6 +36,7 @@ jobs:
         run: |
           npx playwright install --with-deps --only-shell chromium
           node --test cambra-nua-2/trace-history.test.mjs
+          node --test cambra-nua-2/perceived-duration.test.mjs
           node cambra-nua-2/trace-history.browser.test.mjs
       - name: Coherència del Site
         run: node scripts/validate-site.mjs
