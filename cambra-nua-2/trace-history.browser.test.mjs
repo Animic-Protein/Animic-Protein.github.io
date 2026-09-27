@@ -42,6 +42,8 @@ try {
   }, legacy);
   await page.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/`, { waitUntil: "networkidle" });
 
+  await page.locator('[data-mobile="time"]').tap();
+  assert.equal(await page.getByRole("link", { name: /Entrar a l’exercici del temps/ }).getAttribute("href"), "./espera.html");
   await page.locator('[data-mobile="trace"]').tap();
   assert.equal(await page.locator("#traceData .trace-capture").count(), 1);
   assert.match(await page.locator("#traceData .trace-capture").textContent(), /Rastre anterior/);
@@ -66,6 +68,29 @@ try {
   await page.locator("#forget").tap();
   assert.equal(await page.evaluate(() => localStorage.getItem("cambra.salaBlanca")), null);
   assert.equal(await page.locator("#traceData .trace-capture").count(), 0);
+
+  const timePage = await context.newPage();
+  await timePage.addInitScript(() => {
+    let now = 1000;
+    Object.defineProperty(performance, "now", { configurable: true, value: () => now });
+    window.advanceTestClock = (milliseconds) => { now += milliseconds; };
+  });
+  await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/espera.html`, { waitUntil: "networkidle" });
+  await timePage.locator("#start").tap();
+  assert.equal(await timePage.locator("#estimate").isVisible(), false, "no es mostra la durada mentre corre el cronòmetre");
+  assert.equal(await timePage.locator("#chrono").textContent(), "—", "el temps real roman ocult durant l’espera");
+  await timePage.evaluate(() => window.advanceTestClock(668000));
+  await timePage.locator("#start").tap();
+  await timePage.locator("#perceived").fill("09:33");
+  await timePage.locator("#reveal").tap();
+  assert.equal(await timePage.locator("#chrono").textContent(), "11′08″");
+  assert.equal(await timePage.locator("#felt").textContent(), "9′33″");
+  assert.equal(await timePage.locator("#historyList .capture").count(), 1);
+  assert.equal(await timePage.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true, "l’exercici no ha de desbordar en mòbil");
+  await timePage.reload({ waitUntil: "networkidle" });
+  assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
+  await timePage.locator("#clearHistory").tap();
+  assert.equal(await timePage.locator("#historyList .capture").count(), 0, "la retirada explícita dissol les captures d’aquest exercici");
   console.log("Cambra Nua · proves Chromium mòbil: OK");
 } finally {
   await browser?.close();
