@@ -462,6 +462,18 @@
         border-radius: 16px;
         overflow: hidden;
       }
+      .trace-capture h3 {
+        margin: 0;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        background: #f6f7f8;
+        font:
+          600 0.9rem/1.3 Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
       .trace div {
         background: #fff;
         padding: 14px;
@@ -746,24 +758,7 @@
           <div id="traceEmpty" class="empty">
             Encara no hi ha rastre. Travessa una omissió i pren una decisió.
           </div>
-          <div id="traceData" class="trace" hidden>
-            <div>
-              <small>MATERIAL</small>
-              <p id="tMaterial">—</p>
-            </div>
-            <div>
-              <small>ABSÈNCIA</small>
-              <p id="tAbsence">—</p>
-            </div>
-            <div>
-              <small>RESPOSTA DE LA SALA</small>
-              <p id="tRoom">—</p>
-            </div>
-            <div>
-              <small>DECISIÓ</small>
-              <p id="tDecision">—</p>
-            </div>
-          </div>
+          <div id="traceData" class="trace" aria-live="polite" hidden></div>
           <div class="actions" style="margin-top: 16px">
             <button class="button secondary" id="forget">
               Dissoldre el rastre
@@ -795,7 +790,12 @@
       ><button data-mobile="trace"><i></i>Rastre</button
       ><button data-mobile="return"><i></i>Retorn</button>
     </nav>
-    <script>
+    <script type="module">
+      import {
+        appendTrace,
+        readTraceHistory,
+        renderTraceHistory,
+      } from "./trace-history.mjs";
       const $ = (s) => document.querySelector(s),
         $$ = (s) => [...document.querySelectorAll(s)],
         root = document.documentElement,
@@ -990,15 +990,16 @@
       }
       $("#start").onclick = start;
       $("#stop").onclick = () => stop();
-      function showTrace(d) {
+      function showTrace(history) {
+        if (!history.length) {
+          $("#traceEmpty").hidden = false;
+          $("#traceData").hidden = true;
+          $("#traceData").replaceChildren();
+          return;
+        }
         $("#traceEmpty").hidden = true;
         $("#traceData").hidden = false;
-        $("#tMaterial").textContent = d.count + " polsos a " + d.tempo + " BPM";
-        $("#tAbsence").textContent = "Pols " + d.omit + " omès";
-        $("#tRoom").textContent = d.ghost
-          ? "La llum verda ha retornat després de l’ocre"
-          : "Rastre no confirmat";
-        $("#tDecision").textContent = d.decision || "Encara oberta";
+        $("#traceData").innerHTML = renderTraceHistory(history);
       }
       function saveTrace() {
         const d = {
@@ -1009,10 +1010,13 @@
           ghost,
           decision,
         };
+        let history;
         try {
-          localStorage.setItem("cambra.salaBlanca", JSON.stringify(d));
-        } catch (e) {}
-        showTrace(d);
+          history = appendTrace(localStorage, d);
+        } catch (e) {
+          history = [d];
+        }
+        showTrace(history);
       }
       $$("[data-decision]").forEach(
         (b) =>
@@ -1057,8 +1061,7 @@
           "La cambra ha oblidat. Torna a estar disponible.";
       };
       try {
-        const d = JSON.parse(localStorage.getItem("cambra.salaBlanca"));
-        if (d) showTrace(d);
+        showTrace(readTraceHistory(localStorage));
       } catch (e) {}
       document.addEventListener("visibilitychange", () => {
         if (document.hidden && running) stop(false);
