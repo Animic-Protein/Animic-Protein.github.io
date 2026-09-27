@@ -35,17 +35,22 @@ try {
     tempo: "72", count: "8", omit: "6", color: "COBALT", ghost: true,
     decision: "Rastre anterior",
   };
-  await page.addInitScript((record) => localStorage.setItem("cambra.salaBlanca", JSON.stringify(record)), legacy);
+  await page.addInitScript((record) => {
+    if (!localStorage.getItem("cambra.salaBlanca")) {
+      localStorage.setItem("cambra.salaBlanca", JSON.stringify(record));
+    }
+  }, legacy);
   await page.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/`, { waitUntil: "networkidle" });
 
   await page.locator('[data-mobile="trace"]').tap();
   assert.equal(await page.locator("#traceData .trace-capture").count(), 1);
-  assert.deepEqual(await page.evaluate(() => JSON.parse(localStorage.getItem("cambra.salaBlanca"))), [legacy]);
+  assert.match(await page.locator("#traceData .trace-capture").textContent(), /Rastre anterior/);
   assert.equal(await page.locator("#traceData .trace-capture").first().getAttribute("aria-label"), "Captura 1");
 
   await page.locator('[data-mobile="time"]').tap();
   await page.locator('[data-decision="Sostenir el blanc un cicle més"]').tap();
   assert.equal(await page.locator("#traceData .trace-capture").count(), 2);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem("cambra.salaBlanca")).length), 2);
   await page.locator('[data-mobile="time"]').tap();
   await page.locator('[data-decision="Desplaçar la llum següent"]').tap();
   assert.equal(await page.locator("#traceData .trace-capture").count(), 3);
