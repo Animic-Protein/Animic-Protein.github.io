@@ -1,4 +1,5 @@
-import {createTemporalFragment,relateTemporalFragment,TEMPORAL_DESTINATIONS} from './temporal-fragment.js';
+import {createTemporalFragment,relateTemporalFragment,TEMPORAL_DESTINATIONS,getWaitCaptures,clearWaitCaptures,TEMPORAL_CAPTURE_LIMIT} from './temporal-fragment.js';
+import {formatDuration} from './perceived-duration.mjs';
 
 let activeRecord=null;
 const wantsCirculation=()=>new URLSearchParams(location.search).get('return')==='circulation';
@@ -9,8 +10,23 @@ function ensureUi(){
   const box=document.createElement('section');
   box.id='temporalReturns';
   box.style.cssText='margin-top:18px;padding-top:16px;border-top:1px solid var(--line)';
-  box.innerHTML='<p class="ey">FRAGMENT TEMPORAL</p><p class="mut" id="fragmentState">Quan revelis la diferència, el Còdex conservarà un únic fragment local amb procedència.</p><div class="actions" id="fragmentActions"></div>';
+  box.innerHTML=`<p class="ey">FRAGMENT TEMPORAL</p><p class="mut" id="fragmentState">Cada captura revelada pot quedar com a fragment local, reversible i amb procedència. Es conserven les ${TEMPORAL_CAPTURE_LIMIT} més recents.</p><div class="actions" id="fragmentActions"></div>`;
   result.append(box);
+}
+
+function renderHistory(){
+  const list=document.querySelector('#historyList'),empty=document.querySelector('#historyEmpty'),clear=document.querySelector('#clearHistory');
+  if(!list||!empty||!clear)return;
+  const captures=getWaitCaptures();
+  list.replaceChildren();
+  empty.hidden=captures.length>0;
+  clear.hidden=captures.length===0;
+  captures.forEach((record,index)=>{
+    const card=document.createElement('article');card.className='capture';
+    const title=document.createElement('strong');title.textContent=`Captura ${captures.length-index} · ${formatDuration(record.fragment?.perceived)} percebuts`;
+    const detail=document.createElement('small');detail.textContent=`Cronològic ${formatDuration(record.fragment?.chronological)} · diferència ${Number(record.fragment?.difference||0).toFixed(1)} s`;
+    card.append(title,detail);list.append(card);
+  });
 }
 
 function renderActions(){
@@ -18,7 +34,7 @@ function renderActions(){
   const actions=document.querySelector('#fragmentActions'),state=document.querySelector('#fragmentState');
   if(!actions||!activeRecord)return;
   actions.replaceChildren();
-  state.textContent=`Fragment creat · diferència ${Number(activeRecord.fragment?.difference||0).toFixed(1)} s · origen ${activeRecord.provenance?.originId||'—'} · reversible · no canònic.`;
+  state.textContent=`Captura guardada localment · diferència ${Number(activeRecord.fragment?.difference||0).toFixed(1)} s · origen ${activeRecord.provenance?.originId||'—'} · reversible · no canònica.`;
 
   const circulation=document.createElement('a');
   circulation.className='button';
@@ -43,6 +59,7 @@ function renderActions(){
 window.addEventListener('codex:temporal-difference',event=>{
   try{
     activeRecord=createTemporalFragment(event.detail||{});
+    renderHistory();
     window.__codexTemporalFragment=activeRecord;
     renderActions();
     window.FormigaPont?.show?.('pont','La diferència ja té procedència. Ara pot circular sense duplicar-se.','./fragment-circulation.html?from=espera','Continuar amb el fragment');
@@ -52,5 +69,8 @@ window.addEventListener('codex:temporal-difference',event=>{
     const state=document.querySelector('#fragmentState');if(state)state.textContent='No s’ha pogut conservar el fragment. Torna a revelar la diferència.';
   }
 });
+
+document.querySelector('#clearHistory')?.addEventListener('click',()=>{clearWaitCaptures();renderHistory();document.querySelector('#fragmentActions')?.replaceChildren();document.querySelector('#fragmentState')?.replaceChildren(document.createTextNode('Les captures locals d’aquest exercici s’han dissolt.'))});
+renderHistory();
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureUi,{once:true});else ensureUi();

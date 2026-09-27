@@ -1,6 +1,8 @@
 import {createCodexMediaRecord,evolveRecord,validateRecord} from '../portal-multimedia/model.js';
 
 const STORE_KEY='animic.codex.temporal-fragments/v1';
+export const TEMPORAL_CAPTURE_LIMIT=20;
+const WAIT_URI='cambra-nua-2/espera.html';
 const now=()=>new Date().toISOString();
 const load=()=>{try{return JSON.parse(localStorage.getItem(STORE_KEY)||'{}')}catch{return{}}};
 const save=registry=>localStorage.setItem(STORE_KEY,JSON.stringify(registry));
@@ -13,7 +15,10 @@ export function createTemporalFragment(detail={}){
  let record=createCodexMediaRecord({source:{id:`src-${key}`,kind:'research',name:'Cambra Nua · Espera sense rellotge',uri:'cambra-nua-2/espera.html',mime:'application/vnd.animic.temporal-fragment+json',external:false,createdAt:now()},provenance:{originId:`src-${key}`,createdBy:'cambra-nua.temporal-fragment',reversible:true,history:[{at:now(),action:'temporal-test.completed',ref:key}]}});
  record=evolveRecord(record,'fragment',{id:`temporal-fragment-${key}`,kind:'temporal-perception-difference',chronological,perceived,difference,absoluteDifference:Math.abs(difference),sourceKind:'research',test:'espera-sense-rellotge',perceptibleDifference:Math.abs(difference)>=1});
  record=evolveRecord(record,'relation',{kind:'born-in-organ',target:'cambra-nua-del-temps',suggested:false,decisionRequired:false,canonical:false,reversible:true,traceRef:record.provenance.originId});
- const check=validateRecord(record);if(!check.valid)throw new Error('Fragment temporal invàlid: '+check.errors.join(', '));registry[key]=record;save(registry);return record;
+ const check=validateRecord(record);if(!check.valid)throw new Error('Fragment temporal invàlid: '+check.errors.join(', '));registry[key]=record;
+ const waiting=Object.entries(registry).filter(([,item])=>item.source?.uri===WAIT_URI).sort((a,b)=>String(a[1].source?.createdAt||'').localeCompare(String(b[1].source?.createdAt||'')));
+ waiting.slice(0,Math.max(0,waiting.length-TEMPORAL_CAPTURE_LIMIT)).forEach(([oldKey])=>delete registry[oldKey]);
+ save(registry);return record;
 }
 
 export const TEMPORAL_DESTINATIONS=Object.freeze({cambra:{target:'cambra-nua-del-temps',kind:'return-to-cambra',label:'Cambra Nua del Temps',href:'./'},resonance:{target:'biblioteca-de-ressonancies',kind:'return-to-resonance-library',label:'Biblioteca de Ressonàncies',href:'../#ressonancia'},compost:{target:'compost',kind:'return-to-compost',label:'Compost',href:'../#compost'},interNos:{target:'inter-nos',kind:'return-to-inter-nos',label:'INTER NOS',href:'../inter-nos-creative/#interlocutor'}});
@@ -26,6 +31,8 @@ export function relateTemporalFragment(record,destinationKey){
 }
 
 export function getTemporalFragments(){return Object.values(load())}
+export function getWaitCaptures(){return getTemporalFragments().filter(record=>record.source?.uri===WAIT_URI).sort((a,b)=>String(b.source?.createdAt||'').localeCompare(String(a.source?.createdAt||'')))}
+export function clearWaitCaptures(){const registry=load();Object.entries(registry).forEach(([key,record])=>{if(record.source?.uri===WAIT_URI)delete registry[key]});save(registry)}
 export const loadTemporalFragments=getTemporalFragments;
 export function routeTemporalFragment(recordId,target){
  const record=getTemporalFragments().find(r=>r.id===recordId||r.fragment?.id===recordId||r.provenance?.rootRecordId===recordId);if(!record)throw new Error('Fragment temporal no trobat');

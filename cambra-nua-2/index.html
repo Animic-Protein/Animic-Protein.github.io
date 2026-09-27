@@ -362,6 +362,28 @@
       .control {
         margin: 24px 0;
       }
+      .time-exercise {
+        margin: 0 0 26px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #f8f9fa;
+      }
+      .time-exercise h3 {
+        margin: 0 0 6px;
+        font: 400 1.5rem Georgia, serif;
+      }
+      .time-exercise p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+      .time-exercise .button {
+        min-height: 48px;
+      }
+      .route-title {
+        margin: 30px 0 4px;
+        font: 400 1.5rem Georgia, serif;
+      }
       .control label {
         display: flex;
         justify-content: space-between;
@@ -718,7 +740,17 @@
           </p>
         </section>
         <section class="view" id="view-time">
-          <h2>Fer visible el temps</h2>
+          <h2>Temps</h2>
+          <p>Dos exercicis independents per observar durada i absència.</p>
+          <section class="time-exercise" aria-labelledby="perception-title">
+            <h3 id="perception-title">Temps percebut · espera sense rellotge</h3>
+            <p>
+              Atura l’espera quan ho decideixis. Escriu primer el temps que has
+              percebut; només després veuràs el temps cronològic.
+            </p>
+            <a class="button" href="./espera.html">Entrar a l’exercici del temps →</a>
+          </section>
+          <h3 class="route-title">Travessa d’una absència</h3>
           <p>Una seqüència de llum i so omet un pols. Observa què queda.</p>
           <div class="control">
             <label>Tempo <strong id="tempoOut">72 BPM</strong></label
