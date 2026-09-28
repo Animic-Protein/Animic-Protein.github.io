@@ -19,7 +19,7 @@ Proposició canònica d’AP: **«Atura quan vulguis o creguis»**. El transcurs
 
 1. Presentar instruccions neutrals: no hi ha durada correcta, la persona pot aturar-se quan vulgui i pot abandonar sense donar cap motiu. No suggerir avorriment, creativitat ni una durada esperada abans de començar.
 2. Obtenir consentiment informat abans de qualsevol captació per a recerca. La prova personal de Cambra no envia dades: les captures queden al dispositiu, limitades a les 20 més recents, i es poden dissoldre des de la mateixa pàgina.
-3. Iniciar una sola espera en una sessió. Mantenir ocult el cronòmetre i registrar durada amb rellotge monotònic; no alterar ritme, durada o estímuls durant la tasca.
+3. Iniciar una sola espera en una sessió. Mantenir ocult el cronòmetre i registrar durada amb rellotge monotònic; no alterar ritme, durada o estímuls durant la tasca. Canviar d’aplicació o perdre visibilitat no és una aturada voluntària i mai no l’ha de substituir. Si el dispositiu suspèn la pàgina, marcar la cronologia com a potencialment incompleta i no tractar-la com una mesura íntegra.
 4. Quan la persona premi «Aturar», demanar primer la durada percebuda (`minuts:segons` o segons). Només en confirmar-la revelar la durada cronològica i l’error.
 5. Després de la revelació, oferir les preguntes secundàries opcionals. No fer inferències automàtiques sobre motius, estat psicològic, creativitat o cultura.
 6. Fer un pilot cognitiu petit per comprovar comprensió, accessibilitat i incomoditat; revisar instruccions sense canviar la variable central. Després, preregistrar pregunta, durada màxima de seguretat si n’hi ha, exclusió de sessions interrompudes, mesures i anàlisi.

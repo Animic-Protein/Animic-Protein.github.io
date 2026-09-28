@@ -24,7 +24,7 @@ function renderHistory(){
   captures.forEach((record,index)=>{
     const card=document.createElement('article');card.className='capture';
     const title=document.createElement('strong');title.textContent=`Captura ${captures.length-index} · ${formatDuration(record.fragment?.perceived)} percebuts`;
-    const detail=document.createElement('small');detail.textContent=`Cronològic ${formatDuration(record.fragment?.chronological)} · diferència ${Number(record.fragment?.difference||0).toFixed(1)} s`;
+    const detail=document.createElement('small');detail.textContent=`Cronològic ${formatDuration(record.fragment?.chronological)} · diferència ${Number(record.fragment?.difference||0).toFixed(1)} s${record.fragment?.timingIntegrity==='backgrounded'?' · sessió en segon pla; cronologia potencialment incompleta':''}`;
     card.append(title,detail);list.append(card);
   });
 }
@@ -34,7 +34,7 @@ function renderActions(){
   const actions=document.querySelector('#fragmentActions'),state=document.querySelector('#fragmentState');
   if(!actions||!activeRecord)return;
   actions.replaceChildren();
-  state.textContent=`Captura guardada localment · diferència ${Number(activeRecord.fragment?.difference||0).toFixed(1)} s · origen ${activeRecord.provenance?.originId||'—'} · reversible · no canònica.`;
+  state.textContent=`Captura guardada localment · diferència ${Number(activeRecord.fragment?.difference||0).toFixed(1)} s · origen ${activeRecord.provenance?.originId||'—'} · ${activeRecord.fragment?.timingIntegrity==='backgrounded'?'en segon pla; cronologia potencialment incompleta · ':''}reversible · no canònica.`;
 
   const circulation=document.createElement('a');
   circulation.className='button';
