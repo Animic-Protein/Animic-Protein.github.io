@@ -41,7 +41,9 @@ function render(showRoutes = false, notice = "") {
   if (!record) return empty();
 
   const active = lastTarget(record);
-  const routed = new Set((record.relation || []).map((item) => item.target));
+  const routed = new Set((record.relation || [])
+    .filter((item) => Object.values(TEMPORAL_FRAGMENT_TARGETS).some((destination) => destination.kind === item.kind))
+    .map((item) => item.target));
   routed.add("cambra-nua-del-temps");
   const difference = Number(record.fragment?.difference || 0);
   const destinations = Object.entries(TEMPORAL_FRAGMENT_TARGETS);
@@ -59,7 +61,9 @@ function render(showRoutes = false, notice = "") {
     <p class="ey">DECISIÓ DE RETORN</p><p class="mut">Una connexió disponible no és una instrucció. Relacionar conserva la decisió; obrir et porta a l’òrgan.</p>
     <p id="routeStatus" class="mut" role="status" aria-live="polite">${notice}</p>
     <div class="route">${destinations.map(([target, destination]) => {
-      const alreadyRelated = routed.has(target);
+      const alreadyRelated = (record.relation || []).some(
+        (item) => item.target === target && item.kind === destination.kind,
+      );
       const href = destination.href || "#";
       return `<article class="organ ${active === target ? "active" : ""}" data-organ="${target}">
         <span class="badge ${alreadyRelated ? "on" : ""}">${active === target ? "ACTIU" : alreadyRelated ? "RELACIONAT" : "DISPONIBLE"}</span>
@@ -81,7 +85,9 @@ function render(showRoutes = false, notice = "") {
   view.querySelectorAll("[data-route]").forEach((button) => {
     button.addEventListener("click", () => {
       const target = button.dataset.route;
-      const alreadyRelated = (record.relation || []).some((item) => item.target === target);
+      const alreadyRelated = (record.relation || []).some(
+        (item) => item.target === target && item.kind === TEMPORAL_FRAGMENT_TARGETS[target]?.kind,
+      );
       routeTemporalFragment(record.id, target);
       const label = labels[target] || target;
       const message = alreadyRelated
