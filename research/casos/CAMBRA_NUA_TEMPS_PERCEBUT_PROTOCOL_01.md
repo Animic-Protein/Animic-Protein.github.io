@@ -1,12 +1,14 @@
 # Cambra Nua · Temps percebut · protocol de prova 01
 
-**Estat:** proposta metodològica · pilot personal · no és recerca validada ni canònica  
+**Estat:** proposta metodològica · el marc canònic d’AP és la disposició «avorriment com a possible caldo de cultiu»; la relació causal continua sent una hipòtesi empírica oberta  
 **Espai:** Cambra Nua del Temps → Temps percebut → Espera sense rellotge  
 **Separació:** exercici de durada percebuda; no és la Travessa de pols i absència.
 
 ## Pregunta i mesura
 
 Pregunta inicial: **com varia l’estimació retrospectiva d’una espera sense rellotge visible, i com es relaciona amb l’estat d’avorriment que la persona declara després?**
+
+Proposició canònica d’AP: **«Atura quan vulguis o creguis»**. El transcurs pot arribar a l’avorriment, que AP considera possible terreny per a l’emergència creativa. Això orienta l’espai i la seva lectura; no anticipa el resultat d’una sessió ni substitueix l’avaluació científica.
 
 - Mesura principal: durada cronològica fins a l’aturada voluntària, durada percebuda declarada abans de revelar el cronòmetre i error signat (percebuda − cronològica).
 - Mesures secundàries opcionals, recollides després de la revelació: avorriment, atenció dispersa o sostinguda, malestar i motiu que la persona atribueix a l’aturada. Incloure «cap motiu concret», «altre» i «prefereixo no respondre».
@@ -28,6 +30,14 @@ Pregunta inicial: **com varia l’estimació retrospectiva d’una espera sense 
 - Analitzar error signat i error absolut; publicar també la durada real i la distribució de durades. Un percentatge relatiu pot explotar quan la durada real és molt curta, així que no usar-lo com a únic resultat.
 - Per a associacions amb avorriment, mostrar dispersió i incertesa; distingir associació de causalitat. La decisió d’aturar pot ser un resultat conductual, però no explica per si sola per què s’ha aturat.
 - Comparar grups només amb mostres i hipòtesis prèvies adequades. Edat, identitat de gènere, sexe i context cultural no són substituts entre si ni causes per defecte.
+- L’ocultació del cronòmetre no és «doble cec»: la persona sap que el rellotge no es veu i el facilitador coneix el procediment. Es pot evitar revelar abans la hipòtesi específica per reduir expectatives, amb informació i consentiment adequats; els avaluadors de produccions creatives poden romandre cecs a condició i durada.
+- Si es vol provar l’emergència creativa, afegir-la com a fase posterior a l’estimació i revelació del temps; preregistrar una tasca creativa breu, dimensions de puntuació i fiabilitat entre avaluadors. No puntuar les notes lliures de l’exercici com si fossin una prova estandarditzada.
+
+## Referents i interpretació cultural
+
+- Joseph Brodsky, «In Praise of Boredom», és una ponència/sermó de graduació de 1989 recollit a *On Grief and Reason* (1995): una arrel literària i filosòfica del projecte, no una publicació experimental.
+- Ed Sheeran ha explicat en una conversa pública que deixar espai sense telèfon i avorrir-se pot acompanyar l’arribada d’idees musicals. És un testimoni d’artista útil per plantejar preguntes, no una mostra ni una prova causal.
+- Separar sempre: principi canònic d’AP, testimoni cultural, observació individual i resultat empíric. No convertir cap d’aquests nivells en un altre.
 
 ## Variables de context, amb prudència
 
@@ -54,5 +64,8 @@ Un estudi amb 66 participants en sales d’espera de realitat virtual va trobar 
 ## Referències
 
 - Martarelli, C. S., Weibel, D., Popic, D. & Wolff, W. (2024). [Time in suspense: investigating boredom and related states in a virtual waiting room](https://doi.org/10.1080/02699931.2024.2349279). *Cognition and Emotion*, 38(7), 1080–1094.
+- Zeißig, A., Kansok-Dusche, J., Fischer, S. M., Moeller, J. & Bilz, L. (2024). [The association between boredom and creativity in educational contexts: A scoping review on research approaches and empirical findings](https://doi.org/10.1002/rev3.3470). *Review of Education*, 12, e3470.
+- Mann, S. & Cadman, R. (2014). [Does Being Bored Make Us More Creative?](https://doi.org/10.1080/10400419.2014.901073). *Creativity Research Journal*, 26(2), 165–173.
+- Sheeran, E. (2024). [Session 24: Ed Sheeran, *Therapuss with Jake Shane*](https://podcasts.apple.com/es/podcast/session-24-ed-sheeran/id1723626781?i=1000657994281) — testimoni, no estudi científic.
 - Agència Espanyola de Protecció de Dades. [Protecció de dades per defecte](https://www.aepd.es/derechos-y-deberes/cumple-tus-deberes/medidas-de-cumplimiento/proteccion-de-datos-por-defecto).
 - Agència Espanyola de Protecció de Dades. [Principis del tractament, inclosa la minimització](https://www.aepd.es/preguntas-frecuentes/2-tus-obligaciones-como-responsable-del-tratamiento/4-los-principios-del-tratamiento/FAQ-0207-que-principios-debo-cumplir).
