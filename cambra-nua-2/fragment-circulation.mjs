@@ -79,7 +79,6 @@ function render(showRoutes = false, notice = "") {
   view.querySelector("#reveal")?.addEventListener("click", () => {
     routes.hidden = false;
     view.querySelector("#reveal").hidden = true;
-    window.FormigaPont?.show?.("pont", "Hi ha continuacions possibles. Cap no exigeix ser travessada.", "#routes", "Veure sense decidir");
   });
 
   view.querySelectorAll("[data-route]").forEach((button) => {
