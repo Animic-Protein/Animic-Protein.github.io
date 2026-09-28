@@ -94,7 +94,6 @@ function render(showRoutes = false, notice = "") {
         ? `Aquest fragment ja està relacionat amb ${label}. No s’ha duplicat.`
         : `Relació guardada amb ${label}. Ara pots obrir l’òrgan o continuar aquí.`;
       render(true, message);
-      window.FormigaPont?.show?.("pont", message, TEMPORAL_FRAGMENT_TARGETS[target]?.href || "#routes", "Obrir l’òrgan");
     });
   });
 }
