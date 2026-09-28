@@ -76,6 +76,7 @@ try {
     window.advanceTestClock = (milliseconds) => { now += milliseconds; };
   });
   await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/espera.html`, { waitUntil: "networkidle" });
+  assert.equal(await timePage.locator("#canonTitle").isVisible(), false, "la disposició canònica no ha d’induir la resposta abans de la mesura");
   await timePage.locator("#start").tap();
   assert.equal(await timePage.locator("#estimate").isVisible(), false, "no es mostra la durada mentre corre el cronòmetre");
   assert.equal(await timePage.locator("#chrono").textContent(), "—", "el temps real roman ocult durant l’espera");
@@ -83,12 +84,16 @@ try {
   await timePage.locator("#start").tap();
   await timePage.locator("#perceived").fill("09:33");
   await timePage.locator("#reveal").tap();
+  assert.equal(await timePage.locator("#canonTitle").isVisible(), true, "la disposició canònica es mostra després de la comparació");
   assert.equal(await timePage.locator("#chrono").textContent(), "11′08″");
   assert.equal(await timePage.locator("#felt").textContent(), "9′33″");
+  await timePage.locator("#emergence").fill("idea de prova no persistent");
   assert.equal(await timePage.locator("#historyList .capture").count(), 1);
   assert.equal(await timePage.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true, "l’exercici no ha de desbordar en mòbil");
   await timePage.reload({ waitUntil: "networkidle" });
   assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
+  assert.equal(await timePage.locator("#emergence").inputValue(), "", "la nota creativa no es conserva en recarregar");
+  assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
   await timePage.locator("#clearHistory").tap();
   assert.equal(await timePage.locator("#historyList .capture").count(), 0, "la retirada explícita dissol les captures d’aquest exercici");
   console.log("Cambra Nua · proves Chromium mòbil: OK");
