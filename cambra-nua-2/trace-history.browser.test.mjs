@@ -81,6 +81,17 @@ try {
   assert.equal(await timePage.locator("#estimate").isVisible(), false, "no es mostra la durada mentre corre el cronòmetre");
   assert.equal(await timePage.locator("#chrono").textContent(), "—", "el temps real roman ocult durant l’espera");
   await timePage.evaluate(() => window.advanceTestClock(668000));
+  await timePage.evaluate(() => {
+    Object.defineProperty(document, "hidden", { configurable: true, value: true });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  assert.equal(await timePage.locator("#estimate").isVisible(), false, "passar a segon pla no ha de decidir l’aturada humana");
+  assert.equal(await timePage.locator("#start").textContent(), "Aturar quan ho sentis");
+  await timePage.evaluate(() => {
+    Object.defineProperty(document, "hidden", { configurable: true, value: false });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  assert.match(await timePage.locator("#instruction").textContent(), /pot ser incompleta/);
   await timePage.locator("#start").tap();
   await timePage.locator("#perceived").fill("09:33");
   await timePage.locator("#reveal").tap();
@@ -89,6 +100,7 @@ try {
   assert.equal(await timePage.locator("#felt").textContent(), "9′33″");
   await timePage.locator("#emergence").fill("idea de prova no persistent");
   assert.equal(await timePage.locator("#historyList .capture").count(), 1);
+  assert.match(await timePage.locator("#historyList .capture").textContent(), /cronologia potencialment incompleta/);
   assert.equal(await timePage.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true, "l’exercici no ha de desbordar en mòbil");
   await timePage.reload({ waitUntil: "networkidle" });
   assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
