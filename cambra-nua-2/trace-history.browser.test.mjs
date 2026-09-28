@@ -94,6 +94,26 @@ try {
   assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
   assert.equal(await timePage.locator("#emergence").inputValue(), "", "la nota creativa no es conserva en recarregar");
   assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
+  await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/fragment-circulation.html?from=espera`, { waitUntil: "networkidle" });
+  await timePage.locator("#reveal").tap();
+  const organLinks = await timePage.locator("[data-open-organ]").evaluateAll((links) => Object.fromEntries(links.map((link) => [link.dataset.openOrgan, new URL(link.href).pathname + new URL(link.href).hash])));
+  assert.deepEqual(organLinks, {
+    "cambra-nua-del-temps": "/cambra-nua-2/",
+    "biblioteca-de-ressonancies": "/cartographia-mutabilis/",
+    compost: "/fusio-total/index.html#compost",
+    "inter-nos": "/inter-nos-creative/#interlocutor",
+  }, "cada òrgan ha d’obrir la seva ruta real");
+  await timePage.locator('[data-route="compost"]').tap();
+  assert.equal(await timePage.locator("#routes").isVisible(), true, "la llista no es plega després de relacionar");
+  assert.match(await timePage.locator("#routeStatus").textContent(), /Relació guardada amb Compost/);
+  assert.equal(await timePage.evaluate(() => {
+    const records = Object.values(JSON.parse(localStorage.getItem("animic.codex.temporal-fragments/v1")));
+    return records[0].relation.filter((item) => item.kind === "return-to-compost").length;
+  }), 1, "la selecció desa una sola relació reversible");
+  await timePage.locator('[data-open-organ="compost"]').tap();
+  assert.equal(new URL(timePage.url()).pathname, "/fusio-total/index.html");
+  assert.equal(new URL(timePage.url()).hash, "#compost");
+  await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/espera.html`, { waitUntil: "networkidle" });
   await timePage.locator("#clearHistory").tap();
   assert.equal(await timePage.locator("#historyList .capture").count(), 0, "la retirada explícita dissol les captures d’aquest exercici");
   console.log("Cambra Nua · proves Chromium mòbil: OK");
