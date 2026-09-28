@@ -21,11 +21,12 @@ export function createTemporalFragment(detail={}){
  save(registry);return record;
 }
 
-export const TEMPORAL_DESTINATIONS=Object.freeze({cambra:{target:'cambra-nua-del-temps',kind:'return-to-cambra',label:'Cambra Nua del Temps',href:'./'},resonance:{target:'biblioteca-de-ressonancies',kind:'return-to-resonance-library',label:'Biblioteca de Ressonàncies',href:'../#ressonancia'},compost:{target:'compost',kind:'return-to-compost',label:'Compost',href:'../#compost'},interNos:{target:'inter-nos',kind:'return-to-inter-nos',label:'INTER NOS',href:'../inter-nos-creative/#interlocutor'}});
-export const TEMPORAL_FRAGMENT_TARGETS=Object.freeze(Object.fromEntries(Object.values(TEMPORAL_DESTINATIONS).map(d=>[d.target,{purpose:d.label,href:d.href}])));
+export const TEMPORAL_DESTINATIONS=Object.freeze({cambra:{target:'cambra-nua-del-temps',kind:'return-to-cambra',label:'Cambra Nua del Temps',href:'./'},resonance:{target:'biblioteca-de-ressonancies',kind:'return-to-resonance-library',label:'Cartographia Mutabilis · Biblioteca de Ressonàncies',href:'../cartographia-mutabilis/'},compost:{target:'compost',kind:'return-to-compost',label:'Compost',href:'../fusio-total/index.html#compost'},interNos:{target:'inter-nos',kind:'return-to-inter-nos',label:'INTER NOS',href:'../inter-nos-creative/#interlocutor'}});
+export const TEMPORAL_FRAGMENT_TARGETS=Object.freeze(Object.fromEntries(Object.values(TEMPORAL_DESTINATIONS).map(d=>[d.target,{purpose:d.label,href:d.href,kind:d.kind}])));
 
 export function relateTemporalFragment(record,destinationKey){
  const dest=TEMPORAL_DESTINATIONS[destinationKey];if(!dest)throw new Error('Destí temporal desconegut');
+ const existing=[...(record.relation||[])].reverse().find(x=>x.target===dest.target&&x.kind===dest.kind);if(existing)return{record,relation:existing,deduplicated:true,destination:dest};
  const next=evolveRecord(record,'relation',{kind:dest.kind,target:dest.target,label:dest.label,href:dest.href,traceRef:record.provenance?.originId||record.source?.id,suggested:false,humanDecision:true,decisionRequired:false,decisionResolved:true,canonical:false,reversible:true});
  const registry=load();const key=Object.keys(registry).find(k=>sameRoot(registry[k],record));if(!key)throw new Error('No s’ha pogut localitzar l’arrel del fragment');registry[key]=next;save(registry);return{record:next,relation:next.relation.at(-1),deduplicated:false,destination:dest};
 }
