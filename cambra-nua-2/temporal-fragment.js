@@ -22,7 +22,7 @@ export function createTemporalFragment(detail={}){
 }
 
 export const TEMPORAL_DESTINATIONS=Object.freeze({cambra:{target:'cambra-nua-del-temps',kind:'return-to-cambra',label:'Cambra Nua del Temps',href:'./'},resonance:{target:'biblioteca-de-ressonancies',kind:'return-to-resonance-library',label:'Cartographia Mutabilis · Biblioteca de Ressonàncies',href:'../cartographia-mutabilis/'},compost:{target:'compost',kind:'return-to-compost',label:'Compost',href:'../fusio-total/index.html#compost'},interNos:{target:'inter-nos',kind:'return-to-inter-nos',label:'INTER NOS',href:'../inter-nos-creative/#interlocutor'}});
-export const TEMPORAL_FRAGMENT_TARGETS=Object.freeze(Object.fromEntries(Object.values(TEMPORAL_DESTINATIONS).map(d=>[d.target,{purpose:d.label,href:d.href}])));
+export const TEMPORAL_FRAGMENT_TARGETS=Object.freeze(Object.fromEntries(Object.values(TEMPORAL_DESTINATIONS).map(d=>[d.target,{purpose:d.label,href:d.href,kind:d.kind}])));
 
 export function relateTemporalFragment(record,destinationKey){
  const dest=TEMPORAL_DESTINATIONS[destinationKey];if(!dest)throw new Error('Destí temporal desconegut');
