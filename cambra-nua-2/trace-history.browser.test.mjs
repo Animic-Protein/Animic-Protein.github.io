@@ -110,7 +110,10 @@ try {
     const records = Object.values(JSON.parse(localStorage.getItem("animic.codex.temporal-fragments/v1")));
     return records[0].relation.filter((item) => item.kind === "return-to-compost").length;
   }), 1, "la selecció desa una sola relació reversible");
-  await timePage.locator('[data-open-organ="compost"]').tap();
+  await Promise.all([
+    timePage.waitForURL((url) => url.pathname === "/fusio-total/index.html" && url.hash === "#compost"),
+    timePage.locator('[data-open-organ="compost"]').tap(),
+  ]);
   assert.equal(new URL(timePage.url()).pathname, "/fusio-total/index.html");
   assert.equal(new URL(timePage.url()).hash, "#compost");
   await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/espera.html`, { waitUntil: "networkidle" });
