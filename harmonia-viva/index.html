@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07110f" />
+  <title>Harmonia Viva · Cambra d’arranjament</title>
+  <meta name="description" content="Una cambra de la Rosa de l’Escolta per entrenar el pensament compositiu amb harmonia, instrumentació, densitat, registre i silenci." />
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./arranjament.css" />
+</head>
+<body>
+  <header class="masthead">
+    <a class="back" href="../universe/">← Rosa de l’Escolta</a>
+    <p class="eyebrow">HARMONIA VIVA · CAMBRA D’ARRANJAMENT 1.0</p>
+    <h1>No vesteixis la melodia.<br /><em>Escolta què necessita.</em></h1>
+    <p class="lead">Una taula per assajar relacions, no una màquina de donar l’acord correcte. Cada lectura és provisional; només la persona decideix què conserva.</p>
+  </header>
+
+  <main>
+    <section class="score panel" aria-labelledby="melodia-title">
+      <div class="section-head">
+        <div><p class="step">01 · FIGURA</p><h2 id="melodia-title">Dibuixa una melodia mínima</h2></div>
+        <button class="quiet" id="resetMelody" type="button">Restaurar</button>
+      </div>
+      <p class="hint">Toca cada grau per canviar-lo. «·» introdueix una respiració: el silenci també arranja.</p>
+      <div class="melody" id="melody" role="group" aria-label="Vuit passos de la melodia"></div>
+      <div class="transport">
+        <button class="primary" id="listenMelody" type="button">Escoltar figura</button>
+        <label>Tempo <input id="tempo" type="range" min="54" max="132" value="84" /><output id="tempoOut">84</output></label>
+      </div>
+    </section>
+
+    <section class="controls panel" aria-labelledby="camp-title">
+      <div class="section-head"><div><p class="step">02 · CAMP</p><h2 id="camp-title">Situa sense clausurar</h2></div></div>
+      <div class="control-grid">
+        <label>Centre tonal<select id="root"><option value="0">Do</option><option value="1">Re♭</option><option value="2">Re</option><option value="3">Mi♭</option><option value="4">Mi</option><option value="5">Fa</option><option value="6">Fa♯</option><option value="7">Sol</option><option value="8">La♭</option><option value="9">La</option><option value="10">Si♭</option><option value="11">Si</option></select></label>
+        <label>Mode<select id="mode"><option value="dorian">Dòric · clarobscur</option><option value="ionian">Jònic · obert</option><option value="aeolian">Eoli · ombrívol</option><option value="mixolydian">Mixolidi · terrenal</option></select></label>
+        <label>Cos instrumental<select id="ensemble"><option value="trio">Trio nu · baix, tecles, aire</option><option value="chamber">Cambra cobalt · corda, vidre, metall</option><option value="zajj">Zajj‑viu · pols, alè, risc</option><option value="electronic">Electrònic · sub, pad, impuls</option></select></label>
+        <label>Densitat<select id="density"><option value="air">Aire · una o dues veus</option><option value="dialogue">Diàleg · tres veus</option><option value="body">Cos · quatre veus</option></select></label>
+        <label>Registre<select id="register"><option value="open">Obert · extrems separats</option><option value="center">Central · veus pròximes</option><option value="high">Suspès · sense fonament greu</option></select></label>
+      </div>
+      <button class="propose" id="propose" type="button">Fer aparèixer tres lectures</button>
+    </section>
+
+    <section class="readings panel" id="readings" aria-labelledby="lectures-title" hidden>
+      <div class="section-head"><div><p class="step">03 · DIFERÈNCIA</p><h2 id="lectures-title">Tres lectures, cap veredicte</h2></div><span class="status" id="readingStatus" aria-live="polite">Tria amb l’orella</span></div>
+      <div class="reading-grid" id="readingGrid"></div>
+      <div class="arrangement-map" aria-label="Distribució funcional de l’arranjament">
+        <div><small>FONAMENT</small><strong id="foundationRole">—</strong></div>
+        <div><small>CENTRE</small><strong id="centerRole">—</strong></div>
+        <div><small>AIRE</small><strong id="airRole">—</strong></div>
+      </div>
+      <button class="primary wide" id="listenArrangement" type="button" disabled>Escoltar la lectura seleccionada</button>
+    </section>
+
+    <section class="dispositions panel" aria-labelledby="disp-title">
+      <div class="section-head"><div><p class="step">04 · DISPOSICIONS</p><h2 id="disp-title">Sis moviments d’un arranjador</h2></div></div>
+      <ol>
+        <li><b>Funció</b><span>Pregunta què fa cada so abans de preguntar com es diu.</span></li>
+        <li><b>Sosteniment</b><span>Harmonitza la melodia; no la substitueixis.</span></li>
+        <li><b>Registre</b><span>Separa fonament, centre i aire perquè cada gest sigui llegible.</span></li>
+        <li><b>Densitat</b><span>Retira una veu abans d’afegir-ne una altra.</span></li>
+        <li><b>Variació</b><span>Canvia un paràmetre cada vegada i conserva la font.</span></li>
+        <li><b>Espai</b><span>Deixa que una absència completi la frase.</span></li>
+      </ol>
+      <blockquote id="coach">Comença per la figura sola. L’arranjament encara no té dret a parlar.</blockquote>
+    </section>
+
+    <section class="decision panel" id="decision" aria-labelledby="decision-title" hidden>
+      <div class="section-head"><div><p class="step">05 · DECISIÓ HUMANA</p><h2 id="decision-title">Què fas amb aquesta diferència?</h2></div></div>
+      <p>Escoltar no canonitza. La teva decisió crea només un rastre local, provisional i dissoluble.</p>
+      <div class="decision-actions" role="group" aria-label="Decisió sobre la lectura">
+        <button data-decision="reobserve" type="button">Reobservar</button>
+        <button data-decision="relate" type="button">Relacionar</button>
+        <button data-decision="transform" type="button">Transformar</button>
+        <button data-decision="return" type="button">Retornar</button>
+      </div>
+      <pre id="trace" hidden></pre>
+      <div class="trace-actions" id="traceActions" hidden>
+        <button id="downloadTrace" type="button">Exportar rastre</button>
+        <button class="quiet" id="dissolveTrace" type="button">Dissoldre rastre local</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><b>Cadena:</b> figura → tres lectures suggerides → escolta → decisió humana → rastre local.</p>
+    <p>Proposar ≠ decidir · harmonitzar ≠ corregir · relacionar ≠ canonitzar.</p>
+    <a href="../governanca/HARMONIA_VIVA_ARRANJAMENT_1.0.md">Contracte de governança</a>
+  </footer>
+  <script src="./arranjament.js"></script>
+</body>
+</html>
