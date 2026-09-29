@@ -20,7 +20,7 @@ Invisibilis Kronos amaga la lectura del temps, no la decisió humana. La persona
 
 La diferència entre durades és una mesura de percepció temporal. El moment de prémer «Aturar» és una conducta observable. Cap dels dos, tot sol, llegeix l’inconscient o revela el motiu intern. La pàgina no canvia el ritme per dirigir la decisió, i cap decisió creativa s’executa automàticament. Si la pàgina passa a segon pla, això no atura el cronòmetre en nom de la persona; si el dispositiu la suspèn, la captura queda marcada com a cronologia potencialment incompleta.
 
-Després de declarar el temps percebut i veure la comparació, la persona pot anotar una paraula, una imatge, un ritme o una idea que hagi aparegut. És una invitació lliure, no un test ni un resultat que el Còdex puntua.
+Després de declarar el temps percebut i veure el temps cronològic real, la persona pot anotar una paraula, una imatge, un ritme o una idea que hagi aparegut. És una invitació lliure, no un test ni un resultat que el Còdex puntua. Un cop fet aquest registre, la interfície pot mostrar dues lectures calculades sobre la mateixa durada real: un rellotge simulat a 0,8× i un a 1,2×. Són representacions posteriors per comparar, no rellotges presents durant l’espera ni mesures del temps viscut.
 
 ## Mètode i límits
 

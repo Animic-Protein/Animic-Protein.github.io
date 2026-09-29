@@ -24,6 +24,10 @@ Proposició canònica d’AP: **«Atura quan vulguis o creguis»**. El transcurs
 5. Després de la revelació, oferir les preguntes secundàries opcionals. No fer inferències automàtiques sobre motius, estat psicològic, creativitat o cultura.
 6. Fer un pilot cognitiu petit per comprovar comprensió, accessibilitat i incomoditat; revisar instruccions sense canviar la variable central. Després, preregistrar pregunta, durada màxima de seguretat si n’hi ha, exclusió de sessions interrompudes, mesures i anàlisi.
 
+## Comparació simulada posterior · Invisibilis Kronos
+
+Després de registrar la durada percebuda i revelar la durada cronològica real —i després de qualsevol valoració secundària que formi part de la sessió— la interfície pot mostrar dues lectures calculades sobre la mateixa durada cronològica: un rellotge simulat a 0,8× i un altre a 1,2×. Aquest pas és opcional i reflexiu. Etiquetar les dues lectures com a simulacions posteriors; no les tractar com a rellotges observats durant l’espera, condicions experimentals, dades de percepció ni valors a incloure en l’error percebut − cronològic. No inferir què hauria sentit la persona sota aquestes condicions contrafactuals. La mesura d’aquesta prova continua essent l’estimació recollida abans de la revelació i la durada real oculta durant l’espera.
+
 ## Disseny i anàlisi
 
 - Començar amb estudi descriptiu intraindividual: sessions repetides separades, context anotat per la persona i ordre de condicions contrabalançat si s’introdueixen condicions. No presentar un pilot personal com una mostra representativa.
