@@ -25,13 +25,13 @@
     harmonia:{
       title:'Harmonia Viva',
       desc:'Llei, tensió, pedals, microtonalitat i bellesa que es fan escolta.',
-      href:'#cambres',
+      href:'./harmonia-viva/',
       color:'#d3ad61',
       nodes:[
-        {label:'Pedals',title:'Pedals harmònics',desc:'Arrel, dominant, doble, cromàtic, espectral i latent.',href:'#cambres'},
+        {label:'Pedals',title:'Pedals harmònics',desc:'Arrel, dominant, doble, cromàtic, espectral i latent.',href:'./harmonia-viva/'},
         {label:'Microtons',title:'Microtonalitat',desc:'Zones entre les notes que desplacen l’orella abans que la teoria.',href:'#mapa-viu'},
-        {label:'Retroharmonia',title:'Retro-harmonia',desc:'Reordenar la direcció temporal de la tensió i la resolució.',href:'#cambres'},
-        {label:'Zajj-viu',title:'Zajj-viu',desc:'Improvisació, modalitat, risc i escolta col·lectiva.',href:'#cambres'}
+        {label:'Retroharmonia',title:'Retro-harmonia',desc:'Reordenar la direcció temporal de la tensió i la resolució.',href:'./harmonia-viva/'},
+        {label:'Zajj-viu',title:'Zajj-viu',desc:'Improvisació, modalitat, risc i escolta col·lectiva.',href:'./harmonia-viva/'}
       ]
     },
     retrodansa:{
