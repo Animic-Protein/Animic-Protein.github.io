@@ -1,4 +1,4 @@
-const CACHE = 'codex-viu-canonical-v111';
+const CACHE = 'codex-viu-canonical-v112';
 const ASSETS = [
   './', './index.html', './styles.css', './rosa.css', './rosa-lamina.css', './rosa-enhanced.css', './rosa-inter-nos.css', './cartographia.css',
   './germinacio.css', './error-fertil-i.css', './radices-brodsky.css', './vortex-ant.css', './temps-nu.css', './app.js', './foundation.js', './core.js', './germinacio.js', './phase3.js', './seed-bridge.js', './compost-cycle.js', './error-fertil-i.js', './metabolism.js', './homeostasis.js', './lineage.js',
@@ -25,6 +25,12 @@ ASSETS.push(
   './frictiones/cornudos-juerga/contraarticle.md',
   './arrels/imma-turbau-cornudos-juerga.md',
   './governanca/FRICTIONES_1.0.md'
+);
+ASSETS.push(
+  './arrels/',
+  './arrels/index.html',
+  './arrels/tractatus-brevis-i/',
+  './arrels/tractatus-brevis-i/index.html'
 );
 ASSETS.push(
   './harmonia-viva/',
