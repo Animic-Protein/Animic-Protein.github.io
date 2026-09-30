@@ -31,6 +31,7 @@
       <article>
         <h3>Cadena viva</h3>
         <p><strong>AMO: VOLO UT SIS → INTER NOS → MUTATIO → CONTINUUM.</strong></p>
+        <p><small>Cadena formulada per Anímic Protein (AP); el lema inicial té l’atribució revisada a <a href="/universe/llenguatge/#llatinismes">Llenguatge Viu → Llatinismes</a>.</small></p>
         <p>No t’incorporis a l’organisme. Modifica’l.</p>
       </article>
       <article>
