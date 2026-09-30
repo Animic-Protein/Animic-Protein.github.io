@@ -16,5 +16,5 @@
   function loadMaster(){loadScript(rootPrefix()+'master-invocatio.js','master-invocatio')}
   function loadRecordare(){if(location.pathname.includes('/recordare/'))return;loadScript(rootPrefix()+'recordare/invocatio.js','recordare-invocatio')}
   function loadStratum(){if(location.pathname.includes('/stratum/'))return;loadScript(rootPrefix()+'stratum/invocatio.js','stratum-invocatio')}
-  document.addEventListener('DOMContentLoaded',()=>{const p=location.pathname;if(p.includes('universe'))universe();else if(p.includes('fusio-total'))fusio();else if(p.includes('cambra-nua-2'))sala();else if(p.includes('inter-nos-creative'))internNos();else portal();loadMaster();loadRecordare();loadStratum()});
+  document.addEventListener('DOMContentLoaded',()=>{const p=location.pathname;if(p.includes('universe'))universe();else if(p.includes('fusio-total'))fusio();else if(p.includes('cambra-nua-2'))sala();else if(p.includes('inter-nos-creative'))internNos();else portal();if(p!=='/'&&p!=='/index.html'){loadMaster();loadRecordare();loadStratum()}});
 })();
