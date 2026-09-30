@@ -3,28 +3,108 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="theme-color" content="#02070c" />
+    <meta name="theme-color" content="#0c4263" />
     <title>Anímic Protein · Còdex Viu</title>
     <meta name="description" content="Còdex Viu d’Anímic Protein: entra, percep, actua i deixa rastre." />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./formiga.css" />
     <style>
-      :root {--n:#02070c;--t:#f4fbff;--m:#94aab7;--c:#00c8ff;--o:#e3a629;--g:#3fff67;--l:#23465d}
-      *{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% 0,#103d5e 0,transparent 36rem),var(--n);color:var(--t);font:16px/1.5 Arial,sans-serif}.threshold{min-height:100svh;display:grid;place-items:center;text-align:center;padding:8vh 22px}.inner{max-width:760px}.ey{color:var(--c);letter-spacing:.18em;font-size:.72rem;text-transform:uppercase}h1{font:400 clamp(3.7rem,13vw,9rem)/.84 Georgia,serif;letter-spacing:-.055em;margin:.18em 0}h1 em{color:var(--o);font-weight:400}.lead{max-width:620px;margin:1.6rem auto;color:var(--m);font-size:1.12rem}.enter{display:grid;place-items:center;width:170px;height:170px;margin:2.5rem auto 1rem;border:1px solid var(--o);border-radius:50%;background:radial-gradient(circle,#17384a,#061019);color:var(--t);font:1.35rem Georgia,serif;text-decoration:none;box-shadow:0 0 55px #00c8ff18;transition:.25s}.enter:hover,.enter:focus-visible{transform:scale(1.04);border-color:var(--g);outline:none}.secondary{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:2rem}.secondary a{color:var(--m);border-bottom:1px solid var(--l);text-decoration:none;padding:.45rem}.axiom{margin:4rem auto 0;color:var(--m);font-size:.78rem}.ant{display:inline-block;margin-right:.4rem;opacity:.7}@media(max-width:520px){h1{font-size:4rem}.enter{width:145px;height:145px}}
+      :root{color-scheme:dark;--night:#071521;--deep:#0a2233;--paper:#f2f8fc;--mist:#c0d4df;--cobalt:#43d2ff;--gold:#ffd06b;--green:#71f4a4;--red:#ff746f;--line:#46718a}
+      *{box-sizing:border-box}
+      body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 69% 23%,#0c4263 0,transparent 42rem),radial-gradient(ellipse at 19% 84%,#102f45 0,transparent 38rem),var(--night);color:var(--paper);font:16px/1.55 Arial,sans-serif}
+      .threshold{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;padding:clamp(30px,6vh,72px) clamp(22px,6vw,96px);display:grid;place-items:center}
+      .inner{position:relative;z-index:1;width:min(1240px,100%);display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);grid-template-rows:1fr auto auto;align-items:center;column-gap:clamp(14px,4vw,62px)}
+      .intro{grid-column:1;grid-row:1;padding:2rem 0}
+      .ey{margin:0 0 1.3rem;color:var(--cobalt);letter-spacing:.18em;font-size:.72rem;font-weight:700;text-transform:uppercase}
+      h1{font:400 clamp(3.8rem,8.2vw,7.8rem)/.88 Georgia,serif;letter-spacing:-.055em;margin:.16em 0 .26em;text-wrap:balance}
+      h1 em{color:var(--gold);font-weight:400}
+      .lead{max-width:34rem;margin:1.4rem 0 1.9rem;color:var(--mist);font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.65}
+      .enter{display:flex;align-items:center;justify-content:center;gap:.6rem;width:158px;height:158px;border:1px solid var(--gold);border-radius:50%;background:radial-gradient(circle at 48% 42%,#2378a5 0,#125072 48%,#0b3048 100%);color:#fff;font:1.2rem Georgia,serif;letter-spacing:.06em;text-decoration:none;box-shadow:0 0 42px #16baf044,0 0 110px #008cff30,inset 0 0 26px #c9f5ff20;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+      .enter:hover,.enter:focus-visible{transform:translateY(-3px) scale(1.035);border-color:var(--green);box-shadow:0 0 52px #16baf077,0 0 120px #008cff55,inset 0 0 32px #c9f5ff35;outline:2px solid var(--green);outline-offset:5px}
+      .enter span{font:1.2rem Arial,sans-serif}
+      .field{grid-column:2;grid-row:1;position:relative;width:100%;aspect-ratio:1.28;max-height:68svh;filter:drop-shadow(0 0 32px #00aaff12)}
+      .field svg{width:100%;height:100%;overflow:visible}
+      .orbit{fill:none;stroke:#70dcff;stroke-opacity:.27;stroke-width:1}
+      .orbit--gold{stroke:var(--gold);stroke-opacity:.38}
+      .thread{fill:none;stroke:url(#thread);stroke-width:1.5;stroke-dasharray:5 10;animation:trace-flow 34s linear infinite}
+      .spoke{stroke:#7ce3ff;stroke-opacity:.25;stroke-width:1}
+      .node-halo{fill:#33caff;opacity:.13}
+      .node{fill:var(--cobalt);stroke:#d6f7ff;stroke-width:1.5}
+      .node--gold{fill:var(--gold);stroke:#fff1c5}
+      .node--green{fill:var(--green);stroke:#dbffea}
+      .node--red{fill:var(--red);stroke:#ffe2df}
+      .core-glow{fill:url(#core)}
+      .core{fill:#0b3450;stroke:#c2f4ff;stroke-opacity:.92;stroke-width:1.6}
+      .core-mark{fill:#e9fbff;font:500 13px Georgia,serif;letter-spacing:2px;text-anchor:middle}
+      .secondary{grid-column:1/-1;grid-row:2;display:flex;justify-content:flex-start;gap:9px;flex-wrap:wrap;margin-top:1.1rem;padding-top:1.3rem;border-top:1px solid #46718a8c}
+      .secondary a{display:inline-flex;align-items:center;min-height:40px;padding:.48rem .78rem;border:1px solid #527a91;border-radius:999px;background:#0d2a3bcc;color:#d8e8f0;text-decoration:none;font-size:.88rem;transition:background .2s ease,border-color .2s ease,color .2s ease}
+      .secondary a:hover,.secondary a:focus-visible{background:#154a69;border-color:var(--cobalt);color:#fff;outline:2px solid var(--cobalt);outline-offset:2px}
+      .axiom{grid-column:1/-1;grid-row:3;margin:1.4rem 0 0;color:#c5d9e3;text-align:center;font-size:.8rem;letter-spacing:.035em}
+      .ant{display:inline-block;margin-right:.4rem;opacity:.9}
+      .formiga-pont{bottom:max(14px,calc(env(safe-area-inset-bottom) + 14px))}
+      @keyframes trace-flow{to{stroke-dashoffset:-420}}
+      @media(max-width:760px){
+        body{background:radial-gradient(ellipse at 50% 19%,#14547a 0,transparent 31rem),radial-gradient(ellipse at 50% 72%,#102d45 0,transparent 34rem),var(--night)}
+        .threshold{min-height:100svh;padding:clamp(30px,6vh,58px) 20px max(32px,env(safe-area-inset-bottom));}
+        .inner{width:min(640px,100%);grid-template-columns:1fr;grid-template-rows:auto auto auto auto;row-gap:0;text-align:center}
+        .intro{grid-column:1;grid-row:1;padding:0;z-index:1}
+        .ey{margin-bottom:1rem;color:#76e2ff;font-size:.69rem}
+        h1{font-size:clamp(3.45rem,15vw,5.4rem);line-height:.88;text-shadow:0 2px 22px #07152199}
+        .lead{max-width:34rem;margin:1.15rem auto 1.35rem;color:#e0edf4;font-size:1.02rem;line-height:1.62}
+        .enter{width:132px;height:132px;margin:0 auto;font-size:1.08rem}
+        .field{position:absolute;z-index:0;left:50%;top:-4.2rem;transform:translateX(-50%);width:min(118vw,690px);height:auto;max-height:none;aspect-ratio:1.2;opacity:.64;pointer-events:none}
+        .field svg{overflow:hidden}
+        .orbit{stroke-opacity:.32}
+        .thread{stroke-width:1.8;stroke-opacity:.85}
+        .node-halo{opacity:.2}
+        .secondary{grid-column:1;grid-row:3;justify-content:center;gap:8px;margin-top:1.5rem;padding-top:1.2rem}
+        .secondary a{min-height:42px;padding:.48rem .72rem;background:#0c2a3de8;border-color:#6792a8;color:#eef7fb;font-size:.85rem}
+        .axiom{grid-column:1;grid-row:4;margin:1.1rem 0 3.2rem;color:#d3e2e9;font-size:.76rem;line-height:1.8}
+        .formiga-pont{bottom:max(10px,calc(env(safe-area-inset-bottom) + 10px))}
+      }
+      @media(prefers-reduced-motion:reduce){.thread{animation:none}.enter,.secondary a{transition:none}}
     </style>
   </head>
   <body>
-    <main class="threshold"><div class="inner">
-      <p class="ey">ANÍMIC PROTEIN · CÒDEX VIU · LLINDAR</p>
-      <h1>No miris tot.<br /><em>Entra.</em></h1>
-      <p class="lead">L’organisme no et demana que triïs una eina. Primer percep què està succeint; després només revelarà allò que pugui ser pertinent.</p>
-      <a class="enter" href="./universe/" aria-label="Entrar a la navegació presencial d’Anímic Protein">ENTRAR</a>
-      <nav class="secondary" aria-label="Accés cartogràfic secundari">
-        <a href="./arrels/tractatus-brevis-i/">Tractatus Brevis I i II · Arrels del Pensament</a><a href="./harmonia-viva/">Harmonia Viva</a><a href="./cartographia-mutabilis/">Cartographia Mutabilis</a><a href="./frictiones/">FRICTIONES · 3 lectures</a><a href="./fusio-total/">Veure territori</a><a href="./inter-nos-creative/">INTER NOS</a><a href="./cambra-nua-2/">Cambra Nua</a><a href="./portal-multimedia/">Portal multimèdia</a><a href="./beta/travesses/eco-01/">ECO 01</a>
-      </nav>
-      <p class="axiom"><span class="ant" aria-hidden="true">🐜</span>Presència → insinuació → gest → resposta → diferència → rastre → relació → retorn.</p>
-    </div></main>
+    <main class="threshold">
+      <div class="inner">
+        <section class="intro" aria-labelledby="codex-title">
+          <p class="ey">ANÍMIC PROTEIN · CÒDEX VIU · LLINDAR</p>
+          <h1 id="codex-title">No miris tot.<br /><em>Entra.</em></h1>
+          <p class="lead">L’organisme no et demana que triïs una eina. Primer percep què està succeint; després només revelarà allò que pugui ser pertinent.</p>
+          <a class="enter" href="./universe/" aria-label="Entrar a la navegació presencial d’Anímic Protein">ENTRAR <span aria-hidden="true">↗</span></a>
+        </section>
+        <div class="field" aria-hidden="true">
+          <svg viewBox="0 0 780 610" role="presentation" focusable="false">
+            <defs>
+              <radialGradient id="core"><stop offset="0" stop-color="#bff4ff" stop-opacity=".7"/><stop offset=".45" stop-color="#31caff" stop-opacity=".28"/><stop offset="1" stop-color="#0e73a5" stop-opacity="0"/></radialGradient>
+              <linearGradient id="thread" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#42cfff" stop-opacity=".08"/><stop offset=".48" stop-color="#b1edff" stop-opacity=".95"/><stop offset="1" stop-color="#45d3ff" stop-opacity=".16"/></linearGradient>
+            </defs>
+            <circle class="core-glow" cx="390" cy="305" r="164"/>
+            <g class="orbit"><ellipse cx="390" cy="305" rx="348" ry="116" transform="rotate(-27 390 305)"/><ellipse cx="390" cy="305" rx="318" ry="206" transform="rotate(31 390 305)"/></g>
+            <g class="orbit orbit--gold"><ellipse cx="390" cy="305" rx="258" ry="74" transform="rotate(53 390 305)"/><ellipse cx="390" cy="305" rx="368" ry="254" transform="rotate(-8 390 305)"/></g>
+            <path class="thread" d="M42 443 C137 378 169 126 332 193 S529 526 737 347 M74 216 C226 287 264 515 443 441 S585 91 741 168 M118 529 C220 468 278 125 461 124 S615 379 704 475"/>
+            <g class="spoke"><path d="M390 305 92 197M390 305 199 90M390 305 536 71M390 305 700 213M390 305 710 414M390 305 518 550M390 305 208 522M390 305 66 393"/></g>
+            <g><circle class="node-halo" cx="92" cy="197" r="19"/><circle class="node node--gold" cx="92" cy="197" r="5"/><circle class="node-halo" cx="199" cy="90" r="16"/><circle class="node" cx="199" cy="90" r="4"/><circle class="node-halo" cx="536" cy="71" r="20"/><circle class="node node--green" cx="536" cy="71" r="5"/><circle class="node-halo" cx="700" cy="213" r="21"/><circle class="node node--red" cx="700" cy="213" r="5"/><circle class="node-halo" cx="710" cy="414" r="17"/><circle class="node node--gold" cx="710" cy="414" r="4"/><circle class="node-halo" cx="518" cy="550" r="20"/><circle class="node node--green" cx="518" cy="550" r="5"/><circle class="node-halo" cx="208" cy="522" r="17"/><circle class="node" cx="208" cy="522" r="4"/><circle class="node-halo" cx="66" cy="393" r="18"/><circle class="node node--red" cx="66" cy="393" r="4"/></g>
+            <circle class="core" cx="390" cy="305" r="52"/>
+            <text class="core-mark" x="390" y="301">CÒDEX</text><text class="core-mark" x="390" y="320">VIU</text>
+          </svg>
+        </div>
+        <nav class="secondary" aria-label="Accés cartogràfic secundari">
+          <a href="./arrels/tractatus-brevis-i/">Tractatus Brevis I i II · Arrels del Pensament</a>
+          <a href="./harmonia-viva/">Harmonia Viva</a>
+          <a href="./cartographia-mutabilis/">Cartographia Mutabilis</a>
+          <a href="./frictiones/">FRICTIONES · 3 lectures</a>
+          <a href="./fusio-total/">Veure territori</a>
+          <a href="./inter-nos-creative/">INTER NOS</a>
+          <a href="./cambra-nua-2/">Cambra Nua</a>
+          <a href="./portal-multimedia/">Portal multimèdia</a>
+          <a href="./beta/travesses/eco-01/">ECO 01</a>
+        </nav>
+        <p class="axiom"><span class="ant" aria-hidden="true">🐜</span>Presència → insinuació → gest → resposta → diferència → rastre → relació → retorn.</p>
+      </div>
+    </main>
     <script src="./formiga.js"></script>
   </body>
 </html>
