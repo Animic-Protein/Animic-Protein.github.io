@@ -58,7 +58,7 @@ La creativitat entra ara en una pau activa amb el límit. No renuncia a fer; ren
 - **Brodsky ↔ Navalla d’Okham:** substituir el mite de “crear” per l’acció concreta de fer.
 - **Brodsky ↔ Creativitum nunc Pacevem:** transformar la inseguretat en disponibilitat.
 - **Creativitum nunc Pacevem ↔ MUTATIO:** mutar sense forçar una destinació.
-- **Creativitum nunc Pacevem ↔ Amo: volo ut sis:** crear condicions perquè la forma pugui ser ella mateixa.
+- **Creativitum nunc Pacevem ↔ [Amo: volo ut sis](../universe/llenguatge/#llatinismes):** crear condicions perquè la forma pugui ser ella mateixa; lema d’atribució històrica discutida, no localitzat als escrits d’Agustí.
 
 ## Proves del Còdex
 
