@@ -24,7 +24,9 @@ Protocol constitucional: [Principi d’incertesa v1.0](governanca/PRINCIPI_INCER
 
 Compost actiu: [Error fèrtil I — l’absència que revela el temps](governanca/COMPOST_ERROR_FERTIL_I_2026-09-01.md). Es manté com a principi provisional i reversible, no com a node constitucional.
 
-> *Bene navigavi, cum naufragium feci.*
+> *Nunc bene navigavi, cum naufragium feci.*
+>
+> — Zenó de Cítion, segons Diògenes Laerci, *Vides dels filòsofs* VII.4; forma llatina recollida per Erasme, *Adagia* II.9.78.
 
 Estat: **tronc canònic públic i en evolució**.
 
