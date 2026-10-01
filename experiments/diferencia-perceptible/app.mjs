@@ -78,7 +78,7 @@ function exportTrace(){
  const url=URL.createObjectURL(blob),link=document.createElement('a');
  link.href=url;link.download=copy().download;link.click();
  setTimeout(()=>URL.revokeObjectURL(url),1000);
- $('phaseText').textContent=copy().exported;
+ $('exportStatus').textContent=copy().exported;
 }
 function dissolve(){trial=null;trialPanel.hidden=true;reflectPanel.hidden=true;resultPanel.hidden=true;setup.hidden=false;$('description').value='';}
 $('start').addEventListener('click',begin);
@@ -86,7 +86,7 @@ $('next').addEventListener('click',()=>{
  if(trial.phase==='return'){trial=advanceTrial(trial);renderPhase();return}
  trial=advanceTrial(trial);renderPhase();
 });
-$('stop').addEventListener('click',dissolve);
+$('stop').addEventListener('click',dissolve);$('reflectStop').addEventListener('click',dissolve);
 document.querySelectorAll('[data-response]').forEach(button=>button.addEventListener('click',()=>report(button.dataset.response)));
 $('export').addEventListener('click',exportTrace);
 $('reobserve').addEventListener('click',()=>{trial=reobserve(trial);$('description').value='';renderPhase()});
