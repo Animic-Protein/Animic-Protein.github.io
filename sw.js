@@ -1,4 +1,4 @@
-const CACHE = 'codex-viu-canonical-v117';
+const CACHE = 'codex-viu-canonical-v118';
 const ASSETS = [
   './', './index.html', './styles.css', './rosa.css', './rosa-lamina.css', './rosa-enhanced.css', './rosa-inter-nos.css', './cartographia.css',
   './germinacio.css', './error-fertil-i.css', './radices-brodsky.css', './vortex-ant.css', './temps-nu.css', './app.js', './foundation.js', './core.js', './germinacio.js', './phase3.js', './seed-bridge.js', './compost-cycle.js', './error-fertil-i.js', './metabolism.js', './homeostasis.js', './lineage.js',
@@ -38,6 +38,12 @@ ASSETS.push(
   './harmonia-viva/arranjament.css',
   './harmonia-viva/arranjament.js',
   './governanca/HARMONIA_VIVA_ARRANJAMENT_1.0.md'
+);
+ASSETS.push(
+  './experiments/limen/',
+  './experiments/limen/index.html',
+  './experiments/limen/app.mjs',
+  './experiments/limen/assets/medusa-pelagica.webp'
 );
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
