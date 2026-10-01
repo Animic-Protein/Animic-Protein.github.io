@@ -31,7 +31,7 @@
   function stop(){active.forEach(node=>{try{node.stop()}catch{}});active=[];}
   function voice(freq,at,duration,type='sine',volume=.035){
     if(!ctx||!freq)return;
-    if(type==='codex'){voice(freq,at,duration,'triangle',volume);voice(freq*2,at,duration,'sine',volume*.16);return;}
+    if(type==='codex'){voice(freq,at,duration,'triangle',volume);voice(freq*2,at,duration,'triangle',volume*.16);return;}
     const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,at);gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(volume,at+.025);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);osc.connect(gain).connect(ctx.destination);osc.start(at);osc.stop(at+duration+.03);active.push(osc);osc.onended=()=>active=active.filter(x=>x!==osc);
   }
   const hz=midi=>440*Math.pow(2,(midi-69)/12);
