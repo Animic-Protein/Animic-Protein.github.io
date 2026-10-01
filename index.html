@@ -8,7 +8,6 @@
     <meta name="description" content="Còdex Viu d’Anímic Protein: entra, percep, actua i deixa rastre." />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./formiga.css" />
     <style>
       :root{color-scheme:dark;--night:#071521;--deep:#0a2233;--paper:#f2f8fc;--mist:#c0d4df;--cobalt:#43d2ff;--gold:#ffd06b;--green:#71f4a4;--red:#ff746f;--line:#46718a}
       *{box-sizing:border-box}
@@ -40,8 +39,6 @@
       .secondary a{display:inline-flex;align-items:center;min-height:40px;padding:.48rem .78rem;border:1px solid #527a91;border-radius:999px;background:#0d2a3bcc;color:#d8e8f0;text-decoration:none;font-size:.88rem;transition:background .2s ease,border-color .2s ease,color .2s ease}
       .secondary a:hover,.secondary a:focus-visible{background:#154a69;border-color:var(--cobalt);color:#fff;outline:2px solid var(--cobalt);outline-offset:2px}
       .axiom{grid-column:1/-1;grid-row:3;margin:1.4rem 0 0;color:#c5d9e3;text-align:center;font-size:.8rem;letter-spacing:.035em}
-      .ant{display:inline-block;margin-right:.4rem;opacity:.9}
-      .formiga-pont{bottom:max(14px,calc(env(safe-area-inset-bottom) + 14px))}
       @keyframes folio-breathe{0%,100%{border-color:rgba(143,224,255,.33);box-shadow:inset 0 0 62px rgba(65,205,255,.06),0 0 34px rgba(24,175,232,.08)}50%{border-color:rgba(255,208,107,.4);box-shadow:inset 0 0 88px rgba(65,205,255,.13),0 0 58px rgba(24,175,232,.16)}}
       @keyframes membrane{0%,100%{transform:translate3d(-3%,2%,0) scale(.94);opacity:.55}50%{transform:translate3d(4%,-2%,0) scale(1.07);opacity:.9}}
       @keyframes seam-breathe{0%,100%{opacity:.42;transform:scaleY(.86)}50%{opacity:.92;transform:scaleY(1.04)}}
@@ -59,7 +56,6 @@
         .secondary{grid-column:1;grid-row:3;justify-content:center;gap:8px;margin-top:1.5rem;padding-top:1.2rem}
         .secondary a{min-height:42px;padding:.48rem .72rem;background:#0c2a3de8;border-color:#6792a8;color:#eef7fb;font-size:.85rem}
         .axiom{grid-column:1;grid-row:4;margin:1.1rem 0 3.2rem;color:#d3e2e9;font-size:.76rem;line-height:1.8}
-        .formiga-pont{bottom:max(10px,calc(env(safe-area-inset-bottom) + 10px))}
       }
       @media(prefers-reduced-motion:reduce){.folio,.membrane,.seam{animation:none}.enter,.secondary a{transition:none}}
     </style>
@@ -87,9 +83,8 @@
           <a href="./portal-multimedia/">Portal multimèdia</a>
           <a href="./beta/travesses/eco-01/">ECO 01</a>
         </nav>
-        <p class="axiom"><span class="ant" aria-hidden="true">🐜</span>Presència → insinuació → gest → resposta → diferència → rastre → relació → retorn.</p>
+        <p class="axiom">Presència → insinuació → gest → resposta → diferència → rastre → relació → retorn.</p>
       </div>
     </main>
-    <script src="./formiga.js"></script>
   </body>
 </html>
