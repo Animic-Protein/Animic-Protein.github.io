@@ -36,12 +36,12 @@
 <section class="surface" id="reflect" hidden aria-labelledby="reflectTitle">
 <p class="phase" data-copy="reflectKicker">OBSERVACIÓ · SENSE PUNTUACIÓ</p><h2 id="reflectTitle" data-copy="reflectTitle">Què has percebut?</h2><p class="reading" data-copy="reflectCopy">Descriu primer l’observació. La interpretació pot esperar. “No ho sé” també és una resposta completa.</p>
 <div class="response-list"><button type="button" data-response="noticed" data-copy="noticed">He percebut un canvi</button><button type="button" data-response="not-noticed" data-copy="notNoticed">No n’he percebut cap</button><button type="button" data-response="uncertain" data-copy="uncertain">No ho sé · REOBSERVE</button></div>
-<label class="field" for="description"><span data-copy="descriptionLabel">Si vols, anota què t’ha semblat que canviava. Aquesta nota queda només en aquesta pàgina fins que decideixis exportar-la.</span><textarea class="note" id="description" maxlength="500"></textarea></label>
+<label class="field" for="description"><span data-copy="descriptionLabel">Si vols, anota què t’ha semblat que canviava. Aquesta nota queda només en aquesta pàgina fins que decideixis exportar-la.</span><textarea class="note" id="description" maxlength="500"></textarea></label><div class="actions"><button class="quiet" id="reflectStop" type="button" data-copy="stop">QUIET · Atura i dissol</button></div>
 </section>
 <section class="surface result" id="result" hidden aria-labelledby="resultTitle" aria-live="polite">
 <p class="phase" data-copy="revealKicker">CONTRAST · RETORN</p><h2 id="resultTitle" data-copy="resultTitle">La diferència del protocol</h2><p id="exactDifference"></p><p class="reading" data-copy="resultCaveat">Això descriu l’estímul preparat, no explica per què l’has percebut —o no— ni què significa per a tu.</p>
 <div class="actions"><button class="primary" id="export" type="button" data-copy="export">RETURN · Exporta rastre JSON</button><button id="reobserve" type="button" data-copy="reobserve">REOBSERVE · Torna a mirar</button><button class="quiet" id="discard" type="button" data-copy="discard">QUIET · Dissol sense desar</button></div>
-<p class="subtle" data-copy="exportNote">Només el botó d’exportació crea un fitxer al teu dispositiu. El Còdex no desa ni envia aquesta observació.</p>
+<p class="subtle" id="exportStatus" aria-live="polite"></p><p class="subtle" data-copy="exportNote">Només el botó d’exportació crea un fitxer al teu dispositiu. El Còdex no desa ni envia aquesta observació.</p>
 </section>
 </main>
 <footer><p data-copy="footer">Diferència perceptible ≠ interpretació. Interpretació ≠ decisió. Proposta ≠ execució.</p><a href="../../">Còdex Viu · Llindar</a></footer>
