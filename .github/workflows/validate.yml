@@ -34,7 +34,9 @@ jobs:
             -print0 | sort -z | xargs -0 -n1 node --check
       - name: Protocol de diferència perceptible
         run: node --test experiments/diferencia-perceptible/protocol.test.mjs
-      - name: Protocol LIMEN de cinc disposicions\n        run: node --test experiments/limen/protocol.test.mjs\n      - name: Proves de rastre i vista mòbil de Cambra Nua
+      - name: Protocol LIMEN de cinc disposicions
+        run: node --test experiments/limen/protocol.test.mjs
+      - name: Proves de rastre i vista mòbil de Cambra Nua
         run: |
           npx playwright install --with-deps --only-shell chromium
           node --test cambra-nua-2/trace-history.test.mjs
