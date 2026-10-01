@@ -45,7 +45,7 @@ function tokenNode(token){
 function drawStimulus(phase){
  const host=$('stimulus');host.replaceChildren();
  host.setAttribute('aria-label',copy().pattern);
- if(phase==='interval'){host.textContent='';return}
+ if(phase==='interval'){host.setAttribute('aria-label',copy().phases.interval[1]);host.textContent='';return}
  const data=CONDITIONS[trial.conditionId];
  const tokens=phase==='change'?data.change:data.baseline;
  const shapeNames=copy().shapes;
