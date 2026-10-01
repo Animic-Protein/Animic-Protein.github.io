@@ -67,7 +67,7 @@ export function reobserve(trial) {
   });
 }
 
-export function createTrace(trial, createdAt = new Date().toISOString()) {
+export function createTrace(trial, createdAt = new Date().toISOString(), differenceLabel = '') {
   if (trial?.phase !== 'reveal' || !trial.response) throw new Error('No es pot exportar un rastre abans de la decisió humana.');
   const condition = CONDITIONS[trial.conditionId];
   return {
