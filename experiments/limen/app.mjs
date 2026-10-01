@@ -3,7 +3,7 @@ import {CONDITIONS} from '../diferencia-perceptible/protocol.mjs';
 
 const COPY={
 ca:{
- back:'Arrels del Pensament',language:'Idioma',subtitle:'Laboratori de les Cinc Disposicions',intro:'Un sol espai per orientar l’atenció, retenir una referència, contrastar sense puntuar, pausar i separar observació d’interpretació.',scope:'LIMEN és una experiència didàctica. No és una prova neurològica ni una mesura de rendiment. La persona decideix què ha percebut i què vol fer.',
+ back:'Arrels del Pensament',language:'Idioma',navigationLabel:'Navegació',moduleListAria:'Cinc disposicions del Còdex',subtitle:'Laboratori de les Cinc Disposicions',intro:'Un sol espai per orientar l’atenció, retenir una referència, contrastar sense puntuar, pausar i separar observació d’interpretació.',scope:'LIMEN és una experiència didàctica. No és una prova neurològica ni una mesura de rendiment. La persona decideix què ha percebut i què vol fer.',
  setupTitle:'Tria com vols entrar',moduleLabel:'Mòdul que vols practicar',moduleIntegrated:'Recorregut integrat · cinc disposicions',conditionLabel:'Quina variació vols observar?',absence:'Absència',position:'Desplaçament',relation:'Canvi de relació',focusLabel:'On orientaràs l’atenció?',focusForm:'Forma / presència',focusPosition:'Posició',focusRelation:'Relació entre elements',start:'Comença el recorregut',firstExperience:'Obrir la primera experiència · diferència perceptible →',
  attentio:'Tria forma, posició o relació com a orientació de l’atenció.',retentio:'Mantén present el punt de partida durant la comparació.',discrimen:'Compara sense puntuació; la variació es revela després de respondre.',quies:'Pausa, repeteix o deixa oberta la incertesa.',metacognitio:'Separa el que has observat del sentit que li dones.',
  integratedHelp:'El recorregut integra les cinc disposicions. Pots avançar al teu ritme o dissoldre’l quan vulguis.',
@@ -15,7 +15,7 @@ ca:{
  next:{baseline:'Pausa',interval:'Continua',change:'Retorna al punt de partida',return:'Descriu què has percebut'}
 },
 en:{
- back:'Roots of Thought',language:'Language',subtitle:'Laboratory of the Five Dispositions',intro:'One place to orient attention, retain a reference, compare without scoring, pause, and separate observation from interpretation.',scope:'LIMEN is a learning experience. It is not a neurological test or a performance measure. The person decides what they perceived and what to do.',
+ back:'Roots of Thought',language:'Language',navigationLabel:'Navigation',moduleListAria:'Five Codex dispositions',subtitle:'Laboratory of the Five Dispositions',intro:'One place to orient attention, retain a reference, compare without scoring, pause, and separate observation from interpretation.',scope:'LIMEN is a learning experience. It is not a neurological test or a performance measure. The person decides what they perceived and what to do.',
  setupTitle:'Choose how to begin',moduleLabel:'Choose a practice module',moduleIntegrated:'Integrated route · all five dispositions',conditionLabel:'Which variation would you like to observe?',absence:'Absence',position:'Displacement',relation:'Changed relation',focusLabel:'Where will you direct attention?',focusForm:'Form / presence',focusPosition:'Position',focusRelation:'Relation between elements',start:'Begin the route',firstExperience:'Open the first experience · perceptible difference →',
  attentio:'Choose form, position, or relation as an attentional orientation.',retentio:'Keep the starting point present during comparison.',discrimen:'Compare without a score; the prepared variation is revealed after your response.',quies:'Pause, repeat, or leave uncertainty open.',metacognitio:'Separate what you observed from the meaning you give it.',
  integratedHelp:'The route brings all five dispositions together. Move at your own pace or dissolve the session whenever you choose.',
@@ -27,7 +27,7 @@ en:{
  next:{baseline:'Pause',interval:'Continue',change:'Return to the starting point',return:'Describe what you perceived'}
 },
 zh:{
- back:'思想之根',language:'语言',subtitle:'五种布置实验室',intro:'在同一处练习引导注意、保留参照、无评分对照、暂停，以及区分观察与解释。',scope:'LIMEN 是一种教学体验。它不是神经学测试，也不衡量表现。由参与者决定自己感知到了什么，以及接下来要做什么。',
+ back:'思想之根',language:'语言',navigationLabel:'导航',moduleListAria:'Còdex 的五种布置',subtitle:'五种布置实验室',intro:'在同一处练习引导注意、保留参照、无评分对照、暂停，以及区分观察与解释。',scope:'LIMEN 是一种教学体验。它不是神经学测试，也不衡量表现。由参与者决定自己感知到了什么，以及接下来要做什么。',
  setupTitle:'选择进入方式',moduleLabel:'选择练习模块',moduleIntegrated:'综合路线 · 五种布置',conditionLabel:'你想观察哪种变化？',absence:'缺席',position:'位移',relation:'关系变化',focusLabel:'你将把注意力放在哪里？',focusForm:'形态 / 存在',focusPosition:'位置',focusRelation:'元素之间的关系',start:'开始体验',firstExperience:'打开第一项体验 · 可感知差异 →',
  attentio:'选择形态、位置或关系作为注意方向。',retentio:'在比较过程中保留起点参照。',discrimen:'不评分地对照；你回应之后才会揭示预设变化。',quies:'暂停、重复，或保留不确定性。',metacognitio:'区分你观察到的内容与赋予它的意义。',
  integratedHelp:'这一路径综合五种布置。你可以按自己的节奏前进，也可以随时结束。',moduleHelp:{integrated:'五种布置共同支持一次体验，但不会产生分数。',ATTENTIO:'选择一种注意方向，看看它如何帮助你观察；它不规定你应该感知到什么。',RETENTIO:'观察起点，经过间隔，再返回。由你决定要把参照保留多久。',DISCRIMEN:'对照形态，不必寻找正确答案。只有你回应后才会显示预设变化。',QUIES:'可以停止、按自己的节奏继续，或选择不确定；不必完成整个过程。',METACOGNITIO:'先记录观察；如果愿意，再记录它可能对你意味着什么。LIMEN 不会替你回答第二个问题。'},
@@ -38,7 +38,7 @@ zh:{
  next:{baseline:'暂停',interval:'继续',change:'返回起点',return:'描述你的感知'}
 },
 ja:{
- back:'思想の根',language:'言語',subtitle:'五つの思考の構えの実験室',intro:'注意を向け、参照点を保ち、採点せずに比べ、立ち止まり、観察と解釈を分けるための一つの場所です。',scope:'LIMENは学びのための体験です。神経学的検査でも、能力の測定でもありません。何を感じ、次にどうするかは、本人が決めます。',
+ back:'思想の根',language:'言語',navigationLabel:'ナビゲーション',moduleListAria:'Còdexの五つの構え',subtitle:'五つの思考の構えの実験室',intro:'注意を向け、参照点を保ち、採点せずに比べ、立ち止まり、観察と解釈を分けるための一つの場所です。',scope:'LIMENは学びのための体験です。神経学的検査でも、能力の測定でもありません。何を感じ、次にどうするかは、本人が決めます。',
  setupTitle:'始め方を選んでください',moduleLabel:'練習するモジュール',moduleIntegrated:'統合ルート · 五つの構え',conditionLabel:'どの変化を観察しますか？',absence:'欠如',position:'位置の移動',relation:'関係の変化',focusLabel:'どこに注意を向けますか？',focusForm:'形 / ある・ない',focusPosition:'位置',focusRelation:'要素どうしの関係',start:'体験を始める',firstExperience:'最初の体験を開く · 知覚できる差異 →',
  attentio:'形、位置、関係から注意の向け先を選びます。',retentio:'比較のあいだ、出発点を心に留めます。',discrimen:'点数をつけずに比べます。あなたの応答のあとで、用意された変化を示します。',quies:'立ち止まる、繰り返す、不確かさを残すことができます。',metacognitio:'観察したことと、そこに与える意味を分けます。',
  integratedHelp:'五つの構えを一つの体験に織り込みます。自分のペースで進め、いつでも終了できます。',moduleHelp:{integrated:'五つの構えを通して体験しますが、点数はつきません。',ATTENTIO:'注意の向け先を選び、それが何に気づく助けになるかを見ます。感じるべきことを決める選択ではありません。',RETENTIO:'出発点を見て、間を置き、そこへ戻ります。参照をどれほど保つかは自分で決めます。',DISCRIMEN:'正解を探さずに形を比べます。用意された差異は、あなたの応答のあとにだけ表示されます。',QUIES:'止まる、自分のペースで再開する、不確かさを選ぶことができます。最後まで行う必要はありません。',METACOGNITIO:'まず観察したことを書き、望むなら自分にとっての意味を書きます。二つ目の問いにLIMENは答えません。'},
@@ -59,6 +59,8 @@ function applyCopy(){
  const c=copy();
  document.documentElement.lang=locale==='zh'?'zh-Hans':locale==='ja'?'ja':locale;
  document.querySelectorAll('[data-copy]').forEach(node=>{const value=c[node.dataset.copy];if(value!==undefined)node.textContent=value;});
+ document.querySelectorAll('[data-copy-aria]').forEach(node=>{const value=c[node.dataset.copyAria];if(value!==undefined)node.setAttribute('aria-label',value);});
+ if(selectedResponse)$('responseStatus').textContent=c.responseChosen[selectedResponse];
  document.title='LIMEN · '+c.subtitle+' · Còdex Viu';
  renderModuleHelp();
  if(session)renderPhase();
@@ -87,13 +89,14 @@ function renderPhase(){
  const item=c.phases[phase];$('phaseLabel').textContent=item[0];$('phaseTitle').textContent=item[0].charAt(0)+item[0].slice(1).toLowerCase();$('phaseText').textContent=item[1];$('next').textContent=c.next[phase];$('focusReminder').textContent=c.modulePractice[session.module]||c.modulePractice.integrated;
  drawStimulus(phase);
 }
+function clearResponse(){selectedResponse=null;$('responseStatus').textContent='';document.querySelectorAll('[data-response]').forEach(button=>button.setAttribute('aria-pressed','false'));}
 function begin(){
- session=createSession({module:moduleSelect.value,conditionId:conditionSelect.value,focus:focusSelect.value});selectedResponse=null;
+ session=createSession({module:moduleSelect.value,conditionId:conditionSelect.value,focus:focusSelect.value});clearResponse();
  $('observation').value='';$('interpretation').value='';$('exportStatus').textContent='';
  setup.hidden=true;trialPanel.hidden=false;reflectPanel.hidden=true;resultPanel.hidden=true;renderPhase();
 }
 function chooseResponse(response){
- selectedResponse=response;$('responseStatus').textContent=copy().responseChosen[response];
+ selectedResponse=response;document.querySelectorAll('[data-response]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.response===response)));$('responseStatus').textContent=copy().responseChosen[response];
 }
 function reveal(){
  if(!selectedResponse)return;
@@ -108,14 +111,14 @@ function exportTrace(){
  const blob=new Blob([JSON.stringify(trace,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
  link.href=url;link.download=copy().download;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('exportStatus').textContent=copy().exported;
 }
-function dissolve(){session=null;selectedResponse=null;trialPanel.hidden=true;reflectPanel.hidden=true;resultPanel.hidden=true;setup.hidden=false;$('observation').value='';$('interpretation').value='';}
+function dissolve(){session=null;clearResponse();trialPanel.hidden=true;reflectPanel.hidden=true;resultPanel.hidden=true;setup.hidden=false;$('observation').value='';$('interpretation').value='';}
 $('start').addEventListener('click',begin);
 $('next').addEventListener('click',()=>{session=advance(session);renderPhase();});
 $('stop').addEventListener('click',dissolve);$('reflectStop').addEventListener('click',dissolve);
 document.querySelectorAll('[data-response]').forEach(button=>button.addEventListener('click',()=>chooseResponse(button.dataset.response)));
 $('reveal').addEventListener('click',reveal);
 $('export').addEventListener('click',exportTrace);
-$('reobserve').addEventListener('click',()=>{session=reobserve(session);selectedResponse=null;$('observation').value='';$('interpretation').value='';$('responseStatus').textContent='';renderPhase();});
+$('reobserve').addEventListener('click',()=>{session=reobserve(session);clearResponse();$('observation').value='';$('interpretation').value='';renderPhase();});
 $('discard').addEventListener('click',dissolve);
 language.addEventListener('change',()=>setLanguage(language.value));
 moduleSelect.addEventListener('change',renderModuleHelp);
