@@ -1,6 +1,19 @@
 (()=>{
 'use strict';
 const VERSION='SONUS 1.0';
+let codexContext=null,codexOscillators=[];
+async function playCodexNote(){
+ const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return false;
+ try{
+  codexContext=codexContext||new AudioCtx();if(codexContext.state==='suspended')await codexContext.resume();
+  codexOscillators.forEach(oscillator=>{try{oscillator.stop()}catch{}});codexOscillators=[];
+  const start=codexContext.currentTime+.025,duration=.52,level=.052,frequency=523.25;
+  [{ratio:1,type:'triangle',gain:level},{ratio:2,type:'sine',gain:level*.16}].forEach(partial=>{
+   const oscillator=codexContext.createOscillator(),gainNode=codexContext.createGain();oscillator.type=partial.type;oscillator.frequency.setValueAtTime(frequency*partial.ratio,start);gainNode.gain.setValueAtTime(.0001,start);gainNode.gain.exponentialRampToValueAtTime(partial.gain,start+.025);gainNode.gain.exponentialRampToValueAtTime(.0001,start+duration);oscillator.connect(gainNode).connect(codexContext.destination);oscillator.start(start);oscillator.stop(start+duration+.03);codexOscillators.push(oscillator);oscillator.onended=()=>codexOscillators=codexOscillators.filter(active=>active!==oscillator);
+  });
+  return true;
+ }catch{return false;}
+}
 const q=s=>document.querySelector(s);
 const num=s=>{const n=parseFloat(String(s||'').replace('s',''));return Number.isFinite(n)?n:null};
 const activeRate=()=>Number(q('.rate.active')?.dataset?.rate||1);
@@ -22,6 +35,7 @@ function snapshot(trigger='manual'){
  return phenomenon;
 }
 function install(){
+ q('#codexNote')?.addEventListener('click',async()=>{const played=await playCodexNote(),noteStatus=q('#codexNoteStatus');if(noteStatus)noteStatus.textContent=played?'Nota Còdex · Do5 · sona per separat de la font carregada.':'Aquest navegador no exposa Web Audio.';});
  const status=q('#status');if(status&&!q('#generatoriumState')){const p=document.createElement('p');p.id='generatoriumState';p.className='status';p.textContent='GENERATORIUM · SONUS 1.0 · pot generar, reobservar o callar. La persona decideix.';status.insertAdjacentElement('afterend',p);}
  const refresh=()=>{const s=suggest(),p=q('#generatoriumState');if(p)p.textContent=`GENERATORIUM · ${s.action.toUpperCase()} · ${s.basis} · proposta reversible · no canònica.`;window.dispatchEvent(new CustomEvent('codex:sonus-suggestion',{detail:{...s,generator:'SONUS',generatorVersion:VERSION,suggested:true,executed:false,at:new Date().toISOString()}}));return s};
  ['#file','#in','#out'].forEach(sel=>q(sel)?.addEventListener('change',refresh));
@@ -29,5 +43,5 @@ function install(){
  setTimeout(refresh,0);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-window.GeneratoriumSonus={version:VERSION,snapshot,suggest,context};
+window.GeneratoriumSonus={version:VERSION,snapshot,suggest,context,playCodexNote};
 })();
