@@ -30,13 +30,15 @@
   function ensureAudio(){const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return null;if(!ctx)ctx=new AudioCtx();if(ctx.state==='suspended')ctx.resume();return ctx;}
   function stop(){active.forEach(node=>{try{node.stop()}catch{}});active=[];}
   function voice(freq,at,duration,type='sine',volume=.035){
-    if(!ctx||!freq)return;const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,at);gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(volume,at+.025);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);osc.connect(gain).connect(ctx.destination);osc.start(at);osc.stop(at+duration+.03);active.push(osc);osc.onended=()=>active=active.filter(x=>x!==osc);
+    if(!ctx||!freq)return;
+    if(type==='codex'){voice(freq,at,duration,'triangle',volume);voice(freq*2,at,duration,'sine',volume*.16);return;}
+    const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,at);gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(volume,at+.025);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);osc.connect(gain).connect(ctx.destination);osc.start(at);osc.stop(at+duration+.03);active.push(osc);osc.onended=()=>active=active.filter(x=>x!==osc);
   }
   const hz=midi=>440*Math.pow(2,(midi-69)/12);
   function melodyPitches(){const root=Number($('root').value);return melody.map(d=>d===0?null:60+root+degrees[d]);}
   function playMelody(){
     if(!ensureAudio()){ $('coach').textContent='Aquest navegador no exposa Web Audio; la lectura visual continua disponible.';return; }
-    stop();const beat=60/Number($('tempo').value),start=ctx.currentTime+.05;melodyPitches().forEach((m,i)=>{if(m)voice(hz(m),start+i*beat*.5,beat*.42,'sine',.055)});$('coach').textContent='Ara escolta el contorn: on demana suport, on demana aire i on ja és suficient?';
+    stop();const beat=60/Number($('tempo').value),start=ctx.currentTime+.05;melodyPitches().forEach((m,i)=>{if(m)voice(hz(m+12),start+i*beat*.5,beat*.42,'codex',.052)});$('coach').textContent='Ara escolta el contorn: on demana suport, on demana aire i on ja és suficient?';
   }
   function chordName(offset,quality){return noteNames[(Number($('root').value)+offset+12)%12]+quality;}
   function buildReadings(){
@@ -62,7 +64,7 @@
     if(!selected||!ensureAudio())return;stop();const beat=60/Number($('tempo').value),start=ctx.currentTime+.05,root=48+Number($('root').value),density=$('density').value,register=$('register').value,ensemble=$('ensemble').value;
     const type={trio:'triangle',chamber:'sine',zajj:'sawtooth',electronic:'square'}[ensemble];const count={air:2,dialogue:3,body:4}[density];
     [0,4].forEach((step,block)=>{let offsets=chordOffsets(selected.id,step).slice(0,count);if(register==='open')offsets=offsets.map((x,i)=>x+(i===offsets.length-1?12:0));if(register==='high')offsets=offsets.map(x=>x+12);offsets.forEach((off,i)=>voice(hz(root+off),start+block*beat*2,beat*1.85,type,.024/(1+i*.12)));});
-    melodyPitches().forEach((m,i)=>{if(m)voice(hz(m+12),start+i*beat*.5,beat*.38,'sine',.045)});
+    melodyPitches().forEach((m,i)=>{if(m)voice(hz(m+12),start+i*beat*.5,beat*.38,'codex',.048)});
     $('coach').textContent='Segona escolta: pots reconèixer encara la figura? Si no, redueix densitat o separa el registre.';
   }
   function snapshot(decision){return{kind:'harmonia-viva-arrangement-trace',version:'1.0',createdAt:new Date().toISOString(),source:{melody:melody.map(x=>labels[x]),root:noteNames[Number($('root').value)],mode:$('mode').value},suggestedImpulse:{reading:selected.id,title:selected.title,harmony:selected.chords,ensemble:$('ensemble').value,density:$('density').value,register:$('register').value},humanDecision:{action:decision,decidedAt:new Date().toISOString()},provenance:{organ:'Rosa de l’Escolta · Harmonia Viva',localOnly:true,canonical:false,reversible:true}};}
