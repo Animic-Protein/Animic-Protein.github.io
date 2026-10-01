@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {advanceTrial, createTrace, createTrial, reportPerception, reobserve} from './protocol.mjs';
+
+let trial=createTrial('absence','presence');
+assert.equal(trial.phase,'baseline');
+for(const phase of ['interval','change','return','reflect']) trial=advanceTrial(trial);
+assert.equal(trial.phase,'reflect');
+assert.throws(()=>createTrace(trial),/decisió humana/);
+trial=reportPerception(trial,'uncertain','I noticed a pause, but I am not sure.');
+assert.equal(trial.phase,'reveal');
+const trace=createTrace(trial,'2026-10-01T00:00:00.000Z');
+assert.equal(trace.humanDecision,'return');
+assert.equal(trace.effect.transformed,false);
+assert.equal(trace.provenance.canonical,false);
+assert.equal(trace.provenance.reversible,true);
+assert.equal(trace.observation.reportedPerception,'uncertain');
+assert.equal(trace.observation.disclosedDifference,'Un element desapareix del centre.');
+const again=reobserve(trial);
+assert.equal(again.phase,'baseline');
+assert.equal(again.reobservations,1);
+assert.throws(()=>createTrial('nonexistent'),/Condició desconeguda/);
+assert.throws(()=>reportPerception({...trial,phase:'baseline'},'noticed'),/observació/);
+console.log('Diferència perceptible protocol: OK');

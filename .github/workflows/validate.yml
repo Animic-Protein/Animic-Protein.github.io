@@ -32,6 +32,8 @@ jobs:
             -not -path './.git/*' \
             -not -path './node_modules/*' \
             -print0 | sort -z | xargs -0 -n1 node --check
+      - name: Protocol de diferència perceptible
+        run: node --test experiments/diferencia-perceptible/protocol.test.mjs
       - name: Proves de rastre i vista mòbil de Cambra Nua
         run: |
           npx playwright install --with-deps --only-shell chromium
