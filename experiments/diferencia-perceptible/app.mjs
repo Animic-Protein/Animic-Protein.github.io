@@ -21,6 +21,8 @@ function applyCopy(){
    const value=c[node.dataset.copy];
    if(value!==undefined)node.innerHTML=value;
  });
+ const articleFile=locale==='ca'?'index.html':locale==='zh'?'index.zh.html':locale==='es'?'index.es.html':'index.en.html';
+ $('articleLink').href='../../arrels/diferencia-perceptible/'+articleFile;
  document.title=locale==='zh'?'可感知差异实验室 · Còdex Viu':c.title.replace(/<[^>]+>/g,'')+' · Còdex Viu';
  if(trial){renderPhase();if(!reflectPanel.hidden){}if(!resultPanel.hidden)renderResult()}
 }
