@@ -27,7 +27,7 @@ body{background:radial-gradient(ellipse at 62% 12%,#145f7f66,transparent 38rem),
 .language-tabs{grid-column:2;grid-row:1 / 3;display:flex;gap:5px;direction:ltr;align-self:start;justify-self:end;border:1px solid #46718a88;border-radius:14px;padding:4px;background:#082230}
 .language-tabs button{min-width:44px;min-height:44px;padding:.4rem .55rem;border:0;border-radius:9px;background:transparent;font-size:.84rem;white-space:nowrap}
 .language-tabs button[aria-pressed=true]{background:#d9f7ff;color:#083047;box-shadow:0 0 16px #43d2ff33}
-.aquarium-scene{position:relative;isolation:isolate;overflow:hidden;height:300px;margin:1rem -8px 0;border-bottom:1px solid #5cd0e233;border-radius:50% 50% 16px 16px;background:radial-gradient(ellipse at 52% 85%,#43d2ff22,transparent 64%)}
+.aquarium-scene{position:relative;isolation:isolate;overflow:hidden;height:330px;margin:1rem -8px 0;border-bottom:1px solid #5cd0e233;border-radius:50% 50% 16px 16px;background:radial-gradient(ellipse at 52% 85%,#43d2ff22,transparent 64%)}
 .fugu{position:absolute;width:350px;height:220px;left:50%;top:5px;transform:translateX(-50%);filter:drop-shadow(0 0 24px #43d2ff44);--fugu-descent:75px;animation:fugu-dive 28s ease-in-out infinite}
 .fugu-shape{transform-origin:234px 148px;animation:fugu-inflate 28s ease-in-out infinite}
 .fugu-spines{stroke-dasharray:28;stroke-dashoffset:0;filter:drop-shadow(0 0 3px #ffe6a099);animation:fugu-spines 28s ease-in-out infinite}
@@ -44,5 +44,5 @@ body{background:radial-gradient(ellipse at 62% 12%,#145f7f66,transparent 38rem),
 @keyframes fin-sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(7deg)}}
 @keyframes water-glow{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes aquarium-rise{0%{transform:translateY(0);opacity:0}20%{opacity:.7}100%{transform:translateY(-210px);opacity:0}}
-@media(max-width:560px){.bar{grid-template-columns:1fr auto;gap:.6rem}.bar>a{grid-column:1 / 3}.bar>a:first-child{grid-row:2}.bar>a:nth-child(2){grid-row:3;grid-column:1 / 3}.language-tabs{grid-row:1;grid-column:2}.aquarium-scene{height:250px;margin-top:.35rem}.fugu{width:300px;height:188px;top:0;--fugu-descent:65px}.hero{padding-top:1.5rem}}
+@media(max-width:560px){.bar{grid-template-columns:1fr auto;gap:.6rem}.bar>a{grid-column:1 / 3}.bar>a:first-child{grid-row:2}.bar>a:nth-child(2){grid-row:3;grid-column:1 / 3}.language-tabs{grid-row:1;grid-column:2}.aquarium-scene{height:290px;margin-top:.35rem}.fugu{width:300px;height:188px;top:0;--fugu-descent:65px}.hero{padding-top:1.5rem}}
 @media(prefers-reduced-motion:reduce){.fugu,.fugu-shape,.fugu-spines,.fugu-tail,.fugu-fin,.water-ray,.aquarium-bubble{animation:none!important}.aquarium-bubble{opacity:.6}}

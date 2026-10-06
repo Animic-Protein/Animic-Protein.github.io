@@ -47,7 +47,7 @@ try {
   assert.ok(deflated.y>upper.y+30,'Fish descends');
   assert.ok(inflated.width>deflated.width*1.2,'Fish reinflates at the bottom');
   assert.ok(deflated.spines>20&&inflated.spines<1&&inflated.opacity>.95,'Spines retract then deploy clearly');
-  assert.ok(inflated.bottom<inflated.floor,'Inflated fish and spines fit in the mobile aquarium');
+  assert.ok(inflated.bottom<inflated.floor,`Inflated fish and spines fit in the mobile aquarium: ${JSON.stringify(inflated)}`);
   for(const lang of ['ur','tl','hi','ca']){
     await page.locator(`[data-language="${lang}"]`).click();
     assert.equal(await page.locator('html').getAttribute('lang'),lang);
