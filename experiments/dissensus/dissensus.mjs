@@ -47,20 +47,7 @@ function render(){
 function choose(decision){
   state=recordDecision(state,decision,$('#otherRoute').value);
   $$('[data-decision]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.decision===decision)));
-  const workbench=$('#workbench');
-const invitation=$('#invitation');
-const declineNote=$('#declineNote');
-$('#beginSession').addEventListener('click',()=>{
-  invitation.hidden=true;
-  workbench.hidden=false;
-  $('#case-title').focus();
-});
-$('#declineSession').addEventListener('click',()=>{
-  invitation.hidden=true;
-  declineNote.hidden=false;
-});
-
-render();
+  render();
 }
 
 $$('[data-decision]').forEach(button=>button.addEventListener('click',()=>choose(button.dataset.decision)));
@@ -111,6 +98,21 @@ $('#dissolve').addEventListener('click',()=>{
   $('#sourceText').value='La inteligencia artificial empobrece necesariamente la creatividad humana.';
   $('#privacyStatus').textContent='La sessió s’ha dissolt. No hi havia cap rastre guardat al navegador.';
   render();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+});
+
+const workbench=$('#workbench');
+const invitation=$('#invitation');
+const declineNote=$('#declineNote');
+const skipLink=$('#skipLink');
+$('#beginSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  workbench.hidden=false;
+  skipLink.hidden=false;
+  $('#case-title').focus();
+});
+$('#declineSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  declineNote.hidden=false;
 });
 
 render();
