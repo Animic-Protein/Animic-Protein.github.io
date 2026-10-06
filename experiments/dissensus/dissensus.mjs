@@ -76,7 +76,6 @@ function trace(){
     retentio:{text:$('#sourceText').value.trim()},
     frictiones:{authorship:'AI draft; no verified sources attached',support:$('#support').value.trim(),objection:$('#objection').value.trim(),verifiedSources:[]},
     suggestedImpulse:{author:'AI',text:t('impulseText')},
-    interfaceLanguage:document.documentElement.lang,
     humanRejection:state.rejected,
     humanDecision:{choice:state.decision,authorizedAction:state.authorizedDecision,otherRoute:$('#otherRoute').value.trim()||null},
     decisionHistory:state.events,
