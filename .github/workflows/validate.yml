@@ -42,6 +42,7 @@ jobs:
           node --test cambra-nua-2/trace-history.test.mjs
           node --test cambra-nua-2/perceived-duration.test.mjs
           node cambra-nua-2/trace-history.browser.test.mjs
+          node experiments/dissensus/offline.browser.test.mjs
       - name: Coherència del Site
         run: node scripts/validate-site.mjs
       - name: Homeòstasi del Portal
