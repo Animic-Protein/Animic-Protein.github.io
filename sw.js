@@ -1,4 +1,4 @@
-const CACHE = 'codex-viu-canonical-v121';
+const CACHE = 'codex-viu-canonical-v122';
 const ASSETS = [
   './', './index.html', './styles.css', './rosa.css', './rosa-lamina.css', './rosa-enhanced.css', './rosa-inter-nos.css', './cartographia.css',
   './germinacio.css', './error-fertil-i.css', './radices-brodsky.css', './vortex-ant.css', './temps-nu.css', './app.js', './foundation.js', './core.js', './germinacio.js', './phase3.js', './seed-bridge.js', './compost-cycle.js', './error-fertil-i.js', './metabolism.js', './homeostasis.js', './lineage.js',
@@ -50,6 +50,7 @@ ASSETS.push(
   './experiments/dissensus/index.html',
   './experiments/dissensus/dissensus.css',
   './experiments/dissensus/dissensus.mjs',
+  './experiments/dissensus/dissensus-i18n.mjs',
   './experiments/dissensus/protocol.mjs',
   './experiments/dissensus/offline.mjs',
   './experiments/dissensus/DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf'

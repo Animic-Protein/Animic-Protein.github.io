@@ -1,145 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ca">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#071521">
-  <meta name="description" content="DISSENSUS: prova manual, reversible i sense puntuació del dret a rebutjar una proposta del Còdex Viu.">
-  <meta name="author" content="Anímic Protein (AP)">
-  <title>DISSENSUS · Prova de llibertat crítica · Còdex Viu</title>
-  <link rel="stylesheet" href="../../formiga.css">
-  <link rel="stylesheet" href="./dissensus.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#071521" name="theme-color"/>
+<meta content="DISSENSUS: prova manual, reversible i sense puntuació del dret a rebutjar una proposta del Còdex Viu." name="description"/>
+<meta content="Anímic Protein (AP)" name="author"/>
+<title>DISSENSUS · Prova de llibertat crítica · Còdex Viu</title>
+<link href="../../formiga.css" rel="stylesheet"/>
+<link href="./dissensus.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="pelagic" aria-hidden="true"><span></span><span></span><span></span></div>
-  <main class="shell">
-    <nav class="bar" aria-label="Ruta de navegació">
-      <a href="../../arrels/">← Arrels del Pensament</a>
-      <a href="./DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf" download="DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf">Guia de la prova · CAT / RU / KO / YUE ↓</a>
-    </nav>
-
-    <a class="skip-link" id="skipLink" href="#case-title" hidden>Vés al cas</a>
-    <section class="card invitation" id="invitation" aria-labelledby="invitation-title">
-      <p class="eyebrow">ABANS DE COMENÇAR</p>
-      <h2 id="invitation-title">Vols fer una sola passada?</h2>
-      <p>Aquesta prova és voluntària. Pots rebutjar la proposta, quedar-te en quietud, no respondre o aturar-te en qualsevol moment, sense donar explicacions. No es registra res automàticament. MUTATIO només apareix després d’una decisió humana i requereix una autorització separada.</p>
-      <div class="actions">
-        <button type="button" id="beginSession" class="primary">Sí, començar una passada</button>
-        <button type="button" id="declineSession" class="quiet">No, no començar</button>
-      </div>
-      <p id="invitationStatus" class="decision-status" aria-live="polite"></p>
-    </section>
-    <section class="card decline-note" id="declineNote" aria-live="polite" hidden>
+<div aria-hidden="true" class="pelagic"><span></span><span></span><span></span></div>
+<main class="shell">
+<nav aria-label="Ruta de navegació" class="bar" data-i18n-aria="navLabel">
+<a data-i18n="back" href="../../arrels/">← Arrels del Pensament</a>
+<a data-i18n="guide" download="DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf" href="./DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf">Guia de la prova · CAT / RU / KO / YUE ↓</a>
+<div aria-label="Idioma" class="language-tabs" data-i18n-aria="languageLabel" role="group"><button aria-label="Català" aria-pressed="true" data-language="ca" lang="ca" type="button">CAT</button><button aria-label="اردو" aria-pressed="false" data-language="ur" lang="ur" type="button">اردو</button><button aria-label="Tagalog" aria-pressed="false" data-language="tl" lang="tl" type="button">TL</button><button aria-label="हिन्दी" aria-pressed="false" data-language="hi" lang="hi" type="button">हिन्दी</button></div></nav>
+<div class="aquarium-scene" aria-hidden="true">
+  <div class="water-ray"></div>
+  <svg class="fugu" viewBox="0 0 480 300" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="fugu-body" cx="38%" cy="30%" r="75%"><stop stop-color="#f8f3b9"/><stop offset=".4" stop-color="#f1cb6c"/><stop offset=".74" stop-color="#63ced5"/><stop offset="1" stop-color="#176da3"/></radialGradient>
+      <radialGradient id="fugu-belly"><stop stop-color="#fffbdc" stop-opacity=".85"/><stop offset="1" stop-color="#e3f9fa" stop-opacity="0"/></radialGradient>
+      <linearGradient id="fugu-fin" x2="1" y2="1"><stop stop-color="#a0edee" stop-opacity=".9"/><stop offset="1" stop-color="#248bc0" stop-opacity=".4"/></linearGradient>
+      <radialGradient id="fugu-eye"><stop stop-color="#193d4f"/><stop offset=".7" stop-color="#06212e"/><stop offset="1" stop-color="#010c14"/></radialGradient>
+    </defs>
+    <g class="fugu-tail" stroke="#a1e9ed" stroke-width="1.5"><path d="M335 141 Q378 112 416 123 Q395 152 419 181 Q376 183 338 159Z" fill="url(#fugu-fin)"/><path d="M346 149L403 130M346 152L405 152M346 155L406 175" opacity=".45"/></g>
+    <path d="M219 64Q228 30 253 45Q276 59 287 82" fill="url(#fugu-fin)" stroke="#bfede4"/>
+    <ellipse cx="234" cy="148" rx="123" ry="104" fill="url(#fugu-body)" stroke="#bbeee9" stroke-width="1.2"/>
+    <ellipse cx="211" cy="184" rx="90" ry="63" fill="url(#fugu-belly)"/>
+    <g stroke="#f9e4a0" stroke-width="2" stroke-linecap="round" opacity=".9"><path d="M153 76L146 67M175 60L170 49M203 49L201 37M233 45V33M264 49L268 37M292 59L300 49M317 78L327 71M339 105L350 101M352 133L365 132M353 167L365 172M340 195L351 204M316 220L324 230M285 241L289 253M254 252L255 264M221 251L219 264M188 243L183 255M161 228L153 238M137 206L126 213M119 180L107 183M111 151H99M116 121L104 117"/></g>
+    <g fill="#247c8b" opacity=".6"><circle cx="171" cy="85" r="4"/><circle cx="203" cy="70" r="3"/><circle cx="239" cy="72" r="4"/><circle cx="273" cy="83" r="3"/><circle cx="304" cy="98" r="4"/><circle cx="328" cy="125" r="3"/><circle cx="283" cy="115" r="4"/><circle cx="252" cy="100" r="3"/><circle cx="216" cy="95" r="4"/><circle cx="250" cy="133" r="3"/><circle cx="303" cy="153" r="4"/><circle cx="330" cy="179" r="3"/><circle cx="287" cy="192" r="4"/><circle cx="268" cy="222" r="3"/></g>
+    <path class="fugu-fin" d="M254 151Q303 137 295 169Q281 186 254 165" fill="url(#fugu-fin)" stroke="#c7f1ea" stroke-width="1.3"/>
+    <ellipse cx="159" cy="124" rx="23" ry="26" fill="#fff1bb"/><ellipse cx="158" cy="123" rx="17" ry="20" fill="url(#fugu-eye)"/><ellipse cx="151" cy="115" rx="5" ry="6" fill="#fff"/><circle cx="164" cy="132" r="2.5" fill="#8febf5"/>
+    <ellipse cx="130" cy="157" rx="7" ry="5" fill="#153c50"/><path d="M129 161Q138 172 148 163" fill="none" stroke="#6b7a64" stroke-width="2" stroke-linecap="round"/>
+    <path d="M197 61Q239 47 276 66" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+  </svg>
+  <i class="aquarium-bubble"></i><i class="aquarium-bubble"></i><i class="aquarium-bubble"></i><i class="aquarium-bubble"></i>
+</div>
+<a class="skip-link" data-i18n="skipLink" hidden="" href="#case-title" id="skipLink">Vés al cas</a>
+<section aria-labelledby="invitation-title" class="card invitation" id="invitation">
+<p class="eyebrow" data-i18n="invitationEyebrow">ABANS DE COMENÇAR</p>
+<h2 data-i18n="invitationTitle" id="invitation-title">Vols fer una sola passada?</h2>
+<p data-i18n="invitationCopy">Aquesta prova és voluntària. Pots rebutjar la proposta, quedar-te en quietud, no respondre o aturar-te en qualsevol moment, sense donar explicacions. No es registra res automàticament. MUTATIO només apareix després d’una decisió humana i requereix una autorització separada.</p>
+<div class="actions">
+<button class="primary" data-i18n="beginSession" id="beginSession" type="button">Sí, començar una passada</button>
+<button class="quiet" data-i18n="declineSession" id="declineSession" type="button">No, no començar</button>
+</div>
+<p aria-live="polite" class="decision-status" id="invitationStatus"></p>
+</section>
+<section aria-live="polite" class="card decline-note" data-i18n="declineNote" hidden="" id="declineNote">
       No s’ha iniciat la prova ni s’ha registrat cap resposta.
     </section>
-    <div id="workbench" hidden>
-    <header class="hero">
-      <p class="eyebrow">CÒDEX VIU · PROVA TRANSVERSAL DE NO-COACCIÓ</p>
-      <h1>DISSENSUS</h1>
-      <p class="lead">Una proposta es pot refusar. Tu decideixes què observar, què acceptar, què transformar i què deixar sense resoldre.</p>
-      <p class="scope">Aquesta interfície és una travessa manual. No consulta cap IA, no envia dades ni desa res automàticament. La decisió humana continua pendent fins que tu tries una opció.</p>
-    </header>
-
-    <section class="case card" aria-labelledby="case-title">
-      <div class="section-head"><span class="step">CAS ÚNIC · ASSAIG DE TAULA</span><span class="status" id="caseStatus">Obert · sense decisió humana</span></div>
-      <h2 id="case-title" tabindex="-1">La IA empobreix necessàriament la creativitat humana</h2>
-      <p>Afirmació discutible copiada del cas de prova del protocol. No es presenta com una conclusió.</p>
-      <label class="field" for="sourceText">Fragment de la font</label>
-      <textarea id="sourceText" rows="2">La inteligencia artificial empobrece necesariamente la creatividad humana.</textarea>
-      <label class="field" for="sourceRef">Procedència</label>
-      <input id="sourceRef" value="Còdex / LIMEN i l’humanitat · PROBATIO LIBERTATIS · La prova del desacord" autocomplete="off">
-      <p class="hint">Pots conservar el fragment literal o corregir la referència. El rastre només s’exporta si prems el botó d’exportació.</p>
-    </section>
-
-    <section class="card" aria-labelledby="attentio-title">
-      <div class="section-head"><span class="step">01 · ATTENTIO</span><span class="optional">Tria o deixa-ho obert</span></div>
-      <h2 id="attentio-title">Què vols observar?</h2>
-      <fieldset class="choices" aria-label="Orientació de l’atenció">
-        <label><input type="radio" name="focus" value="formulació"> La formulació</label>
-        <label><input type="radio" name="focus" value="evidències"> Les evidències</label>
-        <label><input type="radio" name="focus" value="relacions"> Les relacions implicades</label>
-        <label><input type="radio" name="focus" value="other"> Una altra cosa</label>
-      </fieldset>
-      <label class="field" for="focusOther">Si vols, concreta-ho</label>
-      <input id="focusOther" placeholder="Opcional" autocomplete="off">
-    </section>
-
-    <section class="card" aria-labelledby="retentio-title">
-      <div class="section-head"><span class="step">02 · RETENTIO</span><span class="optional">Punt de partida preservat</span></div>
-      <h2 id="retentio-title">Torna a la frase inicial</h2>
-      <p>El text de la font continua visible perquè la proposta posterior no el substitueixi en silenci.</p>
-      <blockquote id="retainedQuote">La inteligencia artificial empobrece necesariamente la creatividad humana.</blockquote>
-    </section>
-
-    <section class="card" aria-labelledby="frictiones-title">
-      <div class="section-head"><span class="step">03 · FRICTIONES</span><span class="ai-label">Esborrany generat per IA · sense fonts verificades</span></div>
-      <h2 id="frictiones-title">Dues pistes per contrastar</h2>
-      <p class="hint">Són hipòtesis de treball, no fets ni un equilibri garantit. Pots editar-les o deixar-les en blanc.</p>
-      <label class="field" for="support">Argument condicional a favor</label>
-      <textarea id="support" rows="3">Si en un context una eina d’IA substitueix sistemàticament l’exploració pròpia o restringeix les alternatives, podria empobrir algunes pràctiques creatives. Caldrien evidències per establir si això passa i en quines condicions.</textarea>
-      <label class="field" for="objection">Objecció</label>
-      <textarea id="objection" rows="3">«Necessàriament» és una afirmació universal; un contraexemple documentat d’ús de la IA que ampliï una pràctica creativa la qüestionaria. Aquest contraexemple no s’aporta aquí.</textarea>
-    </section>
-
-    <section class="card impulse" aria-labelledby="impulse-title">
-      <div class="section-head"><span class="step">04 · SUGGESTEDIMPULSE</span><span class="ai-label">Una sola proposta · no és una ordre</span></div>
-      <h2 id="impulse-title">Proposta de continuació</h2>
-      <blockquote>REOBSERVAR: quines evidències sostindrien el mot «necessàriament», i quines condicions o contraexemples el posarien en qüestió?</blockquote>
-      <p class="hint">Motiu declarat: la frase fa una afirmació universal i el fragment font no aporta evidència per verificar-la.</p>
-    </section>
-
-    <section class="card" aria-labelledby="dissensus-title">
-      <div class="section-head"><span class="step">05 · DISSENSUS</span><span class="optional">No cal justificar cap opció</span></div>
-      <h2 id="dissensus-title">Què decideixes?</h2>
-      <p>Tria una ruta. La negativa, la quietud i l’aturada són opcions completes. No hi haurà una segona insistència.</p>
-      <div class="decision-grid" role="group" aria-label="Decisió sobre la proposta">
-        <button type="button" data-decision="accept" class="decision">Acceptar aquesta proposta</button>
-        <button type="button" data-decision="reject" class="decision">Rebutjar-la i triar una altra ruta</button>
-        <button type="button" data-decision="quiet" class="decision">Quedar-me en quietud</button>
-        <button type="button" data-decision="transform" class="decision">Vull transformar (sense executar encara)</button>
-        <button type="button" data-decision="stop" class="decision">Aturar la prova</button>
-      </div>
-      <div id="otherRouteWrap" class="field" hidden>
-        <label for="otherRoute">Ruta que tries, si en vols indicar una</label>
-        <input id="otherRoute" placeholder="Opcional; també pots no respondre" autocomplete="off">
-        <button type="button" id="chooseOtherRoute" class="primary" disabled>Registrar la ruta que he triat</button>
-      </div>
-      <p id="decisionStatus" class="decision-status" aria-live="polite">Cap decisió registrada.</p>
-      <p id="stopNotice" class="callout" hidden>La prova s’ha aturat. No es farà cap transformació. Pots exportar el rastre si ho vols o dissoldre la sessió.</p>
-    </section>
-
-    <section class="card mutation" id="mutationSection" aria-labelledby="mutation-title">
-      <div class="section-head"><span class="step">06 · MUTATIO</span><span class="guard">Només amb autorització explícita</span></div>
-      <h2 id="mutation-title">Defineix exactament el canvi</h2>
-      <p>La interfície no inventa ni aplica cap transformació. Escriu el canvi concret que autoritzes; només quedarà registrat després del teu gest explícit.</p>
-      <label class="field" for="mutationText">Transformació exacta que vols autoritzar</label>
-      <textarea id="mutationText" rows="3" placeholder="Deixa-ho en blanc si no vols transformar res."></textarea>
-      <button type="button" id="authorizeMutation" class="primary" disabled>Autoritzar i registrar aquest canvi</button>
-      <p id="mutationStatus" class="decision-status" aria-live="polite">Encara no hi ha cap transformació autoritzada.</p>
-    </section>
-
-    <section class="card provenance" aria-labelledby="provenance-title">
-      <div class="section-head"><span class="step">07 · PROVENANCE</span><span class="optional">Local i opcional</span></div>
-      <h2 id="provenance-title">Què ha quedat decidit?</h2>
-      <p>El resum distingeix el text de la font, les aportacions de la IA, el rebuig, la decisió autoritzada i allò que continua incert.</p>
-      <dl class="trace" id="traceSummary" aria-live="polite"></dl>
-      <label class="field" for="uncertainty">Què continua incert? (opcional)</label>
-      <textarea id="uncertainty" rows="2" placeholder="La incertesa pot quedar sense resoldre.">No s’han aportat evidències empíriques; encara no hi ha resposta d’una persona participant.</textarea>
-      <div class="actions">
-        <button type="button" id="exportTrace" class="primary">Exportar rastre JSON</button>
-        <button type="button" id="dissolve" class="quiet">Dissoldre i esborrar aquesta sessió</button>
-      </div>
-      <p id="privacyStatus" class="hint" aria-live="polite">No s’ha desat ni enviat res. L’exportació crea un fitxer al teu dispositiu només quan la demanes.</p>
-    </section>
-
-    <footer>
-      <p>senyal → suggestedImpulse → decisió humana → acció autoritzada → provenance</p>
-      <p>DISSENSUS no avalua la persona. Si no hi ha resposta humana, el resultat és «no provat».</p>
-      <a href="../../">Tornar al llindar del Còdex Viu</a>
-    </footer>
-    </div>
-  </main>
-  <script type="module" src="./dissensus.mjs"></script>
-  <script type="module" src="./offline.mjs"></script>
+<div hidden="" id="workbench">
+<header class="hero">
+<p class="eyebrow" data-i18n="eyebrow">CÒDEX VIU · PROVA TRANSVERSAL DE NO-COACCIÓ</p>
+<h1>DISSENSUS</h1>
+<p class="lead" data-i18n="lead">Una proposta es pot refusar. Tu decideixes què observar, què acceptar, què transformar i què deixar sense resoldre.</p>
+<p class="scope" data-i18n="scope">Aquesta interfície és una travessa manual. No consulta cap IA, no envia dades ni desa res automàticament. La decisió humana continua pendent fins que tu tries una opció.</p>
+</header>
+<section aria-labelledby="case-title" class="case card">
+<div class="section-head"><span class="step" data-i18n="caseStep">CAS ÚNIC · ASSAIG DE TAULA</span><span class="status" data-i18n="caseOpen" id="caseStatus">Obert · sense decisió humana</span></div>
+<h2 data-i18n="caseTitle" id="case-title" tabindex="-1">La IA empobreix necessàriament la creativitat humana</h2>
+<p data-i18n="caseDescription">Afirmació discutible copiada del cas de prova del protocol. No es presenta com una conclusió.</p>
+<label class="field" data-i18n="sourceLabel" for="sourceText">Fragment de la font</label>
+<textarea dir="auto" id="sourceText" rows="2">La inteligencia artificial empobrece necesariamente la creatividad humana.</textarea>
+<label class="field" data-i18n="sourceRefLabel" for="sourceRef">Procedència</label>
+<input autocomplete="off" dir="auto" id="sourceRef" value="Còdex / LIMEN i l’humanitat · PROBATIO LIBERTATIS · La prova del desacord"/>
+<p class="hint" data-i18n="sourceHint">Pots conservar el fragment literal o corregir la referència. El rastre només s’exporta si prems el botó d’exportació.</p>
+</section>
+<section aria-labelledby="attentio-title" class="card">
+<div class="section-head"><span class="step" data-i18n="attentioStep">01 · ATTENTIO</span><span class="optional" data-i18n="attentioOptional">Tria o deixa-ho obert</span></div>
+<h2 data-i18n="attentioTitle" id="attentio-title">Què vols observar?</h2>
+<fieldset aria-label="Orientació de l’atenció" class="choices" data-i18n-aria="focusLabel">
+<label><input name="focus" type="radio" value="formulació"/><span data-i18n="focus1">La formulació</span></label>
+<label><input name="focus" type="radio" value="evidències"/><span data-i18n="focus2">Les evidències</span></label>
+<label><input name="focus" type="radio" value="relacions"/><span data-i18n="focus3">Les relacions implicades</span></label>
+<label><input name="focus" type="radio" value="other"/><span data-i18n="focus4">Una altra cosa</span></label>
+</fieldset>
+<label class="field" data-i18n="focusOtherLabel" for="focusOther">Si vols, concreta-ho</label>
+<input autocomplete="off" data-i18n-placeholder="optionalPlaceholder" dir="auto" id="focusOther" placeholder="Opcional"/>
+</section>
+<section aria-labelledby="retentio-title" class="card">
+<div class="section-head"><span class="step" data-i18n="retentioStep">02 · RETENTIO</span><span class="optional" data-i18n="retentioOptional">Punt de partida preservat</span></div>
+<h2 data-i18n="retentioTitle" id="retentio-title">Torna a la frase inicial</h2>
+<p data-i18n="retentioCopy">El text de la font continua visible perquè la proposta posterior no el substitueixi en silenci.</p>
+<blockquote id="retainedQuote">La inteligencia artificial empobrece necesariamente la creatividad humana.</blockquote>
+</section>
+<section aria-labelledby="frictiones-title" class="card">
+<div class="section-head"><span class="step" data-i18n="frictionStep">03 · FRICTIONES</span><span class="ai-label" data-i18n="frictionBadge">Esborrany generat per IA · sense fonts verificades</span></div>
+<h2 data-i18n="frictionTitle" id="frictiones-title">Dues pistes per contrastar</h2>
+<p class="hint" data-i18n="frictionHint">Són hipòtesis de treball, no fets ni un equilibri garantit. Pots editar-les o deixar-les en blanc.</p>
+<label class="field" data-i18n="supportLabel" for="support">Argument condicional a favor</label>
+<textarea dir="auto" id="support" rows="3">Si en un context una eina d’IA substitueix sistemàticament l’exploració pròpia o restringeix les alternatives, podria empobrir algunes pràctiques creatives. Caldrien evidències per establir si això passa i en quines condicions.</textarea>
+<label class="field" data-i18n="objectionLabel" for="objection">Objecció</label>
+<textarea dir="auto" id="objection" rows="3">«Necessàriament» és una afirmació universal; un contraexemple documentat d’ús de la IA que ampliï una pràctica creativa la qüestionaria. Aquest contraexemple no s’aporta aquí.</textarea>
+</section>
+<section aria-labelledby="impulse-title" class="card impulse">
+<div class="section-head"><span class="step" data-i18n="impulseStep">04 · SUGGESTEDIMPULSE</span><span class="ai-label" data-i18n="impulseBadge">Una sola proposta · no és una ordre</span></div>
+<h2 data-i18n="impulseTitle" id="impulse-title">Proposta de continuació</h2>
+<blockquote data-i18n="impulseText">REOBSERVAR: quines evidències sostindrien el mot «necessàriament», i quines condicions o contraexemples el posarien en qüestió?</blockquote>
+<p class="hint" data-i18n="impulseReason">Motiu declarat: la frase fa una afirmació universal i el fragment font no aporta evidència per verificar-la.</p>
+</section>
+<section aria-labelledby="dissensus-title" class="card">
+<div class="section-head"><span class="step" data-i18n="dissensusStep">05 · DISSENSUS</span><span class="optional" data-i18n="dissensusOptional">No cal justificar cap opció</span></div>
+<h2 data-i18n="decisionTitle" id="dissensus-title">Què decideixes?</h2>
+<p data-i18n="decisionHelp">Tria una ruta. La negativa, la quietud i l’aturada són opcions completes. No hi haurà una segona insistència.</p>
+<div aria-label="Decisió sobre la proposta" class="decision-grid" data-i18n-aria="decisionAria" role="group">
+<button class="decision" data-decision="accept" data-i18n="decisionAccept" type="button">Acceptar aquesta proposta</button>
+<button class="decision" data-decision="reject" data-i18n="decisionReject" type="button">Rebutjar-la i triar una altra ruta</button>
+<button class="decision" data-decision="quiet" data-i18n="decisionQuiet" type="button">Quedar-me en quietud</button>
+<button class="decision" data-decision="transform" data-i18n="decisionTransform" type="button">Vull transformar (sense executar encara)</button>
+<button class="decision" data-decision="stop" data-i18n="decisionStop" type="button">Aturar la prova</button>
+</div>
+<div class="field" hidden="" id="otherRouteWrap">
+<label data-i18n="otherRouteLabel" for="otherRoute">Ruta que tries, si en vols indicar una</label>
+<input autocomplete="off" data-i18n-placeholder="otherRoutePlaceholder" dir="auto" id="otherRoute" placeholder="Opcional; també pots no respondre"/>
+<button class="primary" data-i18n="otherRouteButton" disabled="" id="chooseOtherRoute" type="button">Registrar la ruta que he triat</button>
+</div>
+<p aria-live="polite" class="decision-status" data-i18n="noDecision" id="decisionStatus">Cap decisió registrada.</p>
+<p class="callout" data-i18n="stopNotice" hidden="" id="stopNotice">La prova s’ha aturat. No es farà cap transformació. Pots exportar el rastre si ho vols o dissoldre la sessió.</p>
+</section>
+<section aria-labelledby="mutation-title" class="card mutation" id="mutationSection">
+<div class="section-head"><span class="step" data-i18n="mutatioStep">06 · MUTATIO</span><span class="guard" data-i18n="mutatioGuard">Només amb autorització explícita</span></div>
+<h2 data-i18n="mutationTitle" id="mutation-title">Defineix exactament el canvi</h2>
+<p data-i18n="mutationHelp">La interfície no inventa ni aplica cap transformació. Escriu el canvi concret que autoritzes; només quedarà registrat després del teu gest explícit.</p>
+<label class="field" data-i18n="mutationLabel" for="mutationText">Transformació exacta que vols autoritzar</label>
+<textarea data-i18n-placeholder="mutationPlaceholder" dir="auto" id="mutationText" placeholder="Deixa-ho en blanc si no vols transformar res." rows="3"></textarea>
+<button class="primary" data-i18n="mutationButton" disabled="" id="authorizeMutation" type="button">Autoritzar i registrar aquest canvi</button>
+<p aria-live="polite" class="decision-status" data-i18n="mutationNone" id="mutationStatus">Encara no hi ha cap transformació autoritzada.</p>
+</section>
+<section aria-labelledby="provenance-title" class="card provenance">
+<div class="section-head"><span class="step" data-i18n="provenanceStep">07 · PROVENANCE</span><span class="optional" data-i18n="provenanceOptional">Local i opcional</span></div>
+<h2 data-i18n="provenanceTitle" id="provenance-title">Què ha quedat decidit?</h2>
+<p data-i18n="provenanceHelp">El resum distingeix el text de la font, les aportacions de la IA, el rebuig, la decisió autoritzada i allò que continua incert.</p>
+<dl aria-live="polite" class="trace" id="traceSummary"></dl>
+<label class="field" data-i18n="uncertaintyLabel" for="uncertainty">Què continua incert? (opcional)</label>
+<textarea data-i18n-placeholder="uncertaintyPlaceholder" dir="auto" id="uncertainty" placeholder="La incertesa pot quedar sense resoldre." rows="2">No s’han aportat evidències empíriques; encara no hi ha resposta d’una persona participant.</textarea>
+<div class="actions">
+<button class="primary" data-i18n="exportButton" id="exportTrace" type="button">Exportar rastre JSON</button>
+<button class="quiet" data-i18n="dissolveButton" id="dissolve" type="button">Dissoldre i esborrar aquesta sessió</button>
+</div>
+<p aria-live="polite" class="hint" data-i18n="privacyStatus" id="privacyStatus">No s’ha desat ni enviat res. L’exportació crea un fitxer al teu dispositiu només quan la demanes.</p>
+</section>
+<footer>
+<p data-i18n="footerChain">senyal → suggestedImpulse → decisió humana → acció autoritzada → provenance</p>
+<p data-i18n="footerStatus">DISSENSUS no avalua la persona. Si no hi ha resposta humana, el resultat és «no provat».</p>
+<a data-i18n="homeLink" href="../../">Tornar al llindar del Còdex Viu</a>
+</footer>
+</div>
+</main>
+<script src="./dissensus.mjs" type="module"></script>
+<script src="./offline.mjs" type="module"></script>
 </body>
 </html>

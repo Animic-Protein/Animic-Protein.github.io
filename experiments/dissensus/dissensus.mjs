@@ -1,44 +1,50 @@
 import {authorizeTransformation,createSession,recordDecision} from './protocol.mjs';
+import {initializeLanguages,language,resetDefaults,setLanguage,t} from './dissensus-i18n.mjs';
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>[...document.querySelectorAll(selector)];
 const SOURCE_REF_DEFAULT=$('#sourceRef').value;
-const IMPULSE='REOBSERVAR: quines evidències sostindrien el mot «necessàriament», i quines condicions o contraexemples el posarien en qüestió?';
-const AI_ARGUMENTS={
-  support:$('#support').value,
-  objection:$('#objection').value
-};
+
 let state=createSession();
+initializeLanguages();
+let privacyStatusKey='privacyStatus';
+const IMPULSE=t('impulseText');
 
 function focusValue(){return document.querySelector('input[name="focus"]:checked')?.value||null}
 function focusLabel(){
   const value=focusValue();
-  if(value==='other')return $('#focusOther').value.trim()||'Una altra orientació (sense detall)';
-  return value?({formulació:'La formulació',evidències:'Les evidències',relacions:'Les relacions implicades'}[value]||value):null;
+  if(value==='other')return $('#focusOther').value.trim()||t('focusOtherFallback');
+  return value?({formulació:t('focusFormulation'),evidències:t('focusEvidence'),relacions:t('focusRelations')}[value]||value):null;
+}
+function authorizedLabel(){
+  if(state.mutation)return `${t('mutatioRecorded')} ${state.mutation}`;
+  const keys={accept:'authorizedAccept',reject:'authorizedReject',other:'authorizedOther',quiet:'authorizedQuiet',transform:'authorizedTransform',stop:'authorizedStop'};
+  return state.decision? t(keys[state.decision])+(state.decision==='other'?` ${$('#otherRoute').value.trim()}`:''):t('noAuthorizedAction');
 }
 function render(){
+  $('#privacyStatus').textContent=t(privacyStatusKey);
   const source=$('#sourceText').value.trim();
-  $('#retainedQuote').textContent=source||'La font encara no s’ha especificat.';
-  $('#caseStatus').textContent=state.ended?'Aturat · sense més accions':state.decision?'Decisió humana registrada':'Obert · sense decisió humana';
+  $('#retainedQuote').textContent=source||t('notSpecified');
+  $('#caseStatus').textContent=state.ended?t('caseStopped'):state.decision?t('caseDecided'):t('caseOpen');
   $('#otherRouteWrap').hidden=state.decision!=='reject';
   $$('[data-decision]').forEach(button=>button.disabled=state.ended||Boolean(state.mutation));
   $('#chooseOtherRoute').disabled=state.decision!=='reject'||!$('#otherRoute').value.trim()||state.ended||Boolean(state.mutation);
   $('#stopNotice').hidden=!state.ended;
   $('#authorizeMutation').disabled=state.decision!=='transform'||state.ended||!$('#mutationText').value.trim()||Boolean(state.mutation);
   $('#mutationSection').hidden=state.decision!=='transform';
-  $('#mutationStatus').textContent=state.mutation?`Autorització registrada per a: ${state.mutation}`:'Encara no hi ha cap transformació autoritzada.';
-  const decisionText={accept:'Acceptar REOBSERVAR',reject:'Rebutjar REOBSERVAR',other:'Rebutjar REOBSERVAR i triar una altra ruta',quiet:'Quedar-se en quietud',transform:'Transformar (autorització exacta encara pendent)',stop:'Aturar la prova'};
-  $('#decisionStatus').textContent=state.decision?`Has triat: ${decisionText[state.decision]}. Aquesta opció no executa cap transformació.`:'Cap decisió registrada.';
+  $('#mutationStatus').textContent=state.mutation?`${t('mutationRegistered')} ${state.mutation}`:t('mutationNotAuthorized');
+  const decisionText={accept:t('decisionAcceptTrace'),reject:t('decisionRejectTrace'),other:t('decisionOtherTrace'),quiet:t('decisionQuietTrace'),transform:t('decisionTransformTrace'),stop:t('decisionStopTrace')};
+  $('#decisionStatus').textContent=state.decision?`${t('chose')} ${decisionText[state.decision]}. ${t('noTransform')}`:t('noDecisionRecorded');
   const rows=[
-    ['Font',source?`${source} — ${$('#sourceRef').value.trim()||'referència no especificada'}`:'Pendent d’indicar'],
-    ['ATTENTIO',focusLabel()||'No especificat'],
-    ['Proposta de la IA',IMPULSE],
-    ['FRICTIONES · IA',`Argument: ${$('#support').value.trim()||'en blanc'} Objecció: ${$('#objection').value.trim()||'en blanc'} Fonts verificades: cap`],
-    ['Rebuig',state.rejected??'Pendent; encara no hi ha rebuig registrat'],
-    ['Decisió autoritzada',state.authorizedDecision??'Pendent; no hi ha cap acció autoritzada'],
-    ['MUTATIO',state.mutation?`Autoritzada i registrada: ${state.mutation}`:'No executada ni autoritzada'],
-    ['Incertesa',$('#uncertainty').value.trim()||'No declarada; pot quedar oberta'],
-    ['Estat', (state.ended?'Aturat':state.decision?'Decisió humana registrada':'Sessió oberta')+' · prova empírica amb participant: no feta; resultat no provat']
+    [t('sourceTerm'),source?`${source} — ${$('#sourceRef').value.trim()||t('notSpecified')}`:t('pendingSource')],
+    [t('attentioTerm'),focusLabel()||t('unspecified')],
+    [t('impulseTerm'),t('impulseText')],
+    [t('frictionTerm'),`${t('supportPrefix')} ${$('#support').value.trim()||t('blank')}${t('objectionPrefix')} ${$('#objection').value.trim()||t('blank')}${t('noVerifiedSources')}`],
+    [t('rejectionTerm'),state.rejected?t('rejectionRecorded'):t('rejectionPending')],
+    [t('authorizedDecisionTerm'),authorizedLabel()],
+    [t('mutatioTerm'),state.mutation?`${t('mutatioRecorded')} ${state.mutation}`:t('notExecuted')],
+    [t('uncertaintyTerm'),$('#uncertainty').value.trim()||t('notDeclared')],
+    [t('statusTerm'), (state.ended?t('stopped'):state.decision?t('caseDecided'):t('sessionOpen'))+' · '+t('empiricalStatus')]
   ];
   const dl=$('#traceSummary');dl.replaceChildren();
   for(const [term,value] of rows){const dt=document.createElement('dt');dt.textContent=term;const dd=document.createElement('dd');dd.textContent=value;dl.append(dt,dd)}
@@ -52,6 +58,7 @@ function choose(decision){
 
 $$('[data-decision]').forEach(button=>button.addEventListener('click',()=>choose(button.dataset.decision)));
 $('#chooseOtherRoute').addEventListener('click',()=>choose('other'));
+$$('[data-language]').forEach(button=>button.addEventListener('click',()=>{setLanguage(button.dataset.language);render();}));
 $('#authorizeMutation').addEventListener('click',()=>{
   const exact=$('#mutationText').value.trim();
   state=authorizeTransformation(state,exact);
@@ -63,6 +70,7 @@ $$('input[name="focus"]').forEach(input=>input.addEventListener('change',render)
 function trace(){
   return {
     schema:'animic.codex.dissensus/v0.1',
+    interfaceLanguage:language(),
     createdAt:new Date().toISOString(),
     localOnly:true,
     canonical:false,
@@ -86,17 +94,17 @@ $('#exportTrace').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(trace(),null,2)+'\n'],{type:'application/json'});
   const url=URL.createObjectURL(blob),link=document.createElement('a');
   link.href=url;link.download='DISSENSUS-rastre.json';link.click();URL.revokeObjectURL(url);
-  $('#privacyStatus').textContent='El rastre JSON s’ha creat al teu dispositiu. No s’ha enviat ni desat al Còdex.';
+  privacyStatusKey='exportDone';render();
 });
 $('#dissolve').addEventListener('click',()=>{
   state=createSession();
   $$('[data-decision]').forEach(button=>button.setAttribute('aria-pressed','false'));
   $$('input[name="focus"]').forEach(input=>input.checked=false);
   $('#focusOther').value='';$('#otherRoute').value='';$('#mutationText').value='';$('#sourceRef').value=SOURCE_REF_DEFAULT;
-  $('#support').value=AI_ARGUMENTS.support;$('#objection').value=AI_ARGUMENTS.objection;
-  $('#uncertainty').value='No s’han aportat evidències empíriques; encara no hi ha resposta d’una persona participant.';
+  resetDefaults();
+  $('#uncertainty').value=t('uncertaintyDefault');
   $('#sourceText').value='La inteligencia artificial empobrece necesariamente la creatividad humana.';
-  $('#privacyStatus').textContent='La sessió s’ha dissolt. No hi havia cap rastre guardat al navegador.';
+  privacyStatusKey='dissolveDone';
   render();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 

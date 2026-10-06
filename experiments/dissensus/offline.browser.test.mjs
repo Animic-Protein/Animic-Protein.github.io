@@ -3,6 +3,7 @@ import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {chromium} from 'playwright';
+import {messages} from './dissensus-i18n.mjs';
 
 const root=process.cwd();
 const prefix='/codex/';
@@ -27,6 +28,59 @@ try {
   const base=`http://127.0.0.1:${server.address().port}${prefix}`;
   // Fresh context: visit DISSENSUS directly, never the homepage or the PDF.
   await page.goto(base+'experiments/dissensus/');
+  assert.equal(await page.locator('html').getAttribute('lang'),'ca');
+  const fish=await page.locator('.fugu').boundingBox();
+  assert.ok(fish&&fish.width>200&&fish.height>150&&fish.y<500,'Fugu must be visible at mobile entry');
+  for(const lang of ['ur','tl','hi','ca']){
+    await page.locator(`[data-language="${lang}"]`).click();
+    assert.equal(await page.locator('html').getAttribute('lang'),lang);
+    assert.equal(await page.locator('html').getAttribute('dir'),lang==='ur'?'rtl':'ltr');
+    assert.equal(await page.locator('#invitation-title').textContent(),messages[lang].invitationTitle);
+    assert.equal(await page.locator('#beginSession').textContent(),messages[lang].beginSession);
+    assert.equal(await page.locator('#workbench').isVisible(),false,'Changing language cannot start a session');
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'No mobile overflow');
+  }
+  await page.locator('#beginSession').click();
+  await page.locator('#support').fill('');
+  await page.locator('#sourceText').fill('Fragment literal escrit per la persona');
+  await page.locator('#uncertainty').fill('La meva incertesa');
+  await page.locator('[data-decision="reject"]').click();
+  await page.locator('#otherRoute').fill('Una ruta pròpia');
+  await page.locator('#chooseOtherRoute').click();
+  for(const lang of ['ur','tl','hi','ca']){
+    await page.locator(`[data-language="${lang}"]`).click();
+    assert.equal(await page.locator('#support').inputValue(),'');
+    assert.equal(await page.locator('#sourceText').inputValue(),'Fragment literal escrit per la persona');
+    assert.equal(await page.locator('#uncertainty').inputValue(),'La meva incertesa');
+    assert.equal(await page.locator('#otherRoute').inputValue(),'Una ruta pròpia');
+    assert.equal(await page.locator('#decisionStatus').textContent(),`${messages[lang].chose} ${messages[lang].decisionOtherTrace}. ${messages[lang].noTransform}`);
+    assert.equal(await page.locator('#mutationSection').isVisible(),false);
+    assert.match(await page.locator('#traceSummary').textContent(),new RegExp(messages[lang].rejectionRecorded));
+  }
+  await page.locator('[data-decision="transform"]').click();
+  await page.locator('#mutationText').fill('Canvi exacte autoritzat a la prova automàtica');
+  await page.locator('[data-language="ur"]').click();
+  assert.equal(await page.locator('#mutationText').inputValue(),'Canvi exacte autoritzat a la prova automàtica');
+  assert.equal(await page.locator('#authorizeMutation').isEnabled(),true);
+  await page.locator('#authorizeMutation').click();
+  await page.locator('[data-language="hi"]').click();
+  const downloadEvent=page.waitForEvent('download');
+  await page.locator('#exportTrace').click();
+  const download=await downloadEvent;
+  const trace=JSON.parse(await readFile(await download.path(),'utf8'));
+  assert.equal(trace.case.validationStatus,'not-validated-empirically-with-a-participant');
+  assert.equal(trace.interfaceLanguage,'hi');
+  assert.equal(trace.humanDecision.choice,'transform');
+  assert.equal(trace.mutatio.exactChange,'Canvi exacte autoritzat a la prova automàtica');
+  assert.equal(trace.source.text,'Fragment literal escrit per la persona');
+  assert.ok(trace.humanRejection,'Rejection must survive language changes');
+  await page.locator('#dissolve').click();
+  assert.equal(await page.locator('#support').inputValue(),messages.hi.supportDefault);
+  await page.locator('[data-language="ca"]').click();
+  assert.equal(await page.locator('#support').inputValue(),messages.ca.supportDefault);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await page.locator('.fugu').evaluate(node=>getComputedStyle(node).animationName),'none');
+  await page.emulateMedia({reducedMotion:'no-preference'});
   await page.evaluate(async()=>{
     await navigator.serviceWorker.ready;
     if(!navigator.serviceWorker.controller)await new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
@@ -48,7 +102,7 @@ try {
   },base+pdf);
   assert.deepEqual(Buffer.from(bytes),await readFile(path.join(root,pdf)));
   assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);
-  console.log('DISSENSUS: direct mobile entry, offline reload, rejection/stop and uncached PDF download: OK');
+  console.log('DISSENSUS: four languages, preserved edits/decisions, RTL, visible Fugu, reduced motion and direct offline access: OK');
 } finally {
   await browser?.close();
   await new Promise(resolve=>server.close(resolve));
