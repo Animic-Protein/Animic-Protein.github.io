@@ -21,7 +21,8 @@ function render(){
   $('#retainedQuote').textContent=source||'La font encara no s’ha especificat.';
   $('#caseStatus').textContent=state.ended?'Aturat · sense més accions':state.decision?'Decisió humana registrada':'Obert · sense decisió humana';
   $('#otherRouteWrap').hidden=state.decision!=='reject';
-  $('#chooseOtherRoute').disabled=state.decision!=='reject'||!$('#otherRoute').value.trim()||state.ended;
+  $$('[data-decision]').forEach(button=>button.disabled=state.ended||Boolean(state.mutation));
+  $('#chooseOtherRoute').disabled=state.decision!=='reject'||!$('#otherRoute').value.trim()||state.ended||Boolean(state.mutation);
   $('#stopNotice').hidden=!state.ended;
   $('#authorizeMutation').disabled=state.decision!=='transform'||state.ended||!$('#mutationText').value.trim()||Boolean(state.mutation);
   $('#mutationSection').hidden=state.decision!=='transform';
