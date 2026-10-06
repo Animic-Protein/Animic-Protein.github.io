@@ -47,7 +47,20 @@ function render(){
 function choose(decision){
   state=recordDecision(state,decision,$('#otherRoute').value);
   $$('[data-decision]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.decision===decision)));
-  render();
+  const workbench=$('#workbench');
+const invitation=$('#invitation');
+const declineNote=$('#declineNote');
+$('#beginSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  workbench.hidden=false;
+  $('#case-title').focus();
+});
+$('#declineSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  declineNote.hidden=false;
+});
+
+render();
 }
 
 $$('[data-decision]').forEach(button=>button.addEventListener('click',()=>choose(button.dataset.decision)));

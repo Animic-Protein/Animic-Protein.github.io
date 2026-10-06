@@ -7,3 +7,15 @@ a{color:var(--cobalt)}button,input,textarea{font:inherit;color:inherit}button,in
 @keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.55}85%{opacity:.25}100%{transform:translateY(-90vh);opacity:0}}
 @media(max-width:560px){.hero{padding-top:5vh}.trace{grid-template-columns:1fr;gap:.2rem}.trace dd{margin-bottom:.55rem}.decision-grid{grid-template-columns:1fr}.bar{font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Voluntary entry and keyboard-first orientation */
+.skip-link{position:absolute;left:1rem;top:-5rem;z-index:5;padding:.7rem 1rem;border-radius:10px;background:var(--paper);color:var(--night);font-weight:700}
+.skip-link:focus{top:1rem}
+.invitation{margin:clamp(1rem,4vh,2rem) 0 2rem;border-color:var(--gold);background:linear-gradient(120deg,rgba(35,68,79,.96),rgba(7,25,38,.98))}
+.invitation h2{font-size:clamp(1.55rem,5vw,2.1rem)}
+.invitation>p:not(.eyebrow):not(.decision-status){max-width:72ch}
+.invitation .actions{margin-top:1.25rem}
+.invitation button{min-width:min(100%,230px)}
+.decline-note{border-left:3px solid var(--mist);color:var(--mist)}
+:focus-visible{scroll-margin:1rem}
+@media(max-width:560px){.invitation .actions{display:grid;grid-template-columns:1fr}.invitation button{width:100%}}
