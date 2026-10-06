@@ -38,7 +38,7 @@ function render(){
     ['Decisió autoritzada',state.authorizedDecision??'Pendent; no hi ha cap acció autoritzada'],
     ['MUTATIO',state.mutation?`Autoritzada i registrada: ${state.mutation}`:'No executada ni autoritzada'],
     ['Incertesa',$('#uncertainty').value.trim()||'No declarada; pot quedar oberta'],
-    ['Estat',state.ended?'Aturat':'Sessió oberta; cap resultat d’eficàcia provat']
+    ['Estat', (state.ended?'Aturat':state.decision?'Decisió humana registrada':'Sessió oberta')+' · prova empírica amb participant: no feta; resultat no provat']
   ];
   const dl=$('#traceSummary');dl.replaceChildren();
   for(const [term,value] of rows){const dt=document.createElement('dt');dt.textContent=term;const dd=document.createElement('dd');dd.textContent=value;dl.append(dt,dd)}
@@ -67,7 +67,7 @@ function trace(){
     localOnly:true,
     canonical:false,
     reversible:true,
-    case:{id:'probatio-libertatis-case-01',status:state.ended?'stopped':state.decision?'decision-recorded':'not-tested-with-participant'},
+    case:{id:'probatio-libertatis-case-01',validationStatus:'not-validated-empirically-with-a-participant',sessionStatus:state.ended?'stopped':state.decision?'decision-recorded':'not-started'},
     source:{text:$('#sourceText').value.trim(),reference:$('#sourceRef').value.trim()},
     attentio:{choice:focusLabel(),detail:$('#focusOther').value.trim()||null},
     retentio:{text:$('#sourceText').value.trim()},
