@@ -100,4 +100,19 @@ $('#dissolve').addEventListener('click',()=>{
   render();window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 
+const workbench=$('#workbench');
+const invitation=$('#invitation');
+const declineNote=$('#declineNote');
+const skipLink=$('#skipLink');
+$('#beginSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  workbench.hidden=false;
+  skipLink.hidden=false;
+  $('#case-title').focus();
+});
+$('#declineSession').addEventListener('click',()=>{
+  invitation.hidden=true;
+  declineNote.hidden=false;
+});
+
 render();

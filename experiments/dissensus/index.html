@@ -18,6 +18,21 @@
       <a href="./DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf" download="DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf">Guia de la prova · CAT / RU / KO / YUE ↓</a>
     </nav>
 
+    <a class="skip-link" id="skipLink" href="#case-title" hidden>Vés al cas</a>
+    <section class="card invitation" id="invitation" aria-labelledby="invitation-title">
+      <p class="eyebrow">ABANS DE COMENÇAR</p>
+      <h2 id="invitation-title">Vols fer una sola passada?</h2>
+      <p>Aquesta prova és voluntària. Pots rebutjar la proposta, quedar-te en quietud, no respondre o aturar-te en qualsevol moment, sense donar explicacions. No es registra res automàticament. MUTATIO només apareix després d’una decisió humana i requereix una autorització separada.</p>
+      <div class="actions">
+        <button type="button" id="beginSession" class="primary">Sí, començar una passada</button>
+        <button type="button" id="declineSession" class="quiet">No, no començar</button>
+      </div>
+      <p id="invitationStatus" class="decision-status" aria-live="polite"></p>
+    </section>
+    <section class="card decline-note" id="declineNote" aria-live="polite" hidden>
+      No s’ha iniciat la prova ni s’ha registrat cap resposta.
+    </section>
+    <div id="workbench" hidden>
     <header class="hero">
       <p class="eyebrow">CÒDEX VIU · PROVA TRANSVERSAL DE NO-COACCIÓ</p>
       <h1>DISSENSUS</h1>
@@ -27,7 +42,7 @@
 
     <section class="case card" aria-labelledby="case-title">
       <div class="section-head"><span class="step">CAS ÚNIC · ASSAIG DE TAULA</span><span class="status" id="caseStatus">Obert · sense decisió humana</span></div>
-      <h2 id="case-title">La IA empobreix necessàriament la creativitat humana</h2>
+      <h2 id="case-title" tabindex="-1">La IA empobreix necessàriament la creativitat humana</h2>
       <p>Afirmació discutible copiada del cas de prova del protocol. No es presenta com una conclusió.</p>
       <label class="field" for="sourceText">Fragment de la font</label>
       <textarea id="sourceText" rows="2">La inteligencia artificial empobrece necesariamente la creatividad humana.</textarea>
@@ -122,6 +137,7 @@
       <p>DISSENSUS no avalua la persona. Si no hi ha resposta humana, el resultat és «no provat».</p>
       <a href="../../">Tornar al llindar del Còdex Viu</a>
     </footer>
+    </div>
   </main>
   <script type="module" src="./dissensus.mjs"></script>
 </body>
