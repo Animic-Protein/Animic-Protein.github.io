@@ -31,6 +31,23 @@ try {
   assert.equal(await page.locator('html').getAttribute('lang'),'ca');
   const fish=await page.locator('.fugu').boundingBox();
   assert.ok(fish&&fish.width>200&&fish.height>150&&fish.y<500,'Fugu must be visible at mobile entry');
+  const sampleFish=async time=>page.evaluate(time=>{
+    for(const animation of document.querySelector('.aquarium-scene').getAnimations({subtree:true})){
+      if(['fugu-dive','fugu-inflate','fugu-spines'].includes(animation.animationName)){
+        animation.pause();animation.currentTime=time;
+      }
+    }
+    const shape=document.querySelector('.fugu-shape').getBoundingClientRect();
+    const aquarium=document.querySelector('.aquarium-scene').getBoundingClientRect();
+    const spines=getComputedStyle(document.querySelector('.fugu-spines'));
+    return {width:shape.width,y:shape.y,bottom:shape.bottom,floor:aquarium.bottom,spines:Number.parseFloat(spines.strokeDashoffset),opacity:Number(spines.opacity)};
+  },time);
+  const upper=await sampleFish(0),deflated=await sampleFish(12600),inflated=await sampleFish(21000);
+  assert.ok(deflated.width<upper.width*.9,'Fish deflates');
+  assert.ok(deflated.y>upper.y+30,'Fish descends');
+  assert.ok(inflated.width>deflated.width*1.2,'Fish reinflates at the bottom');
+  assert.ok(deflated.spines>20&&inflated.spines<1&&inflated.opacity>.95,'Spines retract then deploy clearly');
+  assert.ok(inflated.bottom<inflated.floor,'Inflated fish and spines fit in the mobile aquarium');
   for(const lang of ['ur','tl','hi','ca']){
     await page.locator(`[data-language="${lang}"]`).click();
     assert.equal(await page.locator('html').getAttribute('lang'),lang);
@@ -80,6 +97,8 @@ try {
   assert.equal(await page.locator('#support').inputValue(),messages.ca.supportDefault);
   await page.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await page.locator('.fugu').evaluate(node=>getComputedStyle(node).animationName),'none');
+  assert.equal(await page.locator('.fugu-shape').evaluate(node=>getComputedStyle(node).animationName),'none');
+  assert.equal(await page.locator('.fugu-spines').evaluate(node=>getComputedStyle(node).animationName),'none');
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.evaluate(async()=>{
     await navigator.serviceWorker.ready;
