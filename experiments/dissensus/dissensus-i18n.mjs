@@ -1,6 +1,6 @@
 const messages = {
   ca: {
-    languageLabel:'Idioma',
+    languageLabel:'Idioma', navLabel:'Ruta de navegació',
     back:'← Arrels del Pensament', guide:'Guia de la prova · CAT / RU / KO / YUE ↓',
     eyebrow:'CÒDEX VIU · PROVA TRANSVERSAL DE NO-COACCIÓ',
     lead:'Una proposta es pot refusar. Tu decideixes què observar, què acceptar, què transformar i què deixar sense resoldre.',
@@ -65,7 +65,7 @@ const messages = {
     unknownLocale:'Idioma'
   },
   ru: {
-    languageLabel:'Язык',
+    languageLabel:'Язык', navLabel:'Навигация',
     back:'← Корни мышления', guide:'Руководство · CAT / RU / KO / YUE ↓',
     eyebrow:'ЖИВОЙ КОДЕКС · СКВОЗНАЯ ПРОВЕРКА НА ОТСУТСТВИЕ ПРИНУЖДЕНИЯ',
     lead:'Предложение можно отклонить. Вы решаете, что наблюдать, что принять, что изменить и что оставить нерешённым.',
@@ -130,7 +130,7 @@ const messages = {
     unknownLocale:'Язык'
   },
   ko: {
-    languageLabel:'언어',
+    languageLabel:'언어', navLabel:'탐색 경로',
     back:'← 생각의 뿌리', guide:'시험 안내 · CAT / RU / KO / YUE ↓',
     eyebrow:'살아 있는 코덱스 · 비강압성 종합 시험',
     lead:'제안은 거절할 수 있습니다. 무엇을 살펴보고, 받아들이고, 바꾸거나 미해결로 둘지 당신이 결정합니다.',
@@ -195,7 +195,7 @@ const messages = {
     unknownLocale:'언어'
   },
   yue: {
-    languageLabel:'語言',
+    languageLabel:'語言', navLabel:'導覽路徑',
     back:'← 思想之根', guide:'測試指引 · CAT / RU / KO / YUE ↓',
     eyebrow:'活典 · 跨環節非脅迫測試',
     lead:'建議可以拒絕。由你決定觀察甚麼、接受甚麼、改動甚麼，以及甚麼可以暫時不處理。',
