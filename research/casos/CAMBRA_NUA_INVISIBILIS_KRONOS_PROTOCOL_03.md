@@ -76,3 +76,53 @@ La prova és correcta si:
 ## Diferència perceptible
 
 La versió anterior mostrava dos càlculs estàtics després de l'espera. El protocol 03 converteix aquests càlculs en dues exposicions visibles i actives. La persona ja no llegeix només un percentatge: veu transcórrer el ritme alterat, decideix quan aturar-lo i declara la seva percepció abans de conèixer el temps cronològic.
+
+## Conclusió canònica de l'instrument
+
+El recorregut no canonitza el resultat particular d'una persona. Canonitza una disposició del dispositiu:
+
+> **El temps mostrat modifica el camp perceptiu, però no determina la percepció ni la decisió d'aturar-se.**
+
+La seva forma operativa és:
+
+`mesura temporal → tensió perceptiva → decisió humana de parada → rastre`
+
+Lema d'Anímic Protein / Còdex Viu:
+
+> **Mensura suggerit; sensus respondet; homo decernit.**  
+> La mesura suggereix; la percepció respon; la persona decideix.
+
+Forma específica de Cambra Nua:
+
+> **El rellotge compta. El cos negocia. Tu decideixes quan aturar-te.**
+
+## Constel·lació filosòfica
+
+Les tres lectures següents són aproximacions editorials d'Anímic Protein. No són citacions literals, diagnòstics ni claus obligatòries d'interpretació.
+
+- **Martin Heidegger · temps públic.** El rellotge fa el temps públic, disponible i calculable. Invisibilis Kronos reobre la diferència entre aquesta mesura compartida i la temporalitat viscuda. Referència: *Ésser i temps*, §§79–81.
+- **Nishida Kitarō · autodeterminació de l'ara etern.** El present no és només un punt entre passat i futur: es determina en l'acte. Cada parada és un tall concret on el temps pren forma. Referència: *Self-Determination of the Eternal Now* (1932).
+- **Nishitani Keiji · buit relacional.** El buit no ha de ser omplert immediatament amb una explicació; pot ser el camp on rellotge, cos i decisió apareixen en relació. Referència: *Religion and Nothingness*, «Śūnyatā and Time» i «Śūnyatā and History». Nishitani fou deixeble de Nishida i estudià també amb Heidegger.
+
+## Kronos Roulette · providència privada
+
+Després de completar el tercer exercici, la persona pot obrir voluntàriament **Kronos Roulette**. L'atzar ofereix una de sis cambres:
+
+1. `QVID EST ERGO TEMPVS?` · Agustí, *Confessions* XI;
+2. `FVGIT INREPARABILE TEMPVS` · Virgili, *Geòrgiques* III;
+3. `OMNIA TEMPVS HABENT` · Eclesiastès 3;
+4. `DVM LOQVIMVR, FVGERIT AETAS` · Horaci, *Odes* I, 11;
+5. `MENSVRA SVGGERIT; SENSVS RESPONDET; HOMO DECERNIT` · Anímic Protein / Còdex Viu;
+6. `SILENTIVM` · cap frase.
+
+La providència:
+
+- no interpreta les mesures ni selecciona una frase segons el resultat;
+- no modifica la conclusió, el rastre ni cap òrgan del Còdex;
+- no es conserva automàticament;
+- només es desa al dispositiu després de `Conservar per a mi`;
+- es pot dissoldre sense afectar les captures temporals;
+- no s'envia remotament.
+
+L'atzar no determina el sentit: només l'ofereix.
+
