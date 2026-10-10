@@ -12,8 +12,12 @@ function sameRoot(a,b){return Boolean(a&&b&&(a.provenance?.rootRecordId===b.prov
 export function createTemporalFragment(detail={}){
  const key=fingerprint(detail),registry=load();if(registry[key])return registry[key];
  const chronological=Number(detail.chronological||0),perceived=Number(detail.perceived||0),difference=Number(detail.difference??(perceived-chronological));
- let record=createCodexMediaRecord({source:{id:`src-${key}`,kind:'research',name:'Cambra Nua · Espera sense rellotge',uri:'cambra-nua-2/espera.html',mime:'application/vnd.animic.temporal-fragment+json',external:false,createdAt:now()},provenance:{originId:`src-${key}`,createdBy:'cambra-nua.temporal-fragment',reversible:true,history:[{at:now(),action:'temporal-test.completed',ref:key}]}});
- record=evolveRecord(record,'fragment',{id:`temporal-fragment-${key}`,kind:'temporal-perception-difference',chronological,perceived,difference,absoluteDifference:Math.abs(difference),sourceKind:'research',test:'espera-sense-rellotge',perceptibleDifference:Math.abs(difference)>=1,timingIntegrity:detail.timingInterrupted?'backgrounded':'continuous'});
+ const exerciseMode=['hidden','fast','slow'].includes(detail.exerciseMode)?detail.exerciseMode:'hidden';
+ const clockRate=Number.isFinite(Number(detail.clockRate))?Number(detail.clockRate):1;
+ const displayedTime=detail.displayedTime==null?null:Number(detail.displayedTime);
+ const exerciseLabel=String(detail.exerciseLabel||'01 · Temps ocult');
+ let record=createCodexMediaRecord({source:{id:`src-${key}`,kind:'research',name:`Cambra Nua · ${exerciseLabel}`,uri:WAIT_URI,mime:'application/vnd.animic.temporal-fragment+json',external:false,createdAt:now()},provenance:{originId:`src-${key}`,createdBy:'cambra-nua.temporal-fragment',reversible:true,history:[{at:now(),action:'temporal-test.completed',ref:key}]}});
+ record=evolveRecord(record,'fragment',{id:`temporal-fragment-${key}`,kind:'temporal-perception-difference',chronological,perceived,difference,absoluteDifference:Math.abs(difference),displayedTime:Number.isFinite(displayedTime)?displayedTime:null,exerciseMode,exerciseLabel,clockRate,sourceKind:'research',test:'invisibilis-kronos-03',perceptibleDifference:Math.abs(difference)>=1,timingIntegrity:detail.timingInterrupted?'backgrounded':'continuous'});
  record=evolveRecord(record,'relation',{kind:'born-in-organ',target:'cambra-nua-del-temps',suggested:false,decisionRequired:false,canonical:false,reversible:true,traceRef:record.provenance.originId});
  const check=validateRecord(record);if(!check.valid)throw new Error('Fragment temporal invàlid: '+check.errors.join(', '));registry[key]=record;
  const waiting=Object.entries(registry).filter(([,item])=>item.source?.uri===WAIT_URI).sort((a,b)=>String(a[1].source?.createdAt||'').localeCompare(String(b[1].source?.createdAt||'')));
