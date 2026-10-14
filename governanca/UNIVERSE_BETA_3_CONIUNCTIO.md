@@ -2,6 +2,8 @@
 
 Estat: FUSIÓ TOTAL de la genealogia β.1 → β.2 → β.2.1 → β.2.2.
 
+**Estat documental:** genealogia preservada. La navegació integrada es presenta com a Coniunctio; les etiquetes β d’aquest document identifiquen les iteracions històriques.
+
 ## Què sobreviu
 - β.1: llindar, presència, gest i revelació d'un únic òrgan pertinent.
 - β.2: memòria de travessa i fenomen provisional.
