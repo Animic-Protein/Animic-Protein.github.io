@@ -16,13 +16,13 @@ Frontera: podem fer història, ciència i ciència-ficció; no pseudohistòria n
 
 | ID | Títol | Òrgan | Original/selecció | Experiència | Estat |
 |---|---|---|---|---|---|
-| HT·01 | Reconciliation of the War of Currents | Rosa · INTER NOS | `La rosa de l’escolta a l’Expo del 1939.png` | `beta/ht-01.html` | preservat; original a Biblioteca |
-| HT·A2 | The Machine That Refused to Answer | INTER NOS | original separat no localitzat | `beta/ht-a2.html` | experiència i reconstrucció preservades; buit explícit |
-| HT·03 | Elektro Stops | Compost | `Elektro at the 1939 World’s Fair.png` | `beta/ht-03.html` | preservat; variants també conservades |
-| HT·A4 | The Other Futurama | Instrument Z | `Futurama i la ruta desconeguda.png` | `beta/ht-a4.html` | preservat; variants també conservades |
-| HT·05 | Inside the Perisphere, Someone Waits | Cambra Nua | `Dins del Perisferi: Algú Espera.png` | `beta/ht-05.html` | preservat |
-| HT·06 | The Night Tomorrow Went Dark | Rosa · Cambra | `Dossier Futurama: Una Nit d’Ombres.png` | `beta/ht-06.html` | preservat; variants també conservades |
-| HT·A7 | The Photograph That Looked Back | Rosa · RECORDARE | `fragment-film` conceptual | `beta/ht-a7.html` | experiència preservada; binari temporal pendent |
+| HT·01 | Reconciliation of the War of Currents | Rosa · INTER NOS | `La rosa de l’escolta a l’Expo del 1939.png` | `mutatio/history-tales/site/ht-01.html` | preservat; original a Biblioteca |
+| HT·A2 | The Machine That Refused to Answer | INTER NOS | original separat no localitzat | `mutatio/history-tales/site/ht-a2.html` | experiència i reconstrucció preservades; buit explícit |
+| HT·03 | Elektro Stops | Compost | `Elektro at the 1939 World’s Fair.png` | `mutatio/history-tales/site/ht-03.html` | preservat; variants també conservades |
+| HT·A4 | The Other Futurama | Instrument Z | `Futurama i la ruta desconeguda.png` | `mutatio/history-tales/site/ht-a4.html` | preservat; variants també conservades |
+| HT·05 | Inside the Perisphere, Someone Waits | Cambra Nua | `Dins del Perisferi: Algú Espera.png` | `mutatio/history-tales/site/ht-05.html` | preservat |
+| HT·06 | The Night Tomorrow Went Dark | Rosa · Cambra | `Dossier Futurama: Una Nit d’Ombres.png` | `mutatio/history-tales/site/ht-06.html` | preservat; variants també conservades |
+| HT·A7 | The Photograph That Looked Back | Rosa · RECORDARE | `fragment-film` conceptual | `mutatio/history-tales/site/ht-a7.html` | experiència preservada; binari temporal pendent |
 
 ## Rutes canòniques
 
@@ -34,10 +34,10 @@ Frontera: podem fer història, ciència i ciència-ficció; no pseudohistòria n
 - Media/Rastres: `mutatio/history-tales/MEDIA-RASTRES-0.1.md`
 - Relacions visuals: `mutatio/history-tales/UNIVERS-VISUAL-RELACIONS-0.1.md`
 - Fitxes: `HT-01-…md`, `HT-A2-…md`, `HT-03-…md`, `HT-A4-…md`, `HT-05-…md`, `HT-06-…md`, `HT-A7-…md`
-- Experiències: `beta/ht-01.html`, `beta/ht-a2.html`, `beta/ht-03.html`, `beta/ht-a4.html`, `beta/ht-05.html`, `beta/ht-06.html`, `beta/ht-a7.html`
-- Portal: `beta/history-tales.html`
-- Galeria: `beta/history-tales-media.html`
-- Arxiu reversible: `beta/arxiu-history-tales-pre-media/`
+- Experiències: `mutatio/history-tales/site/ht-01.html`, `mutatio/history-tales/site/ht-a2.html`, `mutatio/history-tales/site/ht-03.html`, `mutatio/history-tales/site/ht-a4.html`, `mutatio/history-tales/site/ht-05.html`, `mutatio/history-tales/site/ht-06.html`, `mutatio/history-tales/site/ht-a7.html`
+- Portal: `mutatio/history-tales/site/index.html`
+- Galeria: `mutatio/history-tales/site/history-tales-media.html`
+- Arxiu reversible: `archivum/history-tales/pre-media/snapshot-2026-09/`
 
 ## Material recuperat 2026-09-10
 

@@ -1,0 +1,21 @@
+{
+  "protocol": "AP-CONIUNCTIO-CODEX",
+  "version": "1.0",
+  "status": "canonical",
+  "generated_at": "2026-10-14",
+  "replaces": "archivum/coniunctio/fusion-beta-2.4.json",
+  "canonical_repository": "https://github.com/Animic-Protein/Animic-Protein.github.io",
+  "matrix": "governanca/MATRIU-FUSIO-BETA-CODEX-2026-10.md",
+  "continents": [
+    "mutatio/history-tales/site/",
+    "cambra-nua-2/",
+    "experiments/eco-01/",
+    "archivum/coniunctio/",
+    "fusio-total/arxiu/"
+  ],
+  "legacy_route_map": "404.html",
+  "external_beta_site": {
+    "status": "not-found-in-sites-account",
+    "historical_url": "https://animic-protein-fusio-beta.animic-protein.chatgpt.site"
+  }
+}

@@ -197,7 +197,7 @@
     const start=button('Habita la direcció absent','is-primary');
     start.addEventListener('click',()=>begin({caseReal:true}));
     const acta=document.createElement('a');
-    acta.href='./beta/travesses/02-direccio-que-desapareix.md';
+    acta.href='./archivum/coniunctio/casos/02-direccio-que-desapareix.md';
     acta.textContent='Llegir l’acta β·02';
     acta.className='temps-nu-acta-link';
     const actions=el('div','temps-nu-actions');

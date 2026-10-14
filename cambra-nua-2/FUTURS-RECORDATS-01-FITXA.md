@@ -7,7 +7,7 @@
 **Àrea:** Univers Visual  
 **Sèrie:** Futurs recordats  
 **Tipologia:** làmina especulativa / arquitectura imaginària / ciència-ficció visual  
-**Estat:** BETA · prototip visual no canònic fins a validació humana  
+**Estat:** PROTOTIP VISUAL · no canònic fins a validació humana
 **Data d’entrada:** 2026-09-09
 
 ---
@@ -94,18 +94,18 @@ La decisió continua pertanyent a la persona. La Cambra pot proposar observacion
 **source.role:** visual-speculation  
 **procedència:** làmina generada durant el desenvolupament d’Anímic Protein · Còdex Viu, a partir de la paleta, instruments i principis definits en el projecte.  
 **intervenció humana:** direcció conceptual, selecció, correccions de paleta, denominació i decisió d’incorporació.  
-**estat de la imatge:** prototip BETA; la versió visual pot continuar mutant.
+**estat de la imatge:** prototip reversible; la versió visual pot continuar mutant.
 
 ## 10. Test d’incorporació
 
 **Diferència perceptible:** sí — exterioritza per primera vegada la Cambra com a arquitectura completa.  
 **Traçabilitat:** sí — conserva títol, sèrie, procedència, data i estat especulatiu.  
 **Relació:** sí — connecta Univers Visual, Cambra, INTER NOS i memòria temporal.  
-**Reversibilitat:** sí — entra com a BETA i pot retirar-se o substituir-se sense alterar la definició funcional de la Cambra.
+**Reversibilitat:** sí — entra com a prototip reversible i pot retirar-se o substituir-se sense alterar la definició funcional de la Cambra.
 
 ## 11. Estat canònic
 
-**BETA / Futur recordat.**  
+**PROTOTIP VISUAL · Futur recordat.**
 No redefineix per si sola la Cambra Nua del Temps. La representa com una possible aparició exterior del seu futur.
 
 ---
