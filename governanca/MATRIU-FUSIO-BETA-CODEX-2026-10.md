@@ -1,7 +1,7 @@
 # Matriu de fusió total Beta → Còdex
 
 **Data:** 14 d’octubre de 2026
-**Estat:** migració preparada per revisió
+**Estat:** fusió integrada a `main` i revisada el 14 d’octubre de 2026
 **Abast:** tots els 32 fitxers de `beta/`, el registre `.well-known` de Beta i les dependències actives.
 
 La fusió conserva contingut, procedència i rutes anteriors. Els documents d’acta i custòdia mantenen les referències històriques tal com es van registrar; les rutes públiques antigues es resolen amb `404.html` cap a la ubicació canònica. El nom `Beta` deixa de ser un directori o una àrea activa.
