@@ -30,12 +30,12 @@ History Tales deixa de tractar font, làmina, acció i òrgan com a peces consec
 | Cas | Suport actiu | Acció | Òrgan dominant | Retorn |
 |---|---|---|---|---|
 | HT·01 | escena/làmina elèctrica | reobservar diferència | Rosa | història |
-| HT·02 | Voder / veu esperada | suspendre resposta i escoltar | INTER NOS | Voder documentat |
+| HT·A2 | Voder / veu esperada | suspendre resposta i escoltar | INTER NOS | Voder documentat |
 | HT·03 | Elektro / demostració | interrompre i sostenir fallada | Compost | demostració històrica |
-| HT·04 | cartografia Futurama | seguir o abandonar ruta | Instrument Z | sistema documentat |
+| HT·A4 | cartografia Futurama | seguir o abandonar ruta | Instrument Z | sistema documentat |
 | HT·05 | circulació Perisphere | esperar / no circular | Cambra Nua del Temps | arquitectura/circulació |
 | HT·06 | il·luminació | sostreure llum | Rosa + Cambra, amb una sola activació pertinent per gest | història documentada |
-| HT·07 | fragment-film | reobservar un fotograma | Rosa; RECORDARE només com rastre | seqüència documental |
+| HT·A7 | fragment-film | reobservar un fotograma | Rosa; RECORDARE només com rastre | seqüència documental |
 
 ## Regla d'interfície
 

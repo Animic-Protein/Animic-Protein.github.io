@@ -30,7 +30,7 @@ La fira és història. La reconciliació Tesla/Edison, la participació d'Aními
 ### HT·03 · Elektro Stops
 Elektro a Westinghouse té base històrica institucional. **La seva aturada deliberadament no reparada és ficció AP.**
 
-### HT·04 · The Other Futurama
+### HT·A4 · The Other Futurama
 Futurama i Norman Bel Geddes tenen base històrica institucional. **La ruta sense destí és ficció AP / Instrument Z.**
 
 ### HT·05 · Inside the Perisphere, Someone Waits
@@ -38,7 +38,7 @@ Perisphere i Democracity tenen base històrica institucional. **La persona que i
 
 ## Punts encara oberts
 
-HT·02 necessita una font institucional específica abans de fixar el dispositiu històric concret de síntesi de parla. HT·06 necessita verificar amb font primària/institucional qualsevol episodi concret d'apagada o demostració d'il·luminació abans d'utilitzar-lo com a fet. Fins aleshores, tots dos continuen com a PROTOCOL i no com a relat històric verificat.
+HT·A2 (abans HT·02) queda documentat amb fonts institucionals de la Library of Congress i el Smithsonian per al Voder de 1939; la mutació d’escoltar continua declarada com a ficció. HT·06 necessita verificar amb font primària/institucional qualsevol episodi concret d’apagada o demostració d’il·luminació abans d’utilitzar-lo com a fet.
 
 ## Regla
 

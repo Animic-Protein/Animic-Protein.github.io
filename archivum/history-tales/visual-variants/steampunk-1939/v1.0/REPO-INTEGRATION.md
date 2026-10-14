@@ -13,7 +13,7 @@ La carpeta completa s’ha d’incorporar sense eliminar ni reanomenar els origi
 1. Afegir el manifest al registre d’Archivum com a variant experimental preservada.
 2. Enllaçar només les variants `variant_complete` des de la galeria History Tales / Univers Visual.
 3. Mostrar un commutador reversible `Original · Steampunk 1939`.
-4. Mantenir `HT-04` com a pendent; no mostrar cap substitut.
+4. Mantenir `HT-A4` com a pendent; no mostrar cap substitut.
 5. Mantenir les dues peces `RELATED-*` fora de la seqüència HT fins a una decisió humana de genealogia.
 6. Publicar només després de validar les imatges, els textos, la navegació mòbil i les URL directes.
 

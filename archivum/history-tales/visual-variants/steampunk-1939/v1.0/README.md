@@ -27,8 +27,8 @@ Les dues peces `RELATED-*` no reben cap número HT fins que la genealogia canòn
 
 ## Pendent explícit
 
-- HT·04 · The Other Futurama: l’original és preservat, però encara no té variant steampunk aprovada.
-- HT·01, HT·02 i HT·07: no hi ha cap original nou aportat en aquesta sessió per aplicar-hi el tractament.
+- HT·A4 · The Other Futurama: l’original és preservat, però encara no té variant steampunk aprovada.
+- HT·01, HT·A2 i HT·A7: no hi ha cap original nou aportat en aquesta sessió per aplicar-hi el tractament.
 - Incorporació a Archivum/GitHub/Site: pendent fins que existeixin ruta de repositori, manifest integrat i URL pública verificable.
 
 ## Autoria i drets
