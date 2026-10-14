@@ -1,4 +1,4 @@
-# HT·04 · THE OTHER FUTURAMA
+# HT·A4 · THE OTHER FUTURAMA
 
 **MUTATIO · History Tales · Anímic Protein / Còdex Viu**  
 **Lloc històric:** New York World's Fair · General Motors Pavilion · 1939  
@@ -19,7 +19,7 @@ Reconstrucció especulativa d'Anímic Protein sobre el Futurama de 1939. El sist
 
 ## Fitxa tècnica
 
-- **Identificador:** HT·04
+- **Identificador:** HT·A4
 - **Sèrie:** MUTATIO · HISTORY TALES
 - **Univers:** Anímic Protein · Còdex Viu
 - **Àrea:** Univers Visual · Futurs recordats · Làmines
@@ -38,7 +38,7 @@ Reconstrucció especulativa d'Anímic Protein sobre el Futurama de 1939. El sist
 
 ### Idea
 
-HT·04 no fotografia la fira: entra dins del futur que la fira imaginava. La làmina adopta el llenguatge d'un plànol que pretén haver resolt la ciutat, el trànsit i la destinació. Instrument Z no destrueix aquest sistema: n'abandona una línia.
+HT·A4 no fotografia la fira: entra dins del futur que la fira imaginava. La làmina adopta el llenguatge d'un plànol que pretén haver resolt la ciutat, el trànsit i la destinació. Instrument Z no destrueix aquest sistema: n'abandona una línia.
 
 ### Gest artístic únic
 
@@ -93,7 +93,7 @@ El Còdex pot detectar o proposar una desviació. No pot declarar que sigui mill
 
 ```json
 {
-  "id": "HT-04",
+  "id": "HT-A4",
   "kind": "history-tale",
   "source.kind": "research+generated",
   "history.confidence": "verified-core",

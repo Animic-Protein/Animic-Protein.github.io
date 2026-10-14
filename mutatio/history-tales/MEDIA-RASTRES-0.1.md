@@ -53,17 +53,17 @@ HT
 
 Cap branca és necessàriament definitiva.
 
-## Mapa HT·01—HT·07
+## Mapa HT·01 · HT·A2 · HT·03 · HT·A4 · HT·05 · HT·06 · HT·A7
 
 | HT | Materialitzacions que poden coexistir | Funció perceptiva | Òrgan principal |
 |---|---|---|---|
 | HT·01 | fotografia/làmina 1939 · reconstrucció editorial · experiència | segona mirada sobre la Rosa | Rosa · INTER NOS |
-| HT·02 | documentació Voder · superfície especulativa · àudio/vídeo · experiència | expectativa → silenci → escolta | INTER NOS |
+| HT·A2 | documentació Voder · superfície especulativa · àudio/vídeo · experiència | expectativa → silenci → escolta | INTER NOS |
 | HT·03 | làmina Elektro · reconstrucció SVG · Living Plate d'interrupció · experiència | interrupció de la demostració | Compost · Error fèrtil I |
-| HT·04 | cartografia Futurama · SVG/mapa funcional · cartografia viva · experiència | desviació sense destinació prescrita | Instrument Z |
+| HT·A4 | cartografia Futurama · SVG/mapa funcional · cartografia viva · experiència | desviació sense destinació prescrita | Instrument Z |
 | HT·05 | làmina Perisphere/Democracity · SVG editorial · Living Plate 01 · experiència | circulació → quietud → espera | Cambra Nua del Temps |
 | HT·06 | fotografia/làmina nocturna · SVG editorial · làmina viva · experiència | sostracció de llum → senyal mínim | Rosa · Cambra |
-| HT·07 | representació gràfica · binari FRAGMENT-FILM 01 · experiència · rastre RECORDARE | continuïtat → fotograma impossible → reobservació | Rosa · RECORDARE |
+| HT·A7 | representació gràfica · binari FRAGMENT-FILM 01 · experiència · rastre RECORDARE | continuïtat → fotograma impossible → reobservació | Rosa · RECORDARE |
 
 ## LIVING ARCHIVE
 

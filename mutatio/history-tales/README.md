@@ -83,17 +83,31 @@ La incertesa pot ser resultat funcional: `no ho sé / no ho he percebut / dubto`
 - **Relació** — la MUTATIO activa funcionalment almenys un òrgan del Còdex.
 - **Reversibilitat** — retirar la ficció recupera el nucli històric documentat.
 
+## Identificadors canònics · 2026-10-14
+
+Manifest actualitzat: [MANIFEST-ACTIUS-1.1.md](MANIFEST-ACTIUS-1.1.md).
+
+S’actualitzen tres identificadors per distingir-los dels codis d’arxiu previs, sense canviar-ne el contingut ni l’ordre de la constel·lació:
+
+| Identificador actual | Identificador anterior | Experiència canònica |
+|---|---|---|
+| HT·A2 | HT·02 | `beta/ht-a2.html` |
+| HT·A4 | HT·04 | `beta/ht-a4.html` |
+| HT·A7 | HT·07 | `beta/ht-a7.html` |
+
+Les rutes `beta/ht-02.html`, `beta/ht-04.html` i `beta/ht-07.html` es conserven com a àlies. La correspondència completa i els punts actualitzats consten a [RENAMING-IDENTIFIERS-2026-10.md](RENAMING-IDENTIFIERS-2026-10.md). Les actes tancades i les evidències de custòdia mantenen els identificadors amb què es van registrar.
+
 ## Primera constel·lació · estat 0.2
 
 | ID | Operació pròpia | Òrgan dominant | Estat actual |
 |---|---|---|---|
 | HT·01 | reobservar una diferència | Rosa de l'Escolta | BETA · EXPERIÈNCIA |
-| HT·02 | suspendre la resposta i escoltar | INTER NOS | BETA · VODER 1939 VERIFICAT |
+| HT·A2 | suspendre la resposta i escoltar | INTER NOS | BETA · VODER 1939 VERIFICAT |
 | HT·03 | interrompre i sostenir la fallada | Compost · Error fèrtil I | BETA · EXPERIÈNCIA |
-| HT·04 | desviar sense prescriure destí | Instrument Z | BETA · EXPERIÈNCIA |
+| HT·A4 | desviar sense prescriure destí | Instrument Z | BETA · EXPERIÈNCIA |
 | HT·05 | interrompre la circulació amb espera | Cambra Nua del Temps | BETA · EXPERIÈNCIA |
 | HT·06 | sostreure una condició i observar què queda | Rosa · Cambra | BETA · EXPERIÈNCIA |
-| HT·07 | alterar una sola unitat de la segona mirada | Rosa · RECORDARE · Cambra | BETA · EXPERIÈNCIA PERCEPTIVA |
+| HT·A7 | alterar una sola unitat de la segona mirada | Rosa · RECORDARE · Cambra | BETA · EXPERIÈNCIA PERCEPTIVA |
 
 Cap dels set casos passa a **CAS EXECUTAT** només perquè la pàgina funcioni. Cal una travessa humana registrada.
 

@@ -1,4 +1,4 @@
-# HT·02 · THE MACHINE THAT REFUSED TO ANSWER
+# HT·A2 · THE MACHINE THAT REFUSED TO ANSWER
 
 **MUTATIO · History Tales · Anímic Protein / Còdex Viu**  
 **Nucli històric:** AT&T / Bell Labs Voder · New York World's Fair · 1939  
@@ -7,7 +7,7 @@
 
 ## HISTÒRIA
 
-El Voder de Bell Labs té provenance institucional suficient per fixar HT·02. La Library of Congress conserva una fotografia de 1939 titulada *World's Fair, American Telephone & Telegraph Company. Voder room, detail IV*, datada el 2 d'agost de 1939. El Smithsonian National Museum of American History conserva dins el *Speech Synthesis History Project* un ítem d'arxiu identificat com *AT&T/Bell Labs VODER from World's Fair Exhibits (New York, San Francisco) 1939-1940 era*.
+El Voder de Bell Labs té provenance institucional suficient per fixar HT·A2. La Library of Congress conserva una fotografia de 1939 titulada *World's Fair, American Telephone & Telegraph Company. Voder room, detail IV*, datada el 2 d'agost de 1939. El Smithsonian National Museum of American History conserva dins el *Speech Synthesis History Project* un ítem d'arxiu identificat com *AT&T/Bell Labs VODER from World's Fair Exhibits (New York, San Francisco) 1939-1940 era*.
 
 Aquest és el suport històric. No atribuïm al Voder cap capacitat d'escolta autònoma ni decisió.
 
@@ -44,7 +44,7 @@ INTER NOS no apareix com a tecnologia històrica. Apareix com a òrgan contempor
 
 ```json
 {
-  "id":"HT-02",
+  "id":"HT-A2",
   "kind":"history-tale",
   "source.kind":"research+generated",
   "history.confidence":"verified-core",
@@ -64,6 +64,6 @@ INTER NOS no apareix com a tecnologia històrica. Apareix com a òrgan contempor
 
 ## Suport persistent actual
 
-L'experiència executable viu a `beta/ht-02.html`. L'absència de l'original visual separat es conserva com a buit explícit i no es resol amb una falsa recuperació.
+L'experiència executable viu a `beta/ht-a2.html`. L'absència de l'original visual separat es conserva com a buit explícit i no es resol amb una falsa recuperació.
 
 > **Podem fer ciència. Podem fer ciència-ficció. Però mai farem pseudociència.**

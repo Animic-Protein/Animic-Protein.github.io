@@ -1,4 +1,4 @@
-# HT·07 · THE PHOTOGRAPH THAT LOOKED BACK
+# HT·A7 · THE PHOTOGRAPH THAT LOOKED BACK
 
 **MUTATIO · History Tales · Anímic Protein / Còdex Viu**  
 **Salt temporal:** White Sands · New Mexico · 24 October 1946  
@@ -36,7 +36,7 @@ Aquest estrat és HISTÒRIA i es manté separat de qualsevol intervenció d'Aní
 
 El V-2 no entra al Còdex com una icona innocent de progrés. Va ser desenvolupat i utilitzat com a arma durant la Segona Guerra Mundial i la seva fabricació va estar lligada al treball forçat i a milers de morts. La reutilització científica posterior no esborra aquesta procedència.
 
-HT·07 conserva simultàniament la primera mirada espacial sobre la Terra i la genealogia violenta de la màquina que la va transportar.
+HT·A7 conserva simultàniament la primera mirada espacial sobre la Terra i la genealogia violenta de la màquina que la va transportar.
 
 ## MUTATIO
 
@@ -58,8 +58,8 @@ Aquesta reciprocitat és una operació artística explícita de MUTATIO, no un f
 
 ### Suport persistent actual
 
-- `beta/ht-07.html` — experiència perceptiva executable.
-- `beta/history-tales-media.html#ht07` — representació gràfica editorial, etiquetada explícitament com a FRAGMENT-FILM AP i no com a metratge històric restaurat.
+- `beta/ht-a7.html` — experiència perceptiva executable.
+- `beta/history-tales-media.html#ht-a7` — representació gràfica editorial, etiquetada explícitament com a FRAGMENT-FILM AP i no com a metratge històric restaurat.
 
 ### Materialització temporal futura
 
@@ -75,7 +75,7 @@ Primera passada sense avisar del moment exacte; registre `percebut / no percebut
 
 ```json
 {
-  "id":"HT-07",
+  "id":"HT-A7",
   "kind":"history-tale",
   "history.event":"first-images-earth-from-space",
   "history.date":"1946-10-24",
@@ -110,6 +110,6 @@ Primera passada sense avisar del moment exacte; registre `percebut / no percebut
 
 > **Podem fer ciència. Podem fer ciència-ficció. Però mai farem pseudociència.**
 
-HT·07 no afirma que la Terra respongués, mirés ni produís cap senyal. Aquesta reciprocitat és exclusivament MUTATIO.
+HT·A7 no afirma que la Terra respongués, mirés ni produís cap senyal. Aquesta reciprocitat és exclusivament MUTATIO.
 
 > **History Tales comparteix constitució, no format. La font decideix el suport abans que l'estètica.**
