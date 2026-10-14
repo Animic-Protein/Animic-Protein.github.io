@@ -1,0 +1,128 @@
+{
+  "schema": "animic-protein.archivum.visual-variants.v1",
+  "package": "history-tales-steampunk-1939",
+  "version": "1.0",
+  "created_at": "2026-09-21",
+  "canonical_status": "experimental_preserved",
+  "principles": [
+    "original_and_variant_coexist",
+    "no_automatic_canonization",
+    "human_decision_required",
+    "provenance_visible",
+    "reversible"
+  ],
+  "creative_direction": "Animic Protein / Dàrius Rojas",
+  "transformation": "AI-assisted image editing under human creative direction",
+  "rights_status": "pending_canonical_confirmation",
+  "style_contract": {
+    "period": "1939 retrofuturism",
+    "materials": ["brass", "oxidized copper", "rivets", "gears", "pipes", "valves", "steam"],
+    "palette": ["liquid cobalt blue", "ochre", "arsenic cobalt green", "minimal cochineal red"],
+    "invariants": ["composition", "existing text", "AP identity", "historical meaning"],
+    "historical_constraint": "Thomas Edison died in 1931 and may appear only as posthumous memory, portrait or homage in 1939 scenes"
+  },
+  "items": [
+    {
+      "id": "HT-03",
+      "title": "Elektro Stops",
+      "state": "variant_complete",
+      "original": {
+        "path": "originals/HT-03-elektro-original.png",
+        "sha256": "a41c35dc8f7fd30de8ad1785262a87d4aeedb0c36ae532ac4902e8aa3cb0f1c7",
+        "dimensions": "1374x1145"
+      },
+      "variant": {
+        "path": "variants-steampunk/HT-03-elektro-steampunk-v1.0.png",
+        "sha256": "33141cb8895d8b13c45de06d7adcde466cc75506f261c7d81b46a9af3cffa3fa",
+        "dimensions": "1374x1145"
+      },
+      "narrative_invariant": "Elektro remains stopped; technicians observe and do not repair the interruption"
+    },
+    {
+      "id": "HT-04",
+      "title": "The Other Futurama",
+      "state": "original_preserved_variant_pending",
+      "original": {
+        "path": "originals/HT-04-other-futurama-original.png",
+        "sha256": "13840c5406be0044f78dd018c768f324d0758a5eff4fa18632290db9269385fd",
+        "dimensions": "1536x1024"
+      },
+      "variant": null
+    },
+    {
+      "id": "HT-05",
+      "title": "Inside the Perisphere, Someone Waits",
+      "state": "variant_complete",
+      "original": {
+        "path": "originals/HT-05-perisphere-original.png",
+        "sha256": "1de15b1c9c051c336251b02ef651376a8afc1f0e6810b5e95d03878514efe3dd",
+        "dimensions": "1536x1024"
+      },
+      "variant": {
+        "path": "variants-steampunk/HT-05-perisphere-steampunk-v1.0.png",
+        "sha256": "4543300f1ca80b5ee85bb792e751b00c223be2dfdc80871554acd17e03a0bc23",
+        "dimensions": "1536x1024"
+      },
+      "narrative_invariant": "The centered figure remains still while the surrounding world moves"
+    },
+    {
+      "id": "HT-06",
+      "title": "The Night Tomorrow Went Dark",
+      "state": "variant_complete",
+      "original": {
+        "path": "originals/HT-06-night-futurama-original.png",
+        "sha256": "05253b60919bbd5e75664c02246c8f1b1547593059cfc5b55a1216875e141cc9",
+        "dimensions": "1536x1024"
+      },
+      "variant": {
+        "path": "variants-steampunk/HT-06-night-futurama-steampunk-v1.0.png",
+        "sha256": "4e0bc07c2741dce9f39d49f73fab05c50e52e87892cd8e1cdb725dc8abe4e95a",
+        "dimensions": "1536x1024"
+      },
+      "narrative_invariant": "Darkness remains an absence that reveals listening rather than a failure to conceal"
+    },
+    {
+      "id": "RELATED-ROSA-1939",
+      "title": "La Rosa de l'Escolta a l'Expo del 1939",
+      "state": "variant_complete_unbound",
+      "original": {
+        "path": "originals/RELATED-rosa-escolta-expo-1939-original.png",
+        "sha256": "19ef3c71bd70711b4ceda2b41e3729fd8920927a50bb4611b44b869a97c9b0c3",
+        "dimensions": "1374x1145"
+      },
+      "variant": {
+        "path": "variants-steampunk/RELATED-rosa-escolta-expo-1939-steampunk-v1.0.png",
+        "sha256": "0796c66c5e586dc3e62650f2038a3e732a744ac60139a0b1a18840397194bc10",
+        "dimensions": "1374x1145"
+      },
+      "narrative_invariant": "Tesla is physically present; Edison is a posthumous memorial projection"
+    },
+    {
+      "id": "RELATED-FIRA-1939",
+      "title": "Fira del Mon de Dema, 1939",
+      "state": "variant_complete_unbound",
+      "original": {
+        "path": "originals/RELATED-fira-mon-dema-1939-original.png",
+        "sha256": "983390237099c654f494684c9ae15a1503eaf9d3e0b957343255fd93806d8da1",
+        "dimensions": "1374x1145"
+      },
+      "variant": {
+        "path": "variants-steampunk/RELATED-fira-mon-dema-1939-steampunk-v1.0.png",
+        "sha256": "cd18e00aea35fb85d967af405b8d91426a6b141f4e7509ed868d1da38d034ab2",
+        "dimensions": "1374x1145"
+      },
+      "narrative_invariant": "Tesla presents the listening instrument; Edison remains only a commemorative portrait"
+    }
+  ],
+  "excluded_outputs": [
+    {
+      "sha256": "8dde093601283e47f7bf18cd0f54e84f5ce2cd31b952ace60e288d40baba4a96",
+      "reason": "interrupted Elektro generation; superseded by the completed HT-03 v1.0 variant"
+    }
+  ],
+  "publication": {
+    "library": "preserved_as_versioned_package",
+    "github": "not_published",
+    "site": "not_published"
+  }
+}
