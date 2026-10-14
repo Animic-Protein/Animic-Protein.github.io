@@ -1,7 +1,7 @@
 # CONTRACTE D’ACTOR 1.0
 
-**Estat:** operatiu · reversible · no amplia l’autoritat del sistema  
-**Àmbit inicial:** KREATOR RPG i DISSENSUS  
+**Estat:** operatiu · reversible · no amplia l’autoritat del sistema
+**Àmbit inicial:** KREATOR RPG i DISSENSUS
 **Valors admesos:** `actorKind: human | artificial`
 
 ## Regla
