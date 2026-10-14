@@ -1,10 +1,17 @@
-export const createSession=()=>({decision:null,rejected:null,authorizedDecision:null,mutation:null,ended:false,events:[]});
+import {authorizeHumanDecision,normalizeActorKind} from '../../governanca/actor-contract.mjs';
+
+export const createSession=(actorKind='human')=>{
+  const normalized=normalizeActorKind(actorKind);
+  if(!normalized)throw new TypeError('actorKind must be human or artificial');
+  return{actorKind:normalized,decision:null,rejected:null,authorizedDecision:null,mutation:null,ended:false,events:[]};
+};
 
 const OPTIONS=new Set(['accept','reject','other','quiet','transform','stop']);
 
 export function recordDecision(state,choice,otherRoute=''){
-  if(state.ended||state.mutation||!OPTIONS.has(choice)||(choice==='other'&&!otherRoute.trim()))return state;
-  const next={...state,decision:choice,events:[...state.events,{at:new Date().toISOString(),previousDecision:state.decision,choice,otherRoute:['reject','other'].includes(choice)?(otherRoute.trim()||null):null}]};
+  const actorGate=authorizeHumanDecision({actorKind:state.actorKind,kreatorStatus:choice});
+  if(state.ended||state.mutation||!OPTIONS.has(choice)||!actorGate.accepted||(choice==='other'&&!otherRoute.trim()))return state;
+  const next={...state,decision:choice,events:[...state.events,{at:new Date().toISOString(),actorKind:'human',previousDecision:state.decision,choice,otherRoute:['reject','other'].includes(choice)?(otherRoute.trim()||null):null}]};
   if(choice==='reject'){
     next.rejected='La proposta REOBSERVAR ha estat rebutjada explícitament.';
     next.authorizedDecision='Rebuig explícit de REOBSERVAR; cap altra acció autoritzada';
