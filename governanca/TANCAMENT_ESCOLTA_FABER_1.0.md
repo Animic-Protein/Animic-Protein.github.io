@@ -81,7 +81,7 @@ L'experiència implementa `audible.kind = relational-property` i distingeix `tra
 
 **Actualització 2026-09-12:** ECO 01 · CAS REAL 01 ja és una execució real tancada amb tres retorns preservats localment (`different`, `different`, `unknown`). La custòdia externa continua pendent de verificació i no autoritza encara la promoció a METABOLITZAT. No cal repetir la travessa; el moviment següent és forense i queda registrat a Archivum · Custòdia 1.0.
 
-- [Executar ECO 01](../beta/travesses/eco-01/)
+- [Executar ECO 01](../experiments/eco-01/)
 - [Fitxa d'Arrels–Pensament](../arrels/michel-faber-listen-retorn.md)
 
 ## Criteri editorial de tancament

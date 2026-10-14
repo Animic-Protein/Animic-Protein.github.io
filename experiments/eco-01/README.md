@@ -58,5 +58,5 @@ provenance
 
 La interfície per si sola no converteix cap sessió futura en cas real. **CAS REAL 01 ja va ser executat i tancat el 2026-09-11** amb tres captures locals; no s’ha de repetir per completar la custòdia. La verificació externa posterior versionarà el rastre amb rutes, MIME, mides i SHA-256, sense alterar l’execució.
 
-- [Acta de tancament del CAS REAL 01](./ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md)
-- [Registre d’Archivum · Custòdia](../../../archivum/custodia/eco-01-cas-real-01.json)
+- [Acta de tancament del CAS REAL 01](../../archivum/coniunctio/eco-01/ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md)
+- [Registre d’Archivum · Custòdia](../../archivum/custodia/eco-01-cas-real-01.json)

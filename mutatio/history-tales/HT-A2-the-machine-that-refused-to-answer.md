@@ -64,6 +64,6 @@ INTER NOS no apareix com a tecnologia històrica. Apareix com a òrgan contempor
 
 ## Suport persistent actual
 
-L'experiència executable viu a `beta/ht-a2.html`. L'absència de l'original visual separat es conserva com a buit explícit i no es resol amb una falsa recuperació.
+L'experiència executable viu a `mutatio/history-tales/site/ht-a2.html`. L'absència de l'original visual separat es conserva com a buit explícit i no es resol amb una falsa recuperació.
 
 > **Podem fer ciència. Podem fer ciència-ficció. Però mai farem pseudociència.**

@@ -58,8 +58,8 @@ Aquesta reciprocitat és una operació artística explícita de MUTATIO, no un f
 
 ### Suport persistent actual
 
-- `beta/ht-a7.html` — experiència perceptiva executable.
-- `beta/history-tales-media.html#ht-a7` — representació gràfica editorial, etiquetada explícitament com a FRAGMENT-FILM AP i no com a metratge històric restaurat.
+- `mutatio/history-tales/site/ht-a7.html` — experiència perceptiva executable.
+- `mutatio/history-tales/site/history-tales-media.html#ht-a7` — representació gràfica editorial, etiquetada explícitament com a FRAGMENT-FILM AP i no com a metratge històric restaurat.
 
 ### Materialització temporal futura
 

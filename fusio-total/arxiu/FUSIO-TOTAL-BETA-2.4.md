@@ -138,7 +138,7 @@ INTER NOS conserva memòria local reversible al dispositiu experimental. Aquesta
 
 - **Estat:** executat, metabolitzat, reversible i no constitucional.
 - **Ruta:** Rosa de l’Escolta → Cambra nua del temps → Continuum.
-- **Evidència:** una presa contínua de 139,733 s; acta i empremta a `beta/travesses/02-direccio-que-desapareix.md`.
+- **Evidència:** una presa contínua de 139,733 s; acta i empremta a `archivum/coniunctio/casos/02-direccio-que-desapareix.md`.
 - **Diferència perceptible:** en desaparèixer el flux mecànic continu, emergeix una pulsació humana discontínua.
 - **Decisió modificada:** l’absència transfereix la responsabilitat temporal a qui escolta.
 - **Retorn:** retirada final sense restaurar ni reparar el patró original.
