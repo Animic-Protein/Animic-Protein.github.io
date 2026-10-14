@@ -86,7 +86,9 @@ try {
   const download=await downloadEvent;
   const trace=JSON.parse(await readFile(await download.path(),'utf8'));
   assert.equal(trace.case.validationStatus,'not-validated-empirically-with-a-participant');
+  assert.equal(trace.actorKind,'human');
   assert.equal(trace.interfaceLanguage,'hi');
+  assert.equal(trace.humanDecision.actorKind,'human');
   assert.equal(trace.humanDecision.choice,'transform');
   assert.equal(trace.mutatio.exactChange,'Canvi exacte autoritzat a la prova automàtica');
   assert.equal(trace.source.text,'Fragment literal escrit per la persona');
