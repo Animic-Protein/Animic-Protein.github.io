@@ -88,3 +88,8 @@ Abans de metabolitzar aquesta arquitectura al Còdex:
 ## Revisió 0.4.11 · coherència del portal
 
 La revisió 0.4.11 consolida el Dock viu sense ampliar la fisiologia: actualitza la versió visible i l'exportació JSON, substitueix la denominació visible `KREATOR 1` per `KREATOR` com a posició humana general i manté KREATOR 01–05 només com a identitats de la cohort CONVIVIUM. SPECTRUM ANNALIS i la matèria sonora passen a respectar exclusivitat perceptiva: quan entra una font local d'àudio/vídeo, l'ambient s'atura i la seva preferència queda apagada; si després s'activa voluntàriament l'ambient, el fitxer local es pausa. Cap d'aquests gestos entra a la cadena causal ni al provenance.
+
+
+## Revisió 0.4.12 · contracte d’actor
+
+La revisió 0.4.12 fa explícit `actorKind: human | artificial` al rastre. El tipus d’actor queda fixat quan comença la travessa. Només `actorKind: human` pot generar un esdeveniment `human-decision`, i l’opció `pending` és rebutjada abans de crear-lo. Una passada artificial pot observar, proposar i exportar el rastre amb atribució artificial, però `humanDecision` queda `null` i MUTATIO continua sense autorització. El llindar compartit amb DISSENSUS resideix a `governanca/actor-contract.mjs`.
