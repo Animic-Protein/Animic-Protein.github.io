@@ -30,7 +30,7 @@ Les transicions de custòdia creen versió. No sobrescriuen el registre anterior
 
 ## Primera aplicació
 
-1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; cinc originals seleccionats i el binari temporal HT·07 verificats externament amb identificador i SHA-256; HT·02 continua absent.
+1. **History Tales v1.1:** projecte tancat i auditat; experiències web preservades; cinc originals seleccionats i el binari temporal HT·07 (ara HT·A7) verificat externament amb identificador i SHA-256; HT·02 (ara HT·A2) continua absent. HT·04 és ara HT·A4. L’evidència v1.1/v1.2 conserva els codis originals.
 2. **ECO 01 · CAS REAL 01:** execució real tancada; tres àudios i rastre JSON preservats localment; custòdia externa i empremtes pendents; no repetir l’experiment.
 
 ## Límits

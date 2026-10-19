@@ -27,15 +27,15 @@ Cap fotografia, enregistrament, cita, film, veu o document generat per History T
 
 ## Cicle d'estats
 
-`PROTOCOL → BETA → CAS EXECUTAT → METABOLITZAT`
+`PROTOCOL → PROTOTIP → CAS EXECUTAT → METABOLITZAT`
 
 Els estats no són una escala de prestigi. Són graus de relació amb una experiència real.
 
 ### PROTOCOL
 Existeix una hipòtesi de MUTATIO, però encara falta provenance suficient, suport adequat o materialització. Un protocol **no simula haver estat executat**.
 
-### BETA
-El nucli històric té provenance suficient, HISTÒRIA i MUTATIO estan separades, hi ha una experiència executable i els quatre tests passen estructuralment. BETA no equival a cas real executat.
+### PROTOTIP
+El nucli històric té provenance suficient, HISTÒRIA i MUTATIO estan separades, hi ha una experiència executable i els quatre tests passen estructuralment. Un prototip no equival a cas real executat.
 
 ### CAS EXECUTAT
 Una persona ha travessat l'experiència i ha produït una decisió humana observable. Cal conservar un rastre mínim de l'execució sense convertir-lo en perfilatge de la persona.
@@ -43,14 +43,14 @@ Una persona ha travessat l'experiència i ha produït una decisió humana observ
 ### METABOLITZAT
 Un cas executat ha produït una diferència que pot retornar al Còdex: principi, relació, compost, instrument o modificació constitucional. Metabolitzar **no significa declarar correcta la interpretació**. Significa que l'execució ha canviat alguna cosa de manera traçable i reversible.
 
-Un cas pot retornar a BETA o Compost si l'execució no sosté la hipòtesi.
+Un cas pot retornar a prototip o Compost si l'execució no sosté la hipòtesi.
 
 ## Regla de promoció
 
 Cap canvi d'estat és automàtic.
 
-- `PROTOCOL → BETA`: exigeix provenance + frontera + suport + quatre tests.
-- `BETA → CAS EXECUTAT`: exigeix travessa humana real + rastre + decisió humana.
+- `PROTOCOL → PROTOTIP`: exigeix provenance + frontera + suport + quatre tests.
+- `PROTOTIP → CAS EXECUTAT`: exigeix travessa humana real + rastre + decisió humana.
 - `CAS EXECUTAT → METABOLITZAT`: exigeix diferència perceptible que modifiqui o relacioni una part concreta del Còdex.
 - qualsevol estat pot tornar enrere si apareix una font millor, una contradicció o una fallada de reversibilitat.
 
@@ -83,17 +83,33 @@ La incertesa pot ser resultat funcional: `no ho sé / no ho he percebut / dubto`
 - **Relació** — la MUTATIO activa funcionalment almenys un òrgan del Còdex.
 - **Reversibilitat** — retirar la ficció recupera el nucli històric documentat.
 
+## Identificadors canònics · 2026-10-14
+
+En fusionar l’àrea Beta al Còdex, **Beta deixa de ser una àrea activa**. La maduresa reversible de cada peça continua declarant-se com a `PROTOTIP`.
+
+Manifest actualitzat: [MANIFEST-ACTIUS-1.1.md](MANIFEST-ACTIUS-1.1.md).
+
+S’actualitzen tres identificadors per distingir-los dels codis d’arxiu previs, sense canviar-ne el contingut ni l’ordre de la constel·lació:
+
+| Identificador actual | Identificador anterior | Experiència canònica |
+|---|---|---|
+| HT·A2 | HT·02 | `mutatio/history-tales/site/ht-a2.html` |
+| HT·A4 | HT·04 | `mutatio/history-tales/site/ht-a4.html` |
+| HT·A7 | HT·07 | `mutatio/history-tales/site/ht-a7.html` |
+
+Les rutes `mutatio/history-tales/site/ht-a2.html`, `mutatio/history-tales/site/ht-a4.html` i `mutatio/history-tales/site/ht-a7.html` es conserven com a àlies. La correspondència completa i els punts actualitzats consten a [RENAMING-IDENTIFIERS-2026-10.md](RENAMING-IDENTIFIERS-2026-10.md). Les actes tancades i les evidències de custòdia mantenen els identificadors amb què es van registrar.
+
 ## Primera constel·lació · estat 0.2
 
 | ID | Operació pròpia | Òrgan dominant | Estat actual |
 |---|---|---|---|
-| HT·01 | reobservar una diferència | Rosa de l'Escolta | BETA · EXPERIÈNCIA |
-| HT·02 | suspendre la resposta i escoltar | INTER NOS | BETA · VODER 1939 VERIFICAT |
-| HT·03 | interrompre i sostenir la fallada | Compost · Error fèrtil I | BETA · EXPERIÈNCIA |
-| HT·04 | desviar sense prescriure destí | Instrument Z | BETA · EXPERIÈNCIA |
-| HT·05 | interrompre la circulació amb espera | Cambra Nua del Temps | BETA · EXPERIÈNCIA |
-| HT·06 | sostreure una condició i observar què queda | Rosa · Cambra | BETA · EXPERIÈNCIA |
-| HT·07 | alterar una sola unitat de la segona mirada | Rosa · RECORDARE · Cambra | BETA · EXPERIÈNCIA PERCEPTIVA |
+| HT·01 | reobservar una diferència | Rosa de l'Escolta | PROTOTIP · EXPERIÈNCIA |
+| HT·A2 | suspendre la resposta i escoltar | INTER NOS | PROTOTIP · VODER 1939 VERIFICAT |
+| HT·03 | interrompre i sostenir la fallada | Compost · Error fèrtil I | PROTOTIP · EXPERIÈNCIA |
+| HT·A4 | desviar sense prescriure destí | Instrument Z | PROTOTIP · EXPERIÈNCIA |
+| HT·05 | interrompre la circulació amb espera | Cambra Nua del Temps | PROTOTIP · EXPERIÈNCIA |
+| HT·06 | sostreure una condició i observar què queda | Rosa · Cambra | PROTOTIP · EXPERIÈNCIA |
+| HT·A7 | alterar una sola unitat de la segona mirada | Rosa · RECORDARE · Cambra | PROTOTIP · EXPERIÈNCIA PERCEPTIVA |
 
 Cap dels set casos passa a **CAS EXECUTAT** només perquè la pàgina funcioni. Cal una travessa humana registrada.
 
@@ -103,14 +119,14 @@ Cap dels set casos passa a **CAS EXECUTAT** només perquè la pàgina funcioni. 
 {
   "id":"HT-XX",
   "protocol":"0.2",
-  "state":"beta|executed|metabolized",
+  "state":"prototype|executed|metabolized",
   "source.kind":"research+generated",
   "history.confidence":"verified|partial|open",
   "mutatio.status":"explicit-fiction",
   "perceivedDifference":null,
   "humanDecision":null,
   "relation":null,
-  "return":"history|beta|compost|codex",
+  "return":"history|prototype|compost|codex",
   "reversible":true
 }
 ```

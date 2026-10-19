@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ruta traslladada · Còdex Viu</title>
+  <script>
+    const legacyRoutes = {
+      '/beta': '/fusio-total/',
+      '/beta/': '/fusio-total/',
+      '/beta/FUSIO-TOTAL-2.4.md': '/fusio-total/arxiu/FUSIO-TOTAL-BETA-2.4.md',
+      '/beta/CAMBRA-NUA-DEL-TEMPS-FITXA.md': '/cambra-nua-2/FUTURS-RECORDATS-01-FITXA.md',
+      '/beta/cambra-nua-futurs-recordats.html': '/cambra-nua-2/futurs-recordats.html',
+      '/beta/futurs-recordats.html': '/mutatio/history-tales/site/futurs-recordats.html',
+      '/beta/history-tales.html': '/mutatio/history-tales/site/index.html',
+      '/beta/history-tales-media.html': '/mutatio/history-tales/site/history-tales-media.html',
+      '/beta/ht-01.html': '/mutatio/history-tales/site/ht-01.html',
+      '/beta/ht-02.html': '/mutatio/history-tales/site/ht-a2.html',
+      '/beta/ht-03.html': '/mutatio/history-tales/site/ht-03.html',
+      '/beta/ht-04.html': '/mutatio/history-tales/site/ht-a4.html',
+      '/beta/ht-05.html': '/mutatio/history-tales/site/ht-05.html',
+      '/beta/ht-06.html': '/mutatio/history-tales/site/ht-06.html',
+      '/beta/ht-07.html': '/mutatio/history-tales/site/ht-a7.html',
+      '/beta/ht-a2.html': '/mutatio/history-tales/site/ht-a2.html',
+      '/beta/ht-a4.html': '/mutatio/history-tales/site/ht-a4.html',
+      '/beta/ht-a7.html': '/mutatio/history-tales/site/ht-a7.html',
+      '/beta/arxiu-history-tales-pre-media/': '/archivum/history-tales/pre-media/snapshot-2026-09/',
+      '/beta/arxiu-history-tales-pre-media/index.html': '/archivum/history-tales/pre-media/snapshot-2026-09/index.html',
+      '/beta/arxiu-history-tales-pre-media/ht-01.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-01.html',
+      '/beta/arxiu-history-tales-pre-media/ht-02.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-02.html',
+      '/beta/arxiu-history-tales-pre-media/ht-03.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-03.html',
+      '/beta/arxiu-history-tales-pre-media/ht-04.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-04.html',
+      '/beta/arxiu-history-tales-pre-media/ht-05.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-05.html',
+      '/beta/arxiu-history-tales-pre-media/ht-06.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-06.html',
+      '/beta/arxiu-history-tales-pre-media/ht-07.html': '/archivum/history-tales/pre-media/snapshot-2026-09/ht-07.html',
+      '/beta/travesses/01-felix-error.md': '/archivum/coniunctio/casos/01-felix-error.md',
+      '/beta/travesses/02-direccio-que-desapareix.md': '/archivum/coniunctio/casos/02-direccio-que-desapareix.md',
+      '/beta/travesses/eco-01/': '/experiments/eco-01/',
+      '/beta/travesses/eco-01/index.html': '/experiments/eco-01/index.html',
+      '/beta/travesses/eco-01/README.md': '/experiments/eco-01/README.md',
+      '/beta/travesses/eco-01/eco-01-import.js': '/experiments/eco-01/eco-01-import.js',
+      '/beta/travesses/eco-01/eco-01.js': '/experiments/eco-01/eco-01.js',
+      '/beta/travesses/eco-01/ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md': '/archivum/coniunctio/eco-01/ACTA-TANCAMENT-CAS-REAL-01-2026-09-11-v1.0.md',
+      '/beta/travesses/eco-01/CAS-REAL-01-2026-09-11-v0.1.md': '/archivum/coniunctio/eco-01/CAS-REAL-01-2026-09-11-v0.1.md',
+    };
+    const requestedPath = decodeURI(location.pathname);
+    const destination = legacyRoutes[requestedPath] || (requestedPath.endsWith('/') ? legacyRoutes[requestedPath + 'index.html'] : undefined);
+    if (destination) location.replace(destination + location.search + location.hash);
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Aquesta ruta ja s’ha integrat al Còdex</h1>
+    <p>Si no t’hi redirigeix automàticament, <a href="/">obre el Còdex Viu</a>.</p>
+  </main>
+</body>
+</html>

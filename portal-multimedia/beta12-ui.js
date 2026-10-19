@@ -17,16 +17,16 @@ function normalizeArchiveVocabulary(){
 }
 function applyBeta12(){
   document.documentElement.dataset.portal='beta12';
-  const topEy=[...document.querySelectorAll('main > .ey')][0];setText(topEy,'ANÍMIC PROTEIN · PORTAL MULTIMÈDIA β·12');
+  const topEy=[...document.querySelectorAll('main > .ey')][0];setText(topEy,'ANÍMIC PROTEIN · PORTAL MULTIMÈDIA · ITERACIÓ 12');
   setText(document.querySelector('main > h1 + .mut'),'Una font entra una vegada, passa per instruments i conserva cada transformació a Archivum / Arxiu Viu.');
-  const circ=$('#circulation');if(circ){setText(circ.querySelector('.ey'),'β·12 · RUTA SIMPLE');setText(circ.querySelector('h2'),'FONT → INSTRUMENT → TRANSFORMACIÓ → ARCHIVUM');}
+  const circ=$('#circulation');if(circ){setText(circ.querySelector('.ey'),'ITERACIÓ 12 · RUTA SIMPLE');setText(circ.querySelector('h2'),'FONT → INSTRUMENT → TRANSFORMACIÓ → ARCHIVUM');}
   const route=$('.circulation-route');if(route)route.innerHTML='<span class="pulse" data-pulse="source">FONT</span><span class="pulse" data-pulse="looperum">Looperum</span><span class="pulse" data-pulse="pulsarium">Pulsarium</span><span class="pulse beta12-experimental" data-pulse="videodrome">Videodrum · en prova</span><span class="pulse" data-pulse="archivum">Archivum / Arxiu Viu</span>';
   const actions=$('#circulation .actions');if(actions){setText($('#circulateArchive'),'→ Archivum / Arxiu Viu');const v=$('#circulateVideo');if(v){setText(v,'→ Videodrum · prova');v.classList.add('beta12-experimental')}}
-  const organs=$('.organs');if(organs){[...organs.querySelectorAll('.organ')].forEach(c=>{const name=c.querySelector('h2')?.textContent?.trim();if(name==='Archivum'||name==='Looparium'){c.remove();return}if(name==='Videodrum'){c.classList.add('beta12-experimental');setText(c.querySelector('.ey'),'INSTRUMENT VISUAL · EN PROVA');setText(c.querySelector('.mut'),'Només sobreviurà com a òrgan autònom si una prova real demostra una diferència perceptible pròpia.')}});const puls=[...organs.querySelectorAll('.organ')].find(c=>c.querySelector('h2')?.textContent?.trim()==='Pulsarium');if(puls)setText(puls.querySelector('.ey'),'INSTRUMENT RÍTMIC / SAMPLER · β·11.5 CONGELAT');}
+  const organs=$('.organs');if(organs){[...organs.querySelectorAll('.organ')].forEach(c=>{const name=c.querySelector('h2')?.textContent?.trim();if(name==='Archivum'||name==='Looparium'){c.remove();return}if(name==='Videodrum'){c.classList.add('beta12-experimental');setText(c.querySelector('.ey'),'INSTRUMENT VISUAL · EN PROVA');setText(c.querySelector('.mut'),'Només sobreviurà com a òrgan autònom si una prova real demostra una diferència perceptible pròpia.')}});const puls=[...organs.querySelectorAll('.organ')].find(c=>c.querySelector('h2')?.textContent?.trim()==='Pulsarium');if(puls)setText(puls.querySelector('.ey'),'INSTRUMENT RÍTMIC / SAMPLER · ITERACIÓ 11.5 CONGELADA');}
   normalizeArchiveVocabulary();setTimeout(normalizeArchiveVocabulary,100);setTimeout(normalizeArchiveVocabulary,600);armArchivumLazy();
   setText($('#save'),'Conservar loop → Archivum / Arxiu Viu');
   setText($('#antSuggest'),'🐜 La formiga només apareix quan hi ha una relació accionable; no és navegació ni decoració.');
-  setText($('#trace'),'🐜 β·12 · Occam: arrencada lleugera; la fitxa tècnica només es carrega en obrir Archivum.');
+  setText($('#trace'),'🐜 Iteració 12 · Occam: arrencada lleugera; la fitxa tècnica només es carrega en obrir Archivum.');
   if(!$('#beta12-style')){const st=document.createElement('style');st.id='beta12-style';st.textContent='.beta12-experimental{opacity:.62;border-style:dashed!important}.beta12-experimental::after{content:" · ?";color:var(--o)}.organs{grid-template-columns:repeat(3,1fr)}@media(max-width:760px){.organs{grid-template-columns:1fr}}';document.head.append(st)}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(applyBeta12,0));else setTimeout(applyBeta12,0);

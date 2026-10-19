@@ -64,3 +64,10 @@ la forma i la procedència sense mantenir dues fonts de veritat.
 
 La traça de la fusió es conserva a
 `governanca/FUSIO_REPOSITORIS.md`.
+
+## Integració Beta → Còdex
+
+La [matriu de fusió total Beta 2.4 → Còdex](governanca/MATRIU-FUSIO-BETA-CODEX-2026-10.md)
+documenta els 32 fitxers migrats, les rutes de compatibilitat i els límits de la
+integració. La [arquitectura canònica Fusió Total 2.4](governanca/ARQUITECTURA_FUSIO_TOTAL_2.4.md)
+recull l’estat actualitzat de Coniunctio.

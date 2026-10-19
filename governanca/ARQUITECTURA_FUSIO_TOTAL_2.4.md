@@ -1,8 +1,8 @@
 # Arquitectura Fusió Total · 2.4
 
-**Estat:** activa com a arquitectura canònica oberta  
-**Data:** 2 de setembre de 2026  
-**Actualització MUTATIO:** 4 de setembre de 2026
+**Estat:** arquitectura canònica activa; revisada després de la fusió Beta al Còdex
+**Data:** 2 de setembre de 2026
+**Actualitzacions MUTATIO i Coniunctio:** 4 de setembre i 14 d’octubre de 2026
 
 ## Decisió
 
@@ -14,7 +14,7 @@ El Còdex conserva una sola font de veritat pública a `main`. Els Sites són ò
 2. **Portal recuperat.** Les quatre portes tornen a formar una entrada llegible: Mapa, Sembra, Z i ?.
 3. **INTER NOS connectat.** No és una cinquena eina: és la medul·la relacional que travessa persones, casos i instruments.
 4. **Instruments reintegrats.** Rosa escolta; Z fa perceptible la diferència; Cambra exposa el temps; Compost conserva l’error; Homeòstasi regula el pes de la novetat.
-5. **Coniunctio governada.** Beta 2.4 resta com a laboratori amb quatre llindars visibles: diferència perceptible, procedència, retorn i balanç Occam–Incertesa.
+5. **Coniunctio governada.** La genealogia Beta 2.4 s’ha integrat al Còdex. Els quatre llindars continuen governant els canvis: diferència perceptible, procedència, retorn i balanç Occam–Incertesa.
 
 ## MUTATIO · metabolisme transversal del Còdex
 
@@ -82,7 +82,7 @@ Cada retorn pot declarar-se **persistència**, **mutatio** o **dissolució**. El
 - **Instruments:** operacions específiques.
 - **INTER NOS:** organisme transversal, relacional i mnemònic.
 - **MUTATIO:** metabolisme transversal; no és un nou portal ni un instrument addicional.
-- **Beta 2.4:** laboratori reversible; no nova font canònica.
+- **Genealogia Beta 2.4:** contingut i procedència preservats dins del Còdex; ja no és una àrea ni un laboratori actiu independent.
 
 ## Reversibilitat
 
