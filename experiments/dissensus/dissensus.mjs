@@ -5,7 +5,8 @@ const $=selector=>document.querySelector(selector);
 const $$=selector=>[...document.querySelectorAll(selector)];
 const SOURCE_REF_DEFAULT=$('#sourceRef').value;
 
-let state=createSession();
+const requestedActorKind=new URLSearchParams(location.search).get('actorKind')||'human';
+let state=createSession(requestedActorKind);
 initializeLanguages();
 let privacyStatusKey='privacyStatus';
 const IMPULSE=t('impulseText');
@@ -69,7 +70,8 @@ $$('input[name="focus"]').forEach(input=>input.addEventListener('change',render)
 
 function trace(){
   return {
-    schema:'animic.codex.dissensus/v0.1',
+    schema:'animic.codex.dissensus/v0.2',
+    actorKind:state.actorKind,
     interfaceLanguage:language(),
     createdAt:new Date().toISOString(),
     localOnly:true,
@@ -82,7 +84,7 @@ function trace(){
     frictiones:{authorship:'AI draft; no verified sources attached',support:$('#support').value.trim(),objection:$('#objection').value.trim(),verifiedSources:[]},
     suggestedImpulse:{author:'AI',text:IMPULSE},
     humanRejection:state.rejected,
-    humanDecision:{choice:state.decision,authorizedAction:state.authorizedDecision,otherRoute:$('#otherRoute').value.trim()||null},
+    humanDecision:state.actorKind==='human'&&state.decision?{actorKind:'human',choice:state.decision,authorizedAction:state.authorizedDecision,otherRoute:$('#otherRoute').value.trim()||null}:null,
     decisionHistory:state.events,
     mutatio:{authorized:!!state.mutation,exactChange:state.mutation},
     uncertainty:$('#uncertainty').value.trim()||null,
@@ -97,7 +99,7 @@ $('#exportTrace').addEventListener('click',()=>{
   privacyStatusKey='exportDone';render();
 });
 $('#dissolve').addEventListener('click',()=>{
-  state=createSession();
+  state=createSession(requestedActorKind);
   $$('[data-decision]').forEach(button=>button.setAttribute('aria-pressed','false'));
   $$('input[name="focus"]').forEach(input=>input.checked=false);
   $('#focusOther').value='';$('#otherRoute').value='';$('#mutationText').value='';$('#sourceRef').value=SOURCE_REF_DEFAULT;

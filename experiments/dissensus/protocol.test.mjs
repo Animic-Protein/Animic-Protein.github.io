@@ -40,3 +40,21 @@ test('stopping closes the route and cannot authorize a later mutation',()=>{
   assert.equal(state.mutation,null);
   assert.equal(state.ended,true);
 });
+
+
+test('KREATOR pending is rejected and cannot create humanDecision',()=>{
+  const state=createSession('human');
+  const next=recordDecision(state,'pending');
+  assert.equal(next,state);
+  assert.equal(next.decision,null);
+  assert.equal(next.events.length,0);
+});
+
+test('an artificial actor can leave a trace but cannot claim humanDecision',()=>{
+  const state=createSession('artificial');
+  const next=recordDecision(state,'transform');
+  assert.equal(next,state);
+  assert.equal(next.actorKind,'artificial');
+  assert.equal(next.decision,null);
+  assert.equal(next.events.length,0);
+});
