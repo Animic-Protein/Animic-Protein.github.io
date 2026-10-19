@@ -1,5 +1,7 @@
 {
   "protocol": "PONS-AP-1.0",
+  "revision": "1.1",
+  "synchronized_at": "2026-10-19T13:25:18+02:00",
   "project": "Anímic Protein — Còdex Viu",
   "canonical_statement": "GitHub recorda; els Sites experimenten; la decisió humana metabolitza.",
   "site": {
@@ -7,14 +9,16 @@
     "manifest_url": "https://animic-protein.animic-protein.chatgpt.site/.well-known/animic-bridge.json",
     "role": "superficie_viva",
     "edition": "2.3-metabolismus",
-    "availability": "degraded_external_route",
+    "availability": "verified_http_200",
+    "availability_observed_at": "2026-10-19T13:25:18+02:00",
     "fallback_url": "https://animic-protein.github.io/fusio-total/"
   },
   "repository": {
     "url": "https://github.com/Animic-Protein/Animic-Protein.github.io",
     "pages_url": "https://animic-protein.github.io/",
     "role": "memoria_publica",
-    "branch": "main"
+    "branch": "main",
+    "observed_main_sha": "8f1e01e2a4fbe705975efd3cc47a95a0604d986f"
   },
   "governance": {
     "automatic_canonical_status": false,
@@ -24,6 +28,7 @@
     "divergence_check": "github-actions",
     "memory_rule": "recordar_no_equival_aprendre_ni_legislar",
     "current_construction": "kreator1_sessio01_ordre_causal_1_1",
+    "current_public_contract": "actor_contract_1_0",
     "reentry_contract": {
       "version": "1.0",
       "impuls": "1.2",
@@ -41,7 +46,8 @@
     },
     "portal_viu": {
       "url": "https://animic-protein.github.io/",
-      "role": "entrada_publica_canonica"
+      "role": "entrada_publica_canonica",
+      "availability": "verified_http_200"
     },
     "cambra_nua_2": {
       "url": "https://animic-protein.github.io/cambra-nua-2/",
@@ -67,10 +73,41 @@
       "url": "https://animic-protein.github.io/experiments/kreator-rpg/",
       "role": "evolucio_de_krator_amb_master_i_daus_configurables",
       "status": "experimental_no_canonical",
-      "interface": "maquina_steampunk_logica_0.4.5",
+      "edition": "0.4.12",
+      "interface": "maquina_steampunk_logica_0.4.12",
       "integrated_invocations": ["master", "recordare", "stratum_excavar"],
       "default_dice": "d7xd9",
-      "effect_requires_prior_human_decision": true
+      "effect_requires_prior_human_decision": true,
+      "actor_contract": "1.0"
+    },
+    "limen_1_0": {
+      "url": "https://animic-protein.github.io/experiments/limen/",
+      "role": "laboratori_de_les_cinc_disposicions",
+      "status": "experimental_no_canonical",
+      "edition": "1.0",
+      "trace_schema": "animic.codex.limen/v1",
+      "languages": ["ca", "en", "zh", "ja"]
+    },
+    "dissensus_0_1": {
+      "url": "https://animic-protein.github.io/experiments/dissensus/",
+      "role": "prova_manual_de_llibertat_critica",
+      "status": "experimental_not_tested_with_human_participant",
+      "edition": "0.1",
+      "trace_schema": "animic.codex.dissensus/v0.2",
+      "actor_contract": "1.0",
+      "languages": ["ca", "ur", "tl", "hi"]
     }
+  },
+  "verification": {
+    "observed_at": "2026-10-19T13:25:18+02:00",
+    "method": "HTTP GET with redirects",
+    "meaning": "point_in_time_observation_not_uptime_guarantee",
+    "routes": [
+      {"url": "https://animic-protein.github.io/", "http_status": 200, "availability": "verified"},
+      {"url": "https://animic-protein.github.io/experiments/kreator-rpg/", "http_status": 200, "availability": "verified"},
+      {"url": "https://animic-protein.github.io/experiments/limen/", "http_status": 200, "availability": "verified"},
+      {"url": "https://animic-protein.github.io/experiments/dissensus/", "http_status": 200, "availability": "verified"},
+      {"url": "https://animic-protein.github.io/inter-nos-creative/", "http_status": 200, "availability": "verified"}
+    ]
   }
 }
