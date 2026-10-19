@@ -60,8 +60,8 @@ if(controls){s+='<div class="transfer"><strong>Traspàs amb decisió humana</str
 return s+'</article>';
 }
 function render(){
-DEPTS.forEach(function(d){var arr=fragments.filter(function(f){return f.origin===d.id}),el=$("#list-"+d.id);if(el)el.innerHTML=arr.length?arr.map(function(f){return card(f,true)}).join():'<div class="empty">Encara no hi ha fragments en aquesta cambra.</div>'});
-$("#allFragments").innerHTML=fragments.length?fragments.map(function(f){return card(f,true)}).join():'<div class="empty">Cap fragment desat. La matriu no desa res fins que tu ho decideixes.</div>';
+DEPTS.forEach(function(d){var arr=fragments.filter(function(f){return f.origin===d.id}),el=$("#list-"+d.id);if(el)el.innerHTML=arr.length?arr.map(function(f){return card(f,true)}).join(""):'<div class="empty">Encara no hi ha fragments en aquesta cambra.</div>'});
+$("#allFragments").innerHTML=fragments.length?fragments.map(function(f){return card(f,true)}).join(""):'<div class="empty">Cap fragment desat. La matriu no desa res fins que tu ho decideixes.</div>';
 }
 document.addEventListener("click",function(e){
 var s=e.target.closest("[data-seed]");if(s){var d=DEPTS.find(function(x){return x.id===s.dataset.seed});var t=$("#"+d.id+"-content");t.value+=(t.value?"\n":"")+d.connect[Number(s.dataset.i)];t.focus();return}
@@ -69,7 +69,7 @@ var dice=e.target.closest("[data-dice]");if(dice){var d2=DEPTS.find(function(x){
 var b=e.target.closest("[data-action]");if(b)decide(b.dataset.action,b.dataset.id);
 });
 document.addEventListener("submit",async function(e){
-var form=e.target.closest("form[data-form]");if(!form)return;e.preventDefault();var d=DEPTS.find(function(x){return x.id===form.dataset.form}),data=new FormData(form),file=data.get("file"),encoded=await readFile(file),title=String(data.get("title")||"").trim(),content=String(data.get("content")||"").trim();if(!title&&!content&&!file){toast("Afegeix un títol, un fragment o un fitxer.");return}
+var form=e.target.closest("form[data-form]");if(!form)return;e.preventDefault();var d=DEPTS.find(function(x){return x.id===form.dataset.form}),data=new FormData(form),file=data.get("file"),title=String(data.get("title")||"").trim(),content=String(data.get("content")||"").trim();if(file&&!file.name)file=null;var encoded=await readFile(file);if(!title&&!content&&!file){toast("Afegeix un títol, un fragment o un fitxer.");return}
 var now=new Date().toISOString();fragments.unshift({id:makeId(),version:1,title:title||(file&&file.name),content:content,author:String(data.get("author")||"").trim()||"Autoria no declarada",origin:d.id,destination:String(data.get("dest")||"")||null,decision:"draft",decisionNote:String(data.get("note")||"").trim(),createdAt:now,updatedAt:now,file:file?{name:file.name,type:file.type,size:file.size,data:encoded}:null,events:[{at:now,type:"created",department:d.id,decision:"human-supplied"}]});form.reset();persist();toast("Fragment desat a "+d.name+".");
 });
 document.addEventListener("change",function(e){var select=e.target.closest("[data-dest]");if(!select)return;var f=fragments.find(function(x){return x.id===select.dataset.dest});if(!f)return;f.destination=select.value||null;f.version++;f.updatedAt=new Date().toISOString();f.events.push({at:f.updatedAt,type:"destination-selected",to:f.destination,decision:"human"});persist()});
