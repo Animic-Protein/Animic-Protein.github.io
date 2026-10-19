@@ -3,6 +3,8 @@
 Data de constitució: 27 d’agost de 2026  
 Estat: `BRIDGE_STATUS: CONSTITUTED-1.0`
 
+Revisió operativa vigent: `PONS 1.1` · sincronitzada el 19 d’octubre de 2026.
+
 ## Principi
 
 **La Site viu; GitHub recorda.**
@@ -28,6 +30,17 @@ Cap sincronització concedeix estat canònic automàticament.
 - GitHub exposa `/pont-site.json`.
 - La comprovació automàtica `Bridge · Site ↔ GitHub` contrasta identitat, URLs i regles de governança.
 - Una divergència atura el pas i queda visible com una comprovació fallida; no reescriu cap extrem.
+
+## Sincronització 1.1
+
+PONS 1.1 conserva el protocol compartit `PONS-AP-1.0`, perquè la Site viva continua exposant aquesta versió del contracte. La revisió local no simula una actualització de l’altre extrem: registra l’estat públic observat i les versions efectivament presents a GitHub Pages.
+
+- KREATOR RPG: `0.4.12`, amb Contracte d’Actor 1.0.
+- LIMEN: `1.0`, rastre `animic.codex.limen/v1`.
+- DISSENSUS: interfície `0.1`, rastre `animic.codex.dissensus/v0.2` i Contracte d’Actor 1.0.
+- Site viva, GitHub Pages, KREATOR, LIMEN, DISSENSUS i INTER NOS van respondre HTTP 200 durant la comprovació del 19 d’octubre de 2026.
+
+Els estats HTTP són observacions datades, no una garantia de disponibilitat futura. El detall de les cinc rutes canòniques comprovades queda a `pont-site.json`.
 
 ## Recuperació
 
