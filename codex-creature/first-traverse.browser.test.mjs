@@ -62,7 +62,7 @@ try {
 
   const originalId=await page.locator('[data-dest]').first().getAttribute('data-dest');
   await page.locator(`[data-dest="${originalId}"]`).selectOption('melodia');
-  await page.locator(`[data-action="approve"][data-id="${originalId}"]`).click();
+  await page.locator(`[data-action="approve"][data-id="${originalId}"]`).first().click();
   let fragments=await page.evaluate(()=>JSON.parse(localStorage.getItem('codex-creature-fragments-v1')||'[]'));
   const original=fragments.find(fragment=>fragment.id===originalId);
   const received=fragments.find(fragment=>fragment.parentId===originalId);
