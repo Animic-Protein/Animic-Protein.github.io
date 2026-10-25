@@ -50,6 +50,20 @@ try{
     'The adapter refuses to inspect the public Site'
   );
 
+  const narrowInvocation=createNavigatorInvocation({
+    invokerKind:'artificial',
+    purpose:'Comprovar el veto abans de navegar',
+    fixture,
+    instruments:['HARMONIA','ARRANJAMENTS'],
+    operations:['observe','suggest','traverse.fixture','arrangement.fixture']
+  });
+  const narrowSuggestion=recordNavigatorSuggestion(narrowInvocation.invocation,{action:'Provar abast insuficient'});
+  await assert.rejects(
+    traverseCreaturePage({page,invocation:narrowSuggestion.invocation,fixture}),
+    /HARMONIA is authorized before navigation/
+  );
+  assert.equal(new URL(page.url()).hash,'','Una operació fora d’abast no navega abans de ser rebutjada');
+
   const closed=await traverseCreaturePage({page,invocation:suggested.invocation,fixture});
   assert.equal(closed.status,'closed');
   assert.equal(closed.outcome,'completed');

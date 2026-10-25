@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {closeNavigatorInvocation,recordNavigatorOperation} from '../governanca/navigator-contract.mjs';
+import {authorizeNavigatorOperation,closeNavigatorInvocation,recordNavigatorOperation} from '../governanca/navigator-contract.mjs';
 
 const route=[
   ['HARMONIA','harmonia'],
@@ -16,6 +16,10 @@ export async function traverseCreaturePage({page,invocation,fixture}={}){
   const pageUrl=new URL(page.url());
   assert.ok(['127.0.0.1','localhost','[::1]'].includes(pageUrl.hostname),'The adapter only runs against a loopback test server');
   assert.equal(pageUrl.pathname.endsWith('/codex-creature/'),true,'The adapter only traverses the Còdex Creature page');
+  for(const operation of ['observe','traverse.fixture']){
+    const authorization=authorizeNavigatorOperation(invocation,{operation,target:fixture});
+    assert.equal(authorization.accepted,true,`${operation} must be authorized before interacting with Creature`);
+  }
 
   const initialStorage=await page.evaluate(()=>({
     fragments:localStorage.getItem('codex-creature-fragments-v1'),
@@ -27,6 +31,8 @@ export async function traverseCreaturePage({page,invocation,fixture}={}){
   let current=invocation;
   for(const [name,id] of route){
     const operation=`creature.${name.toLowerCase()}.fixture`;
+    const authorization=authorizeNavigatorOperation(current,{operation,target:fixture});
+    assert.equal(authorization.accepted,true,`${name} is authorized before navigation`);
     const link=page.locator(`.dept-nav a[href="#${id}"]`);
     await link.click();
     assert.equal(new URL(page.url()).hash,`#${id}`,`Navigation reaches ${name}`);
@@ -36,6 +42,8 @@ export async function traverseCreaturePage({page,invocation,fixture}={}){
     current=result.invocation;
   }
 
+  const arrangementAuthorization=authorizeNavigatorOperation(current,{operation:'arrangement.fixture',target:fixture});
+  assert.equal(arrangementAuthorization.accepted,true,'Arrangements is authorized before navigation');
   await page.locator('.cross-link a[href="#arranjaments"]').click();
   assert.equal(new URL(page.url()).hash,'#arranjaments','Navigation reaches the transversal Arrangements workspace');
   assert.equal(await page.locator('#arrangementForm').count(),1,'The arrangement form is present');

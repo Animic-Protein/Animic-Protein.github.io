@@ -46,7 +46,7 @@ El validador comprova camps declarats; no pot demostrar que un fixture rebut de 
 
 1. **Obrir:** validar invocador, propòsit, fixture i abast; si hi ha incertesa, no començar i tornar a `QUIES / REOBSERVE`.
 2. **Orientar:** anotar què s’observa i què encara és inferència. Si la capacitat `suggest` està declarada, NAVIGATOR pot proposar una sola `suggestedImpulse` per passada.
-3. **Recórrer:** registrar una operació cada vegada, dins l’instrument i el fixture declarats. La versió 0.2 registra simulació; no altera cap contingut del Còdex.
+3. **Recórrer:** autoritzar cada operació abans d’interactuar amb l’instrument i registrar-la només després d’observar el pas. La versió 0.2 registra simulació; no altera cap contingut del Còdex.
 4. **Aturar-se davant decisions:** `humanDecision` roman `null`. Si el pas implica triar, aprovar, descartar, signar o transformar material creatiu real, NAVIGATOR atura la passada i retorna l’elecció a la persona autora.
 5. **Tancar:** marcar `completed`, `halted` o `cancelled`, resumir què s’ha observat i deixar pendents explícits. Una passada tancada no admet més operacions.
 6. **Retornar:** presentar fets observats, friccions reproduïbles, incerteses i suggeriments en camps separats. No traslladar automàticament cap resultat a Archivum ni al cànon.
