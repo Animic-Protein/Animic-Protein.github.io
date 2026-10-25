@@ -82,6 +82,8 @@ export function createNavigatorInvocation({invokerKind,purpose,fixture,instrumen
 export function recordNavigatorSuggestion(invocation,{action,rationale='',at=now()}={}){
   if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
   if(invocation.humanDecision!==null)return denied('navigator-cannot-create-human-decision');
+  if(!invocation.capabilities?.includes('suggest'))return denied('suggestion-outside-declared-capabilities');
+  if(invocation.suggestedImpulse!==null)return denied('suggestion-already-recorded');
   if(typeof action!=='string'||!action.trim())return denied('suggestion-action-required');
   const suggestedImpulse={id:id('NAVI'),actorKind:NAVIGATOR_ACTOR,action:action.trim(),rationale:String(rationale).trim(),at};
   const next={...invocation,suggestedImpulse,events:[...invocation.events,{id:id('NAVE'),type:'suggested-impulse',impulseId:suggestedImpulse.id,actorKind:NAVIGATOR_ACTOR,action:suggestedImpulse.action,rationale:suggestedImpulse.rationale,at}]};

@@ -30,6 +30,7 @@ test('sandbox operations can traverse the listed instruments on the declared fic
   const suggestion=recordNavigatorSuggestion(invocation,{action:'Recórrer els instruments sobre el fixture',rationale:'Prova limitada al sandbox.'});
   assert.equal(suggestion.accepted,true);
   assert.equal(suggestion.invocation.humanDecision,null);
+  assert.equal(recordNavigatorSuggestion(suggestion.invocation,{action:'Segon impuls'}).reason,'suggestion-already-recorded');
   assert.equal(recordNavigatorSuggestion({...suggestion.invocation,humanDecision:{actorKind:'human'}},{action:'No suplantar la decisió'}).reason,'navigator-cannot-create-human-decision');
   let current=suggestion.invocation;
   for(const operation of NAVIGATOR_SANDBOX_OPERATIONS){
@@ -65,6 +66,7 @@ test('invocation scope is explicit and instrument operations cannot exceed it',(
   assert.equal(noScope.reason,'explicit-instrument-scope-required');
   assert.equal(invoke({instruments:['LIMEN'],operations:['mutatio.fixture']}).reason,'operation-outside-declared-instruments');
   const {invocation}=invoke({instruments:['LIMEN'],operations:['observe','limen.fixture']});
+  assert.equal(recordNavigatorSuggestion(invocation,{action:'No autoritzat'}).reason,'suggestion-outside-declared-capabilities');
   assert.equal(authorizeNavigatorOperation(invocation,{operation:'mutatio.fixture',target:fixture}).reason,'operation-outside-declared-capabilities');
 });
 
