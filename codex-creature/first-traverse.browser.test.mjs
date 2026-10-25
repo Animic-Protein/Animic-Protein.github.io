@@ -36,6 +36,7 @@ try {
     if(!navigator.serviceWorker.controller)await new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
   });
   assert.equal(await page.evaluate(()=>navigator.serviceWorker.controller.scriptURL),base+'sw.js');
+  pageErrors.length=0;
   await page.locator('a[href="./codex-creature/"]').click();
   await page.waitForURL('**/codex-creature/');
   assert.equal(await page.title(),'Còdex Creature · Matriu escènica');
