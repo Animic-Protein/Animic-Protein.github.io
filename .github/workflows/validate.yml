@@ -38,6 +38,8 @@ jobs:
         run: node --test experiments/limen/protocol.test.mjs
       - name: Contracte d’actor, llengües i protocol DISSENSUS
         run: node --test experiments/kreator-rpg/actor-contract.test.mjs experiments/dissensus/protocol.test.mjs experiments/dissensus/languages.test.mjs
+      - name: Contracte NAVIGATOR 0.1 · sandbox sintètic
+        run: node --test governanca/navigator-contract.test.mjs
       - name: Proves de rastre i vista mòbil de Cambra Nua
         run: |
           npx playwright install --with-deps --only-shell chromium
