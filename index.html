@@ -88,5 +88,14 @@
         <p class="axiom">Presència → insinuació → gest → resposta → diferència → rastre → relació → retorn.</p>
       </div>
     </main>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).catch(error => {
+            console.warn('[Còdex Viu] Service worker no disponible:', error);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

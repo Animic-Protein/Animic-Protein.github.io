@@ -45,6 +45,8 @@ jobs:
           node --test cambra-nua-2/perceived-duration.test.mjs
           node cambra-nua-2/trace-history.browser.test.mjs
           node experiments/dissensus/offline.browser.test.mjs
+      - name: Primera travessa funcional de Còdex Creature
+        run: node codex-creature/first-traverse.browser.test.mjs
       - name: Coherència del Site
         run: node scripts/validate-site.mjs
       - name: Homeòstasi del Portal
