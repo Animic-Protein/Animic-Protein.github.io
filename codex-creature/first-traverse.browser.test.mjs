@@ -148,7 +148,10 @@ try {
     assert.equal(new URL(page.url()).hash,`#${id}`,`Mobile navigation reaches #${id}`);
   }
   await context.setOffline(true);
-  await page.goto(base+'codex-creature/');
+  await page.goto(base);
+  assert.equal(await page.title(),'Anímic Protein · Còdex Viu','Canonical home remains available offline');
+  await page.locator('a[href="./codex-creature/"]').click();
+  await page.waitForURL('**/codex-creature/');
   assert.equal(await page.title(),'Còdex Creature · Matriu escènica','Creature route remains available offline');
   assert.equal(await page.locator('.dept-card').count(),6);
   assert.equal(await page.locator('.workspace').count(),7);
