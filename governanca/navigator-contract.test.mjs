@@ -89,6 +89,18 @@ test('Creature rehearsal can name all six departments and its transversal arrang
   assert.equal(arrangement.invocation.humanDecision,null);
 });
 
+test('pass revisions reject stale branches and stale states after closure',()=>{
+  const {invocation}=invoke({instruments:['LIMEN'],operations:['observe','suggest','limen.fixture']});
+  const suggestion=recordNavigatorSuggestion(invocation,{action:'Un únic impuls per aquesta passada'});
+  assert.equal(suggestion.accepted,true);
+  assert.equal(suggestion.invocation.revision,invocation.revision+1);
+  assert.equal(recordNavigatorSuggestion(invocation,{action:'Branca paral·lela'}).reason,'stale-invocation-state');
+  const closed=closeNavigatorInvocation(suggestion.invocation,{outcome:'completed'});
+  assert.equal(closed.accepted,true);
+  assert.equal(recordNavigatorOperation(suggestion.invocation,{operation:'limen.fixture',target:fixture}).reason,'stale-invocation-state');
+  assert.equal(recordNavigatorOperation(closed.invocation,{operation:'limen.fixture',target:fixture}).reason,'invalid-or-closed-invocation');
+});
+
 test('closing a pass is traceable and blocks further operations',()=>{
   const {invocation}=invoke({instruments:['LIMEN'],operations:['observe','limen.fixture']});
   const closed=closeNavigatorInvocation(invocation,{outcome:'completed',summary:'Passada de prova acabada.'});

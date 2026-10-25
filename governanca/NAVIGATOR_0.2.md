@@ -38,7 +38,7 @@ createNavigatorInvocation({
 });
 ```
 
-Els noms d’instruments i operacions són una concessió limitada a aquesta invocació. NAVIGATOR rebutja una operació que no s’hi hagi declarat, que pertanyi a un instrument absent o que apunti a un fixture diferent. La invocació no concedeix permisos per a altres passades.
+Els noms d’instruments i operacions són una concessió limitada a aquesta invocació. NAVIGATOR rebutja una operació que no s’hi hagi declarat, que pertanyi a un instrument absent o que apunti a un fixture diferent. La invocació no concedeix permisos per a altres passades. El contracte rebutja estats antics quan es reutilitza una branca: les operacions i el tancament avancen una revisió dins la instància carregada del mòdul. Aquesta revisió no és persistent ni una frontera de seguretat; en una nova instància cal obrir una invocació nova.
 
 El validador comprova camps declarats; no pot demostrar que un fixture rebut de fora sigui fictici. Els fixtures per a aquesta passada s’han de crear amb contingut sintètic conegut i no han de contenir cap material personal o creatiu real.
 
