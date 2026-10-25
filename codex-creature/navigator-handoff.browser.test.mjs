@@ -38,9 +38,6 @@ try{
     blockedOrigins.push(requestUrl.origin);
     return route.abort();
   });
-  const page=await context.newPage();
-  await page.goto(`${origin}${prefix}codex-creature/`);
-
   const source={
     id:'fixture:navigator-handoff-source',version:1,title:'Fragment fictici Harmonia',
     content:'Pedal blau de prova',author:'Fixture de prova',origin:'harmonia',
@@ -48,9 +45,11 @@ try{
     updatedAt:'2026-10-25T00:00:00.000Z',file:null,
     events:[{type:'created',decision:'fixture-only'}]
   };
-  await page.evaluate(fragment=>{
+  await context.addInitScript(fragment=>{
     localStorage.setItem('codex-creature-fragments-v1',JSON.stringify([fragment]));
   },source);
+  const page=await context.newPage();
+  await page.goto(`${origin}${prefix}codex-creature/`);
 
   const fixture={
     id:'fixture:navigator-handoff-pass',kind:'fictional-fixture',
