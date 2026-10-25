@@ -8,7 +8,7 @@
 
 NAVIGATOR coordina una travessa entre instruments i deixa un rastre llegible. Pot rebre una invocació humana o artificial; l’invocador i l’actor queden diferenciats. NAVIGATOR no és un autor ni un òrgan de validació artística. Pot observar, formular una `suggestedImpulse`, assajar operacions sandbox i retornar-ne els resultats.
 
-En aquesta versió, els adaptadors només poden observar interfícies dins contextos locals aïllats de fixtures. Els passos es registren com a simulacions: no criden les operacions d’escriptura dels instruments, no editen els seus magatzems i no converteixen una prova en una obra. El contracte és executable per provar l’abast i la procedència; no és una frontera de seguretat per a codi o connectors externs.
+En aquesta versió, l’adaptador de Creature només observa la interfície servida a loopback dins un context de navegador aïllat amb fixtures. Rebutja l’origen públic. Els passos es registren com a simulacions: no criden les operacions d’escriptura dels instruments, no editen els seus magatzems i no converteixen una prova en una obra. El contracte és executable per provar l’abast i la procedència; no és una frontera de seguretat per a codi o connectors externs.
 
 ## Protocol d’invocació · INVOCATIO
 

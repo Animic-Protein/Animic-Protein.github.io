@@ -44,6 +44,11 @@ try{
   assert.equal(opened.accepted,true);
   const suggested=recordNavigatorSuggestion(opened.invocation,{action:'Recórrer els departaments i comprovar el límit de decisió humana.'});
   assert.equal(suggested.accepted,true);
+  await assert.rejects(
+    traverseCreaturePage({page:{url:()=> 'https://animic-protein.github.io/codex-creature/'},invocation:suggested.invocation,fixture}),
+    /loopback test server/,
+    'The adapter refuses to inspect the public Site'
+  );
 
   const closed=await traverseCreaturePage({page,invocation:suggested.invocation,fixture});
   assert.equal(closed.status,'closed');
@@ -51,7 +56,8 @@ try{
   assert.equal(closed.invokerKind,'artificial');
   assert.equal(closed.actorKind,'artificial');
   assert.equal(closed.humanDecision,null);
-  assert.equal(closed.events.filter(event=>event.type==='sandbox-operation').length,7,'Six departments and Arrangements are observed');
+  const observed=closed.events.filter(event=>event.type==='sandbox-operation').map(event=>event.operation);
+  assert.deepEqual(observed,[...departments.map(name=>`creature.${name.toLowerCase()}.fixture`),'arrangement.fixture'],'The trace preserves traversal order');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'Mobile viewport remains free of horizontal overflow');
   const sourceAfter=await page.evaluate(id=>JSON.parse(localStorage.getItem('codex-creature-fragments-v1')||'[]').find(item=>item.id===id),source.id);
   assert.equal(sourceAfter.decision,'draft','Human-gated transfer remains pending');
