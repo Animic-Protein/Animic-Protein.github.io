@@ -32,8 +32,9 @@ try {
   // Enter through the canonical home page so its service worker controls Creature.
   await page.goto(base);
   await page.evaluate(async()=>{
-    await navigator.serviceWorker.ready;
-    if(!navigator.serviceWorker.controller)await new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
+    const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Service worker did not become ready within 60 seconds')),60000));
+    await Promise.race([navigator.serviceWorker.ready,timeout]);
+    if(!navigator.serviceWorker.controller)await Promise.race([new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true})),timeout]);
   });
   assert.equal(await page.evaluate(()=>navigator.serviceWorker.controller.scriptURL),base+'sw.js');
   pageErrors.length=0;
