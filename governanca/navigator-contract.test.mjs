@@ -70,6 +70,16 @@ test('invocation scope is explicit and instrument operations cannot exceed it',(
   assert.equal(authorizeNavigatorOperation(invocation,{operation:'mutatio.fixture',target:fixture}).reason,'operation-outside-declared-capabilities');
 });
 
+test('fixture transfer requires and authorizes both declared departments',()=>{
+  const deniedTransfer=invoke({instruments:['HARMONIA'],operations:['creature.transfer.fixture']});
+  assert.equal(deniedTransfer.reason,'operation-outside-declared-instruments');
+  const {invocation}=invoke({instruments:['HARMONIA','MELODIA'],operations:['creature.transfer.fixture']});
+  const authorization=authorizeNavigatorOperation(invocation,{operation:'creature.transfer.fixture',target:fixture});
+  assert.equal(authorization.accepted,true);
+  assert.equal(authorization.operation,'creature.transfer.fixture');
+  assert.equal(authorization.humanDecision,null);
+});
+
 test('Creature rehearsal can name all six departments and its transversal arrangement',()=>{
   const creatureDepartments=['HARMONIA','MELODIA','RITME','LYRICS','AUDIO-VIDEO','MISCE'];
   const {invocation}=invoke({

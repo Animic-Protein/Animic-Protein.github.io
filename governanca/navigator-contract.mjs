@@ -16,6 +16,7 @@ export const NAVIGATOR_SANDBOX_OPERATIONS=Object.freeze([
   'creature.audio-video.fixture',
   'creature.misce.fixture',
   'arrangement.fixture',
+  'creature.transfer.fixture',
   'mutatio.fixture',
   'seed.fixture',
   'homeostasis.check',
@@ -39,6 +40,7 @@ const OPERATION_INSTRUMENT=Object.freeze({
   'creature.audio-video.fixture':'AUDIO-VIDEO',
   'creature.misce.fixture':'MISCE',
   'arrangement.fixture':'ARRANJAMENTS',
+  'creature.transfer.fixture':['HARMONIA','MELODIA'],
   'mutatio.fixture':'MUTATIO',
   'seed.fixture':'SEMENT',
   'homeostasis.check':'HOMEOSTASIS',
@@ -50,6 +52,11 @@ const OPERATION_INSTRUMENT=Object.freeze({
   'limen.fixture':'LIMEN',
   'dissensus.fixture':'DISSENSUS'
 });
+
+const requiredInstrumentsFor=operation=>{
+  const requirement=OPERATION_INSTRUMENT[operation];
+  return requirement==null?[]:(Array.isArray(requirement)?requirement:[requirement]);
+};
 
 let sequence=0;
 const latestRevision=new Map();
@@ -68,10 +75,10 @@ export function createNavigatorInvocation({invokerKind,purpose,fixture,instrumen
   if(!isFictionalFixture(fixture))return denied('fictional-sandbox-fixture-required');
   if(!Array.isArray(instruments)||!instruments.length||instruments.some(name=>!NAVIGATOR_INSTRUMENTS.includes(name)))return denied('explicit-instrument-scope-required');
   if(!Array.isArray(operations)||!operations.length||operations.some(operation=>!NAVIGATOR_SANDBOX_OPERATIONS.includes(operation)))return denied('explicit-operation-scope-required');
-  const missing=operations.find(operation=>OPERATION_INSTRUMENT[operation]&&!instruments.includes(OPERATION_INSTRUMENT[operation]));
+  const missing=operations.find(operation=>requiredInstrumentsFor(operation).some(name=>!instruments.includes(name)));
   if(missing)return denied('operation-outside-declared-instruments');
   const invocation={
-    id:id('NAV'),protocol:'NAVIGATOR-INVOCATIO-0.2',mode:'sandbox-autonomous',status:'active',revision:0,
+    id:id('NAV'),protocol:'NAVIGATOR-INVOCATIO-0.3',mode:'sandbox-autonomous',status:'active',revision:0,
     invokerKind,actorKind:NAVIGATOR_ACTOR,purpose:purpose.trim(),
     fixtureRef:fixture.id,instruments:[...new Set(instruments)],capabilities:[...new Set(operations)],
     suggestedImpulse:null,humanDecision:null,
@@ -83,7 +90,7 @@ export function createNavigatorInvocation({invokerKind,purpose,fixture,instrumen
 }
 
 export function recordNavigatorSuggestion(invocation,{action,rationale='',at=now()}={}){
-  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
+  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.3'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
   if(invocation.humanDecision!==null)return denied('navigator-cannot-create-human-decision');
   if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!invocation.capabilities?.includes('suggest'))return denied('suggestion-outside-declared-capabilities');
@@ -97,11 +104,11 @@ export function recordNavigatorSuggestion(invocation,{action,rationale='',at=now
 }
 
 export function authorizeNavigatorOperation(invocation,{operation,target}={}){
-  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.mode!=='sandbox-autonomous'||invocation.status!=='active')return denied('invalid-or-closed-invocation');
+  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.3'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.mode!=='sandbox-autonomous'||invocation.status!=='active')return denied('invalid-or-closed-invocation');
   if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!NAVIGATOR_SANDBOX_OPERATIONS.includes(operation)||!invocation.capabilities?.includes(operation))return denied('operation-outside-declared-capabilities');
-  const requiredInstrument=OPERATION_INSTRUMENT[operation];
-  if(requiredInstrument&&!invocation.instruments?.includes(requiredInstrument))return denied('operation-outside-declared-instruments');
+  const requiredInstruments=requiredInstrumentsFor(operation);
+  if(requiredInstruments.some(name=>!invocation.instruments?.includes(name)))return denied('operation-outside-declared-instruments');
   if(!isFictionalFixture(target)||target.id!==invocation.fixtureRef)return denied('target-outside-invocation-fixture');
   if(invocation.humanDecision!==null)return denied('navigator-cannot-create-human-decision');
   return{accepted:true,reason:null,actorKind:NAVIGATOR_ACTOR,invokerKind:invocation.invokerKind,operation,targetRef:target.id,scope:NAVIGATOR_SANDBOX,humanDecision:null,canonical:false,reversible:true};
@@ -117,7 +124,7 @@ export function recordNavigatorOperation(invocation,{operation,target,summary=''
 }
 
 export function closeNavigatorInvocation(invocation,{outcome='completed',summary='',at=now()}={}){
-  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
+  if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.3'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
   if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!['completed','halted','cancelled'].includes(outcome))return denied('invalid-closure-outcome');
   const event={id:id('NAVE'),type:'invocation-closed',at,actorKind:NAVIGATOR_ACTOR,outcome,summary:String(summary).trim(),humanDecision:null,canonical:false};
