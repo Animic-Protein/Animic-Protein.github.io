@@ -8,7 +8,7 @@
 
 NAVIGATOR coordina una travessa entre instruments i deixa un rastre llegible. Pot rebre una invocació humana o artificial; l’invocador i l’actor queden diferenciats. NAVIGATOR no és un autor ni un òrgan de validació artística. Pot observar, formular una `suggestedImpulse`, assajar operacions sandbox i retornar-ne els resultats.
 
-En aquesta versió, les operacions es registren com a simulacions. No criden els instruments, no editen els seus magatzems i no converteixen una prova en una obra. El contracte és executable per provar l’abast i la procedència; no és una frontera de seguretat per a codi o connectors externs.
+En aquesta versió, els adaptadors només poden observar interfícies dins contextos locals aïllats de fixtures. Els passos es registren com a simulacions: no criden les operacions d’escriptura dels instruments, no editen els seus magatzems i no converteixen una prova en una obra. El contracte és executable per provar l’abast i la procedència; no és una frontera de seguretat per a codi o connectors externs.
 
 ## Protocol d’invocació · INVOCATIO
 
@@ -74,6 +74,6 @@ Cada passada ha de permetre reconstruir: invocador, actor, propòsit, fixture, i
 
 ## Primera vida de NAVIGATOR
 
-La primera travessa amb nom serà una **simulació de Còdex Creature**: sis departaments, transferència fictícia entre dos d’ells i un Arranjament vinculat per referència. Després, una segona passada de fixtures pot recórrer MUTATIO, Homeostasis, Compost, Zajj‑viu, Retrodansa i Archivum com a assajos separats. Cada adaptador real requerirà una versió de protocol pròpia, proves d’efecte i reversió, i una decisió humana abans de tocar contingut creatiu.
+La primera travessa amb nom és una **observació de Còdex Creature** dins un navegador aïllat: sis departaments, fixture d’origen, Arranjament vinculat per referència i comprovació del veto de traspàs. L’adaptador no desa, aprova ni crea còpies; la decisió humana continua pendent. Després, es poden preparar adaptadors de lectura per a LIMEN i DISSENSUS. Una capacitat d’escriptura en qualsevol instrument requerirà una versió de protocol pròpia, proves d’efecte i reversió, i una decisió humana abans de tocar contingut creatiu.
 
 La prova de contracte valida només el registre i els límits declarats. No acredita una travessa real dels instruments ni substitueix les seves validacions específiques.
