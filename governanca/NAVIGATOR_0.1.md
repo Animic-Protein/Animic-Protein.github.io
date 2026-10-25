@@ -5,6 +5,8 @@
 **Actor de NAVIGATOR:** `artificial`  
 **Implementació de referència:** `governanca/navigator-contract.mjs`
 
+> Històric de base. El protocol d’invocació vigent és [NAVIGATOR 0.2](./NAVIGATOR_0.2.md), que afegeix abast explícit per passada i tancament traçable.
+
 ## Propòsit
 
 NAVIGATOR coordina recorreguts i proves entre instruments del Còdex. Pot ser invocat per una persona o per una IA. L’invocador queda registrat per separat de l’actor: les operacions que NAVIGATOR executa sempre s’atribueixen a `actorKind: artificial`.
