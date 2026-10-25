@@ -8,9 +8,9 @@
 <div class="nav-wrap"><nav class="dept-nav" aria-label="Sis departaments"><a href="#harmonia">Harmonia</a><a href="#melodia">Melodia</a><a href="#ritme">Ritme</a><a href="#lyrics">Lyrics</a><a href="#audiovideo">Audio/Video</a><a href="#misce">Misce</a></nav></div>
 <div class="cross-link"><a class="button warm" href="#arranjaments">Arranjaments · espai transversal →</a></div>
 <main><section><div class="section-title"><p class="eyebrow">MAPA DE TREBALL</p><h2>Tria una cambra per començar</h2></div><div class="dept-grid" id="deptGrid"></div></section>
-<section class="panel workspace" id="arranjaments" aria-labelledby="arrangementsTitle">
+<section class="panel workspace" id="arranjaments" aria-labelledby="arrangementsHeading">
 <p class="eyebrow">ESPAI TRANSVERSAL · NO ÉS UN SETÈ DEPARTAMENT</p>
-<h2 id="arrangementsTitle">Arranjaments</h2>
+<h2 id="arrangementsHeading">Arranjaments</h2>
 <p class="muted">Organitza l’arranjament d’una cançó, un tema, un solo, una melodia o un altre material. Aquesta fitxa només guarda referències i decisions locals: no modifica els fragments originals ni els fitxers de GarageBand.</p>
 <div class="arrangement-axes" aria-label="Preguntes opcionals d’arranjament">
 <article class="arrangement-axis"><strong>Funció</strong><p>Què aporta cada veu, línia o capa?</p></article>
@@ -58,7 +58,7 @@ var fragments=read();
 var ARRANGEMENT_KEY="codex-creature-arrangements-v1";
 var arrangements=readArrangements();
 var ARRANGEMENT_SCOPES={song:"Cançó",theme:"Tema",solo:"Solo",melody:"Melodia",other:"Altre fragment"};
-var ARRANGEMENT_AXES=[{id:"function",name:"Funció",question:"Què aporta cada veu, línia o capa?"},{id:"support",name:"Sosteniment",question:"Què sosté cada part i deixa espai a les altres?"},{id:"register",name:"Registre",question:"Com es distribueixen les parts entre veus i instruments?"},{id:"density",name:"Densitat",question:"Què canvia si afegim o retirem una capa?"},{id:"variation",name:"Variació",question:"Què canviem i què preservem de la font?"},{id:"space",name:"Espai",question:"On entren pauses, silencis o respiració?"};
+var ARRANGEMENT_AXES=[{id:"function",name:"Funció",question:"Què aporta cada veu, línia o capa?"},{id:"support",name:"Sosteniment",question:"Què sosté cada part i deixa espai a les altres?"},{id:"register",name:"Registre",question:"Com es distribueixen les parts entre veus i instruments?"},{id:"density",name:"Densitat",question:"Què canvia si afegim o retirem una capa?"},{id:"variation",name:"Variació",question:"Què canviem i què preservem de la font?"},{id:"space",name:"Espai",question:"On entren pauses, silencis o respiració?"}];
 function $(s){return document.querySelector(s)}
 function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function read(){try{var a=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(a)?a:[]}catch(e){return []}}
@@ -73,7 +73,7 @@ var list=$("#arrangementsList");if(!list)return;
 list.innerHTML=arrangements.length?arrangements.map(function(a){
 var source=a.sourceFragment?'<p class="tiny">Fitxa font vinculada: '+esc(a.sourceFragment.title||a.sourceFragment.id)+' · '+esc((DEPTS.find(function(d){return d.id===a.sourceFragment.origin})||{}).name||a.sourceFragment.origin)+' · ID '+esc(a.sourceFragment.id)+' (referència; no s’ha copiat el contingut).</p>':"";
 var refs=a.departments&&a.departments.length?a.departments.map(function(id){var d=DEPTS.find(function(x){return x.id===id});return d?'<a href="#'+esc(d.id)+'">'+esc(d.name)+'</a>':""}).filter(Boolean).join(" · "):"Cap departament triat";
-var variants=(a.variants||[]).map(function(v){
+var variants=(a.variants||[]).length?(a.variants||[]).map(function(v){
 var axis=axisById(v.axis),dept=DEPTS.find(function(d){return d.id===v.department}),controls='<div class="actions"><button class="secondary" type="button" data-arr-decision="conservada" data-arr-id="'+esc(a.id)+'" data-variant-id="'+esc(v.id)+'">Conservar</button><button class="secondary" type="button" data-arr-decision="oberta" data-arr-id="'+esc(a.id)+'" data-variant-id="'+esc(v.id)+'">Deixar oberta</button><button class="danger" type="button" data-arr-decision="deixada-de-banda" data-arr-id="'+esc(a.id)+'" data-variant-id="'+esc(v.id)+'">Deixar de banda</button></div>';
 return '<article class="arrangement-variant"><div class="fraghead"><div><strong>'+esc(v.title||"Variant")+'</strong><div class="meta"><span>'+esc(axis?axis.name:"Sense disposició triada")+'</span><span>'+(dept?'<a href="#'+esc(dept.id)+'">'+esc(dept.name)+'</a>':"Sense departament triat")+'</span></div></div><span class="badge">'+esc(v.decision||"per-provar")+'</span></div>'+(v.note?'<p>'+esc(v.note)+'</p>':"")+(axis?'<p class="tiny">'+esc(axis.question)+'</p>':"")+controls+'</article>'
 }).join(""):'<div class="empty">Encara no hi ha variants. Pots registrar-ne una després d’una proposta o d’un assaig.</div>';
