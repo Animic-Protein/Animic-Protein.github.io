@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "navigator:rehearsal": "node codex-creature/navigator-manual-rehearsal.mjs"
+  },
   "devDependencies": {
     "playwright": "1.63.0"
   }
