@@ -52,6 +52,8 @@ const OPERATION_INSTRUMENT=Object.freeze({
 });
 
 let sequence=0;
+const latestRevision=new Map();
+const isCurrentRevision=invocation=>Boolean(invocation&&latestRevision.get(invocation.id)===invocation.revision);
 const now=()=>new Date().toISOString();
 const id=prefix=>`${prefix}-${Date.now().toString(36)}-${(++sequence).toString(36)}`;
 const denied=reason=>({accepted:false,reason,humanDecision:null});
@@ -69,30 +71,34 @@ export function createNavigatorInvocation({invokerKind,purpose,fixture,instrumen
   const missing=operations.find(operation=>OPERATION_INSTRUMENT[operation]&&!instruments.includes(OPERATION_INSTRUMENT[operation]));
   if(missing)return denied('operation-outside-declared-instruments');
   const invocation={
-    id:id('NAV'),protocol:'NAVIGATOR-INVOCATIO-0.2',mode:'sandbox-autonomous',status:'active',
+    id:id('NAV'),protocol:'NAVIGATOR-INVOCATIO-0.2',mode:'sandbox-autonomous',status:'active',revision:0,
     invokerKind,actorKind:NAVIGATOR_ACTOR,purpose:purpose.trim(),
     fixtureRef:fixture.id,instruments:[...new Set(instruments)],capabilities:[...new Set(operations)],
     suggestedImpulse:null,humanDecision:null,
     provenance:{localOnly:true,canonical:false,reversible:true},
     events:[{id:id('NAVE'),type:'invocation-opened',at,invokerKind,actorKind:NAVIGATOR_ACTOR,fixtureRef:fixture.id,mode:'sandbox-autonomous',instruments:[...new Set(instruments)],capabilities:[...new Set(operations)]}]
   };
+  latestRevision.set(invocation.id,invocation.revision);
   return{accepted:true,reason:null,invocation};
 }
 
 export function recordNavigatorSuggestion(invocation,{action,rationale='',at=now()}={}){
   if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
   if(invocation.humanDecision!==null)return denied('navigator-cannot-create-human-decision');
+  if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!invocation.capabilities?.includes('suggest'))return denied('suggestion-outside-declared-capabilities');
   if(invocation.suggestedImpulse!==null)return denied('suggestion-already-recorded');
   if(typeof action!=='string'||!action.trim())return denied('suggestion-action-required');
   const suggestedImpulse={id:id('NAVI'),actorKind:NAVIGATOR_ACTOR,action:action.trim(),rationale:String(rationale).trim(),at};
-  const next={...invocation,suggestedImpulse,events:[...invocation.events,{id:id('NAVE'),type:'suggested-impulse',impulseId:suggestedImpulse.id,actorKind:NAVIGATOR_ACTOR,action:suggestedImpulse.action,rationale:suggestedImpulse.rationale,at}]};
+  const next={...invocation,revision:invocation.revision+1,suggestedImpulse,events:[...invocation.events,{id:id('NAVE'),type:'suggested-impulse',impulseId:suggestedImpulse.id,actorKind:NAVIGATOR_ACTOR,action:suggestedImpulse.action,rationale:suggestedImpulse.rationale,at}]};
   next.humanDecision=null;
+  latestRevision.set(next.id,next.revision);
   return{accepted:true,reason:null,invocation:next};
 }
 
 export function authorizeNavigatorOperation(invocation,{operation,target}={}){
   if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.mode!=='sandbox-autonomous'||invocation.status!=='active')return denied('invalid-or-closed-invocation');
+  if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!NAVIGATOR_SANDBOX_OPERATIONS.includes(operation)||!invocation.capabilities?.includes(operation))return denied('operation-outside-declared-capabilities');
   const requiredInstrument=OPERATION_INSTRUMENT[operation];
   if(requiredInstrument&&!invocation.instruments?.includes(requiredInstrument))return denied('operation-outside-declared-instruments');
@@ -105,13 +111,17 @@ export function recordNavigatorOperation(invocation,{operation,target,summary=''
   const authorization=authorizeNavigatorOperation(invocation,{operation,target});
   if(!authorization.accepted)return authorization;
   const event={id:id('NAVE'),type:'sandbox-operation',at,actorKind:NAVIGATOR_ACTOR,invokerKind:invocation.invokerKind,operation,targetRef:target.id,summary:String(summary).trim(),effect:'simulated-record-only',authorizationScope:NAVIGATOR_SANDBOX,canonical:false,reversible:true};
-  const next={...invocation,events:[...invocation.events,event],humanDecision:null};
+  const next={...invocation,revision:invocation.revision+1,events:[...invocation.events,event],humanDecision:null};
+  latestRevision.set(next.id,next.revision);
   return{accepted:true,reason:null,authorization,event,invocation:next};
 }
 
 export function closeNavigatorInvocation(invocation,{outcome='completed',summary='',at=now()}={}){
   if(!invocation||invocation.protocol!=='NAVIGATOR-INVOCATIO-0.2'||invocation.actorKind!==NAVIGATOR_ACTOR||invocation.status!=='active')return denied('invalid-or-closed-invocation');
+  if(!isCurrentRevision(invocation))return denied('stale-invocation-state');
   if(!['completed','halted','cancelled'].includes(outcome))return denied('invalid-closure-outcome');
   const event={id:id('NAVE'),type:'invocation-closed',at,actorKind:NAVIGATOR_ACTOR,outcome,summary:String(summary).trim(),humanDecision:null,canonical:false};
-  return{accepted:true,reason:null,invocation:{...invocation,status:'closed',outcome,events:[...invocation.events,event],humanDecision:null}};
+  const next={...invocation,status:'closed',outcome,revision:invocation.revision+1,events:[...invocation.events,event],humanDecision:null};
+  latestRevision.set(next.id,next.revision);
+  return{accepted:true,reason:null,invocation:next};
 }
