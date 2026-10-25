@@ -1,5 +1,7 @@
 # NAVIGATOR 0.2 · protocols d’invocació i travessa
 
+> Versió històrica del contracte; el protocol vigent és [NAVIGATOR 0.3](./NAVIGATOR_0.3.md).
+
 **Estat:** contracte operatiu de sandbox · local · no canònic · revisable  
 **Actor de NAVIGATOR:** `artificial`  
 **Contracte executable:** `governanca/navigator-contract.mjs`
