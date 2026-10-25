@@ -49,6 +49,8 @@ jobs:
           node experiments/dissensus/offline.browser.test.mjs
       - name: Primera travessa funcional de Còdex Creature
         run: node codex-creature/first-traverse.browser.test.mjs
+      - name: Adaptador de lectura NAVIGATOR · Còdex Creature
+        run: node codex-creature/navigator-adapter.browser.test.mjs
       - name: Coherència del Site
         run: node scripts/validate-site.mjs
       - name: Homeòstasi del Portal
