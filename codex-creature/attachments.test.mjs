@@ -6,11 +6,16 @@ import vm from 'node:vm';
 const html = await readFile(new URL('./index.html', import.meta.url), 'utf8');
 const helperStart = html.indexOf('function attachmentBlob(file){');
 const helperEnd = html.indexOf('\nfunction safeName', helperStart);
+const importerStart = html.indexOf('function importFragments(data){');
+const importerEnd = html.indexOf('\nfunction readFile', importerStart);
 assert.notEqual(helperStart, -1, 'the page defines its attachment decoder');
 assert.notEqual(helperEnd, -1, 'the attachment helpers have a stable end marker');
+assert.notEqual(importerStart, -1, 'the page defines its fragment importer');
+assert.notEqual(importerEnd, -1, 'the fragment importer has a stable end marker');
 
-const helpers = vm.createContext({atob, Blob, Uint8Array});
+const helpers = vm.createContext({atob, Blob, Uint8Array, fragments: [], makeId: () => 'fixture:duplicate'});
 vm.runInContext(html.slice(helperStart, helperEnd), helpers);
+vm.runInContext(html.slice(importerStart, importerEnd), helpers);
 
 const fixtures = [
   {
@@ -43,7 +48,9 @@ test('MIDI and WAV attachments download byte-identically after JSON export/impor
   }));
 
   const exported = JSON.stringify({format: 'codex-creature-fragments', version: 1, fragments});
-  const imported = JSON.parse(exported).fragments;
+  const importCount = helpers.importFragments(JSON.parse(exported));
+  const imported = JSON.parse(JSON.stringify(helpers.fragments));
+  assert.equal(importCount, fixtures.length, 'the page importer accepts both synthetic fragments');
 
   for (let i = 0; i < fixtures.length; i++) {
     const recovered = new Uint8Array(await helpers.attachmentBlob(imported[i].file).arrayBuffer());
