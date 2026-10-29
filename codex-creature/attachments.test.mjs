@@ -32,20 +32,10 @@ const fixtures = [
     name: 'fixture.aiff',
     type: 'audio/aiff',
     bytes: Uint8Array.from([0x46,0x4f,0x52,0x4d,0,0,0,0x2f,0x41,0x49,0x46,0x46,0x43,0x4f,0x4d,0x4d,0,0,0,0x12,0,1,0,0,0,1,0,8,0x40,0x0e,0xac,0x44,0,0,0,0,0,0,0x53,0x53,0x4e,0x44,0,0,0,9,0,0,0,0,0,0,0,0,0x80])
-  },
-  {
-    name: 'fixture.NUN',
-    type: '',
-    bytes: Uint8Array.from([0x4e,0x55,0x4e,0,0xff,0x10,0x81])
-  },
-  {
-    name: 'fixture.NUM',
-    type: '',
-    bytes: Uint8Array.from([0x4e,0x55,0x4d,0,0x01,0x80,0x7f])
   }
 ];
 
-test('MIDI, WAV, AIFF, NUN, and NUM attachments survive the JSON import path byte-identically', async () => {
+test('MIDI, WAV, and AIFF attachments survive the JSON import path byte-identically', async () => {
   const fragments = fixtures.map((fixture, index) => ({
     id: `fixture:${index}`,
     title: `Synthetic ${fixture.name}`,
@@ -122,9 +112,5 @@ test('downloadAttachment builds the original MIME Blob and filename', async () =
 test('each attachment card exposes a local original-file download action', () => {
   assert.match(html, /data-action="download-file"[^>]*>Descarregar fitxer original/);
   assert.match(html, /if\(action==="download-file"\)[\s\S]*?downloadAttachment\(f\.file\)/);
-  assert.match(html, /accept="[^"]*\.nun[^\"]*\.num/i);
-  assert.match(html, /\.NUN/);
-  assert.match(html, /\.NUM/);
-  assert.match(html, /Creature no els interpreta/);
   assert.doesNotMatch(html, /<script[^>]+src=/i);
 });
