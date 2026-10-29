@@ -75,6 +75,40 @@ test('original download names preserve Unicode and remove path and control chara
   assert.equal(helpers.attachmentDownloadName({name: ''}), 'fitxer');
 });
 
+test('downloadAttachment builds the original MIME Blob and filename', async () => {
+  const fixture = fixtures.find(item => item.type === 'audio/aiff');
+  const anchors = [];
+  const objectUrls = [];
+  const revokedUrls = [];
+  helpers.document = {
+    createElement(tag) {
+      assert.equal(tag, 'a');
+      const anchor = {clickCount: 0, click() {this.clickCount++}};
+      anchors.push(anchor);
+      return anchor;
+    }
+  };
+  helpers.URL = {
+    createObjectURL(blob) {objectUrls.push(blob); return 'blob:synthetic-aiff'},
+    revokeObjectURL(url) {revokedUrls.push(url)}
+  };
+  helpers.setTimeout = callback => {callback(); return 1};
+
+  helpers.downloadAttachment({
+    name: 'Música d’assaig.aiff',
+    type: fixture.type,
+    data: Buffer.from(fixture.bytes).toString('base64')
+  });
+
+  assert.equal(anchors.length, 1);
+  assert.equal(anchors[0].href, 'blob:synthetic-aiff');
+  assert.equal(anchors[0].download, 'Música d’assaig.aiff');
+  assert.equal(anchors[0].clickCount, 1);
+  assert.equal(objectUrls[0].type, 'audio/aiff');
+  assert.deepEqual(new Uint8Array(await objectUrls[0].arrayBuffer()), fixture.bytes);
+  assert.deepEqual(revokedUrls, ['blob:synthetic-aiff']);
+});
+
 test('each attachment card exposes a local original-file download action', () => {
   assert.match(html, /data-action="download-file"[^>]*>Descarregar fitxer original/);
   assert.match(html, /if\(action==="download-file"\)[\s\S]*?downloadAttachment\(f\.file\)/);
