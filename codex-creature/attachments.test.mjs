@@ -27,10 +27,25 @@ const fixtures = [
     name: 'fixture.wav',
     type: 'audio/wav',
     bytes: Uint8Array.from([0x52,0x49,0x46,0x46,0x24,0,0,0,0x57,0x41,0x56,0x45,0x66,0x6d,0x74,0x20,0x10,0,0,0,1,0,1,0,0x44,0xac,0,0,0x88,0x58,1,0,2,0,0x10,0,0x64,0x61,0x74,0x61,0,0,0,0])
+  },
+  {
+    name: 'fixture.aiff',
+    type: 'audio/aiff',
+    bytes: Uint8Array.from([0x46,0x4f,0x52,0x4d,0,0,0,0x2f,0x41,0x49,0x46,0x46,0x43,0x4f,0x4d,0x4d,0,0,0,0x12,0,1,0,0,0,1,0,8,0x40,0x0e,0xac,0x44,0,0,0,0,0,0,0x53,0x53,0x4e,0x44,0,0,0,9,0,0,0,0,0,0,0,0,0x80])
+  },
+  {
+    name: 'fixture.nam',
+    type: 'application/json',
+    bytes: Uint8Array.from(Buffer.from('{"syntheticFixture":"Neural Amp Modeler"}', 'utf8'))
+  },
+  {
+    name: 'fixture.xml',
+    type: 'application/xml',
+    bytes: Uint8Array.from(Buffer.from('<preset synthetic="true" />', 'utf8'))
   }
 ];
 
-test('MIDI and WAV attachments download byte-identically after JSON export/import', async () => {
+test('MIDI, WAV, AIFF, NAM, and XML attachments survive the JSON import path byte-identically', async () => {
   const fragments = fixtures.map((fixture, index) => ({
     id: `fixture:${index}`,
     title: `Synthetic ${fixture.name}`,
@@ -62,8 +77,53 @@ test('MIDI and WAV attachments download byte-identically after JSON export/impor
   }
 });
 
+test('original download names preserve Unicode and remove path and control characters', () => {
+  assert.equal(helpers.attachmentDownloadName({name: 'Música d’assaig.aiff'}), 'Música d’assaig.aiff');
+  assert.equal(helpers.attachmentDownloadName({name: 'C:\\fakepath\\Música.aiff'}), 'Música.aiff');
+  assert.equal(helpers.attachmentDownloadName({name: '/tmp/../../prova.wav'}), 'prova.wav');
+  assert.equal(helpers.attachmentDownloadName({name: '\u0000mix\n.wav'}), 'mix.wav');
+  assert.equal(helpers.attachmentDownloadName({name: ''}), 'fitxer');
+});
+
+test('downloadAttachment builds the original MIME Blob and filename', async () => {
+  const fixture = fixtures.find(item => item.type === 'audio/aiff');
+  const anchors = [];
+  const objectUrls = [];
+  const revokedUrls = [];
+  helpers.document = {
+    createElement(tag) {
+      assert.equal(tag, 'a');
+      const anchor = {clickCount: 0, click() {this.clickCount++}};
+      anchors.push(anchor);
+      return anchor;
+    }
+  };
+  helpers.URL = {
+    createObjectURL(blob) {objectUrls.push(blob); return 'blob:synthetic-aiff'},
+    revokeObjectURL(url) {revokedUrls.push(url)}
+  };
+  helpers.setTimeout = callback => {callback(); return 1};
+
+  helpers.downloadAttachment({
+    name: 'Música d’assaig.aiff',
+    type: fixture.type,
+    data: Buffer.from(fixture.bytes).toString('base64')
+  });
+
+  assert.equal(anchors.length, 1);
+  assert.equal(anchors[0].href, 'blob:synthetic-aiff');
+  assert.equal(anchors[0].download, 'Música d’assaig.aiff');
+  assert.equal(anchors[0].clickCount, 1);
+  assert.equal(objectUrls[0].type, 'audio/aiff');
+  assert.deepEqual(new Uint8Array(await objectUrls[0].arrayBuffer()), fixture.bytes);
+  assert.deepEqual(revokedUrls, ['blob:synthetic-aiff']);
+});
+
 test('each attachment card exposes a local original-file download action', () => {
   assert.match(html, /data-action="download-file"[^>]*>Descarregar fitxer original/);
   assert.match(html, /if\(action==="download-file"\)[\s\S]*?downloadAttachment\(f\.file\)/);
+  assert.match(html, /accept="[^"]*\.nam/i);
+  assert.match(html, /accept="[^"]*\.xml/i);
+  assert.match(html, /\.nam` i `\.xml` es conserven com a originals; Creature no els interpreta/);
   assert.doesNotMatch(html, /<script[^>]+src=/i);
 });
