@@ -27,10 +27,15 @@ const fixtures = [
     name: 'fixture.wav',
     type: 'audio/wav',
     bytes: Uint8Array.from([0x52,0x49,0x46,0x46,0x24,0,0,0,0x57,0x41,0x56,0x45,0x66,0x6d,0x74,0x20,0x10,0,0,0,1,0,1,0,0x44,0xac,0,0,0x88,0x58,1,0,2,0,0x10,0,0x64,0x61,0x74,0x61,0,0,0,0])
+  },
+  {
+    name: 'fixture.aiff',
+    type: 'audio/aiff',
+    bytes: Uint8Array.from([0x46,0x4f,0x52,0x4d,0,0,0,0x2f,0x41,0x49,0x46,0x46,0x43,0x4f,0x4d,0x4d,0,0,0,0x12,0,1,0,0,0,1,0,8,0x40,0x0e,0xac,0x44,0,0,0,0,0,0,0x53,0x53,0x4e,0x44,0,0,0,9,0,0,0,0,0,0,0,0,0x80])
   }
 ];
 
-test('MIDI and WAV attachments download byte-identically after JSON export/import', async () => {
+test('MIDI, WAV, and AIFF attachments download byte-identically after JSON export/import', async () => {
   const fragments = fixtures.map((fixture, index) => ({
     id: `fixture:${index}`,
     title: `Synthetic ${fixture.name}`,
@@ -60,6 +65,14 @@ test('MIDI and WAV attachments download byte-identically after JSON export/impor
     assert.deepEqual(imported[i].events, fragments[i].events);
     assert.equal(helpers.attachmentDownloadName(imported[i].file), fixtures[i].name);
   }
+});
+
+test('original download names preserve Unicode and remove path and control characters', () => {
+  assert.equal(helpers.attachmentDownloadName({name: 'Música d’assaig.aiff'}), 'Música d’assaig.aiff');
+  assert.equal(helpers.attachmentDownloadName({name: 'C:\\fakepath\\Música.aiff'}), 'Música.aiff');
+  assert.equal(helpers.attachmentDownloadName({name: '/tmp/../../prova.wav'}), 'prova.wav');
+  assert.equal(helpers.attachmentDownloadName({name: '\u0000mix\n.wav'}), 'mix.wav');
+  assert.equal(helpers.attachmentDownloadName({name: ''}), 'fitxer');
 });
 
 test('each attachment card exposes a local original-file download action', () => {
