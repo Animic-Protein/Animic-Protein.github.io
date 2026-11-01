@@ -53,6 +53,8 @@ jobs:
         run: node codex-creature/navigator-adapter.browser.test.mjs
       - name: Traspàs NAVIGATOR 0.3 · fixture i decisió humana
         run: node codex-creature/navigator-handoff.browser.test.mjs
+      - name: Adjunts Còdex Creature
+        run: node --test codex-creature/attachments.test.mjs
       - name: Coherència del Site
         run: node scripts/validate-site.mjs
       - name: Homeòstasi del Portal
