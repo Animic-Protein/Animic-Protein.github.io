@@ -129,7 +129,7 @@ sec.innerHTML='<p class="eyebrow">DEPARTAMENT · '+esc(d.id.toUpperCase())+'</p>
 grid.after(sec);
 });
 }
-function importFragments(data){var items=Array.isArray(data)?data:data.fragments;if(!Array.isArray(items))throw Error("shape");var known=new Set(fragments.map(function(x){return x.id})),count=0;items.forEach(function(x){if(!x||!x.id||!x.origin)return;var copy=JSON.parse(JSON.stringify(x));if(known.has(copy.id)){copy.parentId=copy.id;copy.id=makeId();copy.events=(copy.events||[]).concat({at:new Date().toISOString(),type:"imported-copy",decision:"human-imported"})}fragments.push(copy);count++});return count}
+function importFragments(data){var items=Array.isArray(data)?data:data.fragments;if(!Array.isArray(items))throw Error("shape");var known=new Set(fragments.map(function(x){return x.id})),count=0;items.forEach(function(x){if(!x||!x.id||!x.origin)return;var copy=JSON.parse(JSON.stringify(x));if(known.has(copy.id)){copy.parentId=copy.id;do{copy.id=makeId()}while(known.has(copy.id));copy.events=(copy.events||[]).concat({at:new Date().toISOString(),type:"imported-copy",decision:"human-imported"})}known.add(copy.id);fragments.push(copy);count++});return count}
 function readFile(f){return new Promise(function(resolve){if(!f)return resolve(null);var r=new FileReader();r.onload=function(){resolve(String(r.result).split(",")[1]||"")};r.onerror=function(){resolve(null)};r.readAsDataURL(f)})}
 function download(data,name,type){var a=document.createElement("a"),url=URL.createObjectURL(new Blob([data],{type:type}));a.href=url;a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(url)},1000)}
 function attachmentBlob(file){var raw=atob(file.data),bytes=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return new Blob([bytes],{type:file.type||"application/octet-stream"})}
@@ -194,3 +194,4 @@ location.replace("../");
 }
 })();
 </script></body></html>
+
