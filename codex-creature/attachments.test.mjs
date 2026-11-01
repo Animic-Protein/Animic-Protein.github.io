@@ -8,10 +8,14 @@ const helperStart = html.indexOf('function attachmentBlob(file){');
 const helperEnd = html.indexOf('\nfunction safeName', helperStart);
 const importerStart = html.indexOf('function importFragments(data){');
 const importerEnd = html.indexOf('\nfunction readFile', importerStart);
+const arrangementOptionsStart = html.indexOf('function arrangementSourceOptions(){');
+const arrangementOptionsEnd = html.indexOf('\nfunction renderArrangements', arrangementOptionsStart);
 assert.notEqual(helperStart, -1, 'the page defines its attachment decoder');
 assert.notEqual(helperEnd, -1, 'the attachment helpers have a stable end marker');
 assert.notEqual(importerStart, -1, 'the page defines its fragment importer');
 assert.notEqual(importerEnd, -1, 'the fragment importer has a stable end marker');
+assert.notEqual(arrangementOptionsStart, -1, 'the arrangement source selector exists');
+assert.notEqual(arrangementOptionsEnd, -1, 'the arrangement source selector has a stable end marker');
 
 const helpers = vm.createContext({atob, Blob, Uint8Array, fragments: [], makeId: () => 'fixture:duplicate'});
 vm.runInContext(html.slice(helperStart, helperEnd), helpers);
@@ -126,4 +130,83 @@ test('each attachment card exposes a local original-file download action', () =>
   assert.match(html, /accept="[^"]*\.xml/i);
   assert.match(html, /\.nam` i `\.xml` es conserven com a originals; Creature no els interpreta/);
   assert.doesNotMatch(html, /<script[^>]+src=/i);
+});
+
+
+
+test('repeated IDs within one JSON import are assigned distinct IDs without losing fragment data', () => {
+  helpers.fragments.length = 0;
+  const generated = ['fixture:copy-1'];
+  helpers.makeId = () => generated.shift();
+  const original = {
+    id: 'TEST-01', title: 'Original fragment', author: 'Synthetic author', origin: 'harmonia',
+    source: {reference: 'synthetic-source'}, content: 'Synthetic content',
+    file: {name: 'synthetic.wav', type: 'audio/wav', data: 'AQID'},
+    decision: 'human-kept', events: [{type: 'decision', decision: 'human-kept'}]
+  };
+  const duplicate = {...original, title: 'Second synthetic fragment', author: 'Second author', content: 'Second content'};
+
+  assert.equal(helpers.importFragments({fragments: [original, duplicate]}), 2);
+  const imported = JSON.parse(JSON.stringify(helpers.fragments));
+  assert.deepEqual(imported.map(item => item.id), ['TEST-01', 'fixture:copy-1']);
+  assert.equal(imported[1].parentId, 'TEST-01');
+  assert.equal(imported[1].title, duplicate.title);
+  assert.equal(imported[1].author, duplicate.author);
+  assert.equal(imported[1].source.reference, 'synthetic-source');
+  assert.equal(imported[1].content, duplicate.content);
+  assert.deepEqual(imported[1].file, duplicate.file);
+  assert.equal(imported[1].decision, 'human-kept');
+  assert.deepEqual(imported[1].events.slice(0, 1), duplicate.events);
+  assert.equal(imported[1].events.at(-1).type, 'imported-copy');
+  assert.equal(new Set(imported.map(item => item.id)).size, imported.length);
+});
+
+test('an imported ID colliding with a local fragment is regenerated and local data stays intact', () => {
+  helpers.fragments.length = 0;
+  helpers.fragments.push({id: 'TEST-01', origin: 'harmonia', title: 'Local fragment', content: 'Local content'});
+  helpers.makeId = () => 'fixture:local-copy';
+  assert.equal(helpers.importFragments([{id: 'TEST-01', origin: 'melodia', title: 'Imported fragment'}]), 1);
+  const imported = JSON.parse(JSON.stringify(helpers.fragments));
+  assert.equal(imported[0].title, 'Local fragment');
+  assert.equal(imported[0].content, 'Local content');
+  assert.equal(imported[1].id, 'fixture:local-copy');
+  assert.equal(imported[1].parentId, 'TEST-01');
+  assert.equal(new Set(imported.map(item => item.id)).size, imported.length);
+});
+
+test('successive imports of the same ID remain unique across import calls', () => {
+  helpers.fragments.length = 0;
+  helpers.makeId = () => 'fixture:successive-copy';
+  const fragment = {id: 'TEST-01', origin: 'harmonia', title: 'Repeated import'};
+  assert.equal(helpers.importFragments([fragment]), 1);
+  assert.equal(helpers.importFragments([fragment]), 1);
+  const imported = JSON.parse(JSON.stringify(helpers.fragments));
+  assert.deepEqual(imported.map(item => item.id), ['TEST-01', 'fixture:successive-copy']);
+  assert.equal(imported[1].parentId, 'TEST-01');
+  assert.equal(new Set(imported.map(item => item.id)).size, imported.length);
+});
+
+test('arrangement source references resolve to the exact unique fragment ID', () => {
+  helpers.fragments.length = 0;
+  helpers.makeId = () => 'fixture:arranged-copy';
+  const first = {id: 'TEST-01', origin: 'harmonia', title: 'First fragment'};
+  const duplicate = {id: 'TEST-01', origin: 'melodia', title: 'Second fragment'};
+  helpers.importFragments([first, duplicate]);
+  const imported = JSON.parse(JSON.stringify(helpers.fragments));
+  const select = {value: 'TEST-01', innerHTML: ''};
+  helpers.DEPTS = [{id: 'harmonia', name: 'Harmonia'}, {id: 'melodia', name: 'Melodia'}];
+  helpers.esc = value => String(value ?? '');
+  helpers.$ = selector => selector === '#arrangementSourceFragment' ? select : null;
+  vm.runInContext(html.slice(arrangementOptionsStart, arrangementOptionsEnd), helpers);
+  vm.runInContext('arrangementSourceOptions()', helpers);
+  assert.match(select.innerHTML, /value="TEST-01">First fragment/);
+  assert.match(select.innerHTML, /value="fixture:arranged-copy">Second fragment/);
+  assert.equal(select.value, 'TEST-01');
+  const arrangement = {sourceFragment: {id: select.value}};
+  assert.equal(imported.find(item => item.id === arrangement.sourceFragment.id).title, 'First fragment');
+  select.value = 'fixture:arranged-copy';
+  vm.runInContext('arrangementSourceOptions()', helpers);
+  assert.equal(select.value, 'fixture:arranged-copy');
+  assert.equal(imported.find(item => item.id === select.value).title, 'Second fragment');
+  assert.equal(new Set(imported.map(item => item.id)).size, imported.length);
 });
