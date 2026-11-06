@@ -45,6 +45,16 @@ test('NAVIGATOR opens as artificial actor inside a reversible virtual environmen
   assert.equal(result.session.programs[0].virtual,true);
 });
 
+test('duplicate virtual program ids are rejected before MATRIX opens',()=>{
+  const createdMandate=mandate();
+  assert.equal(createdMandate.accepted,true);
+  const duplicated=createMatrixSession({
+    invokerKind:'human',mandate:createdMandate.mandate,fixture,
+    programs:[program,{...program,source:'export const state="duplicate";'}]
+  });
+  assert.equal(duplicated.reason,'virtual-programs-required');
+});
+
 test('human directives can refine priorities without becoming irreversible authorization',()=>{
   const {session}=open();
   assert.equal(recordHumanDirective(session,{actorKind:'artificial',directive:'Canvia el programa'}).reason,'human-directive-required');
@@ -52,6 +62,15 @@ test('human directives can refine priorities without becoming irreversible autho
   assert.equal(directed.accepted,true);
   assert.equal(directed.session.humanDecision,null);
   assert.equal(directed.session.directives.length,1);
+});
+
+test('the event budget bounds directives and reserves room for a boundary decision',()=>{
+  const {session}=open({mandate:{budget:{maxCycles:3,maxRevisions:2,maxEvents:2}}});
+  const directed=recordHumanDirective(session,{actorKind:'human',directive:'Una sola directiva dins el pressupost'});
+  assert.equal(directed.accepted,true);
+  assert.equal(recordHumanDirective(directed.session,{actorKind:'human',directive:'Fora de pressupost'}).reason,'event-budget-exhausted');
+  const boundarySession=open({mandate:{budget:{maxCycles:3,maxRevisions:2,maxEvents:2}}}).session;
+  assert.equal(requestBoundaryAction(boundarySession,{operation:'publish-change',targetRef:'main',effectClass:MATRIX_EFFECT.CANONICAL}).reason,'event-budget-exhausted');
 });
 
 test('a passing virtual revision is applied and remains non-canonical',()=>{
@@ -88,6 +107,36 @@ test('budget and stale-state checks prevent uncontrolled self-reprogramming',()=
   assert.equal(first.accepted,true);
   assert.equal(runMatrixCycle(session,{observation:'C',condition:'D',programId:'LIMEN',nextSource:'x',rollbackSource:program.source,testResult:{passed:true}}).reason,'stale-matrix-state');
   assert.equal(runMatrixCycle(first.session,{observation:'C',condition:'D',programId:'LIMEN',nextSource:'x',rollbackSource:first.session.programs[0].source,testResult:{passed:true}}).reason,'cycle-budget-exhausted');
+});
+
+test('mandate expiry stops new work but still permits a human non-approving closure',()=>{
+  const createdMandate=mandate({expiresAt:'2026-11-06T10:00:00.000Z'});
+  assert.equal(createdMandate.accepted,true);
+  const opened=createMatrixSession({
+    invokerKind:'artificial',mandate:createdMandate.mandate,fixture,programs:[program],at:'2026-11-06T09:00:00.000Z'
+  });
+  assert.equal(opened.accepted,true);
+  assert.equal(runMatrixCycle(opened.session,{
+    observation:'A',condition:'B',programId:'LIMEN',nextSource:'x',rollbackSource:program.source,
+    testResult:{passed:true},at:'2026-11-06T10:00:00.000Z'
+  }).reason,'mandate-expired');
+
+  const boundarySession=createMatrixSession({
+    invokerKind:'human',mandate:createdMandate.mandate,fixture,programs:[program],at:'2026-11-06T09:00:00.000Z'
+  });
+  const requested=requestBoundaryAction(boundarySession.session,{
+    operation:'publish-change',targetRef:'main',effectClass:MATRIX_EFFECT.CANONICAL,at:'2026-11-06T09:30:00.000Z'
+  });
+  assert.equal(resolveBoundaryAction(requested.session,{
+    actorKind:'human',decision:'approve',boundaryId:requested.boundary.id,boundaryDigest:requested.boundary.digest,
+    at:'2026-11-06T10:00:00.000Z'
+  }).reason,'mandate-expired');
+  const discarded=resolveBoundaryAction(requested.session,{
+    actorKind:'human',decision:'discard',boundaryId:requested.boundary.id,boundaryDigest:requested.boundary.digest,
+    at:'2026-11-06T10:00:00.000Z'
+  });
+  assert.equal(discarded.accepted,true);
+  assert.equal(discarded.session.status,'closed');
 });
 
 test('a reversible Codex adapter can operate freely only inside the human mandate and with verified rollback',()=>{
