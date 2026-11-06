@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
-import {chromium} from 'playwright';
+import {chromium,webkit} from 'playwright';
 
 const root=process.cwd();
 const prefix='/codex/';
@@ -26,7 +26,8 @@ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 let browser;
 let context;
 try{
-  browser=await chromium.launch({headless:true});
+  const browserType=process.env.NAVIGATOR_MATRIX_BROWSER==='webkit'?webkit:chromium;
+  browser=await browserType.launch({headless:true});
   context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,serviceWorkers:'block',acceptDownloads:true});
   const blockedOrigins=[];
   const origin=`http://127.0.0.1:${server.address().port}`;
@@ -106,7 +107,7 @@ try{
 
   await context.close();
   context=null;
-  console.log('NAVIGATOR MATRIX iPhone threshold: mandate, invocation, export, exact Retrodansa, dissolution and store separation: OK');
+  console.log(`NAVIGATOR MATRIX iPhone threshold (${process.env.NAVIGATOR_MATRIX_BROWSER==='webkit'?'WebKit':'Chromium'}): mandate, invocation, export, exact Retrodansa, dissolution and store separation: OK`);
 }finally{
   await context?.close();
   await browser?.close();
