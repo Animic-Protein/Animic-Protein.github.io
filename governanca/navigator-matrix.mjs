@@ -43,6 +43,17 @@ const denied=reason=>({accepted:false,reason,humanDecision:null});
 const current=session=>Boolean(session&&latestRevision.get(session.id)===session.revision);
 const mandateExpired=(session,at)=>Boolean(session?.expiresAt&&Date.parse(session.expiresAt)<=Date.parse(at));
 const hasEventCapacity=(session,count=1)=>session.usage.events+count<=session.budget.maxEvents;
+const authorizationDigest=authorization=>digest([
+  authorization.id,
+  authorization.sessionId,
+  authorization.sessionRevision,
+  authorization.mandateId,
+  authorization.operation,
+  authorization.targetRef,
+  authorization.effectClass,
+  authorization.rollback?.digest||'',
+  authorization.issuedAt
+].join('|'));
 
 const validFixture=fixture=>Boolean(
   fixture&&fixture.kind==='fictional-fixture'&&fixture.isolation===MATRIX_ISOLATION&&
@@ -167,6 +178,7 @@ export function authorizeMandatedOperation(session,{operation,targetRef,effectCl
   if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
   if(!current(session))return denied('stale-matrix-state');
   if(mandateExpired(session,at))return denied('mandate-expired');
+  if(!hasEventCapacity(session))return denied('event-budget-exhausted');
   if(session.pendingBoundary)return denied('human-decision-pending');
   if(!session.capabilities.includes(operation)||!MATRIX_OPERATIONS.includes(operation))return denied('operation-outside-mandate');
   if(!session.programScope.includes(targetRef))return denied('program-outside-mandate');
@@ -175,11 +187,36 @@ export function authorizeMandatedOperation(session,{operation,targetRef,effectCl
     if(operation!=='codex.patch.reversible')return denied('codex-adapter-operation-required');
     if(!rollback||rollback.verified!==true||typeof rollback.strategy!=='string'||!rollback.strategy.trim()||typeof rollback.digest!=='string'||!rollback.digest.trim())return denied('verified-rollback-required');
   }
-  return{
+  const authorization={
     accepted:true,reason:null,outcome:'ready-for-reversible-adapter',actorKind:NAVIGATOR_ACTOR,
-    mandateId:session.mandateId,operation,targetRef,effectClass,rollback:rollback||null,
+    id:id('MXA'),sessionId:session.id,sessionRevision:session.revision,mandateId:session.mandateId,
+    operation,targetRef,effectClass,rollback:rollback||null,issuedAt:at,
     humanDecision:null,canonical:false,reversible:true
   };
+  return{...authorization,digest:authorizationDigest(authorization)};
+}
+
+export function recordMandatedOperation(session,{authorization,outcome,beforeDigest,afterDigest,rollbackDigest=null,summary='',at=now()}={}){
+  if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
+  if(!current(session))return denied('stale-matrix-state');
+  if(mandateExpired(session,at))return denied('mandate-expired');
+  if(!hasEventCapacity(session))return denied('event-budget-exhausted');
+  if(!authorization||authorization.accepted!==true||authorization.sessionId!==session.id||authorization.sessionRevision!==session.revision||authorization.mandateId!==session.mandateId)return denied('invalid-adapter-authorization');
+  if(authorization.digest!==authorizationDigest(authorization))return denied('invalid-adapter-authorization');
+  if(!session.capabilities.includes(authorization.operation)||!session.programScope.includes(authorization.targetRef))return denied('authorization-outside-current-mandate');
+  if(![MATRIX_EFFECT.VIRTUAL_REVERSIBLE,MATRIX_EFFECT.CODEX_REVERSIBLE].includes(authorization.effectClass))return denied('invalid-adapter-authorization');
+  if(!['applied','rolled-back','failed'].includes(outcome))return denied('invalid-adapter-outcome');
+  if(typeof beforeDigest!=='string'||!beforeDigest.trim()||typeof afterDigest!=='string'||!afterDigest.trim())return denied('adapter-evidence-required');
+  if(authorization.effectClass===MATRIX_EFFECT.CODEX_REVERSIBLE&&authorization.rollback?.digest!==(outcome==='applied'?beforeDigest:afterDigest))return denied('adapter-evidence-mismatch');
+  if(outcome==='rolled-back'&&rollbackDigest!==afterDigest)return denied('rollback-evidence-mismatch');
+  const event={
+    id:id('MXE'),type:'mandated-adapter-operation',at,actorKind:NAVIGATOR_ACTOR,
+    authorizationId:authorization.id,operation:authorization.operation,targetRef:authorization.targetRef,
+    effectClass:authorization.effectClass,outcome,beforeDigest,afterDigest,
+    rollbackDigest:rollbackDigest||null,summary:String(summary).trim(),canonical:false,reversible:true
+  };
+  const next=addEvent(session,event,{phase:outcome==='failed'?'reobserve':'evaluate',usage:{...session.usage,events:session.usage.events+1}});
+  return{accepted:true,reason:null,outcome,event,session:next,humanDecision:null};
 }
 
 export function requestBoundaryAction(session,{operation,targetRef,effectClass,reason,at=now()}={}){
