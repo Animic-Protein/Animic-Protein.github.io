@@ -83,9 +83,9 @@ try{
   await page.locator('#matrixDissolve').click();
   assert.match(await page.locator('#matrixStatus').innerText(),/Rastre dissolt/);
   assert.equal(await page.evaluate(key=>sessionStorage.getItem(key),stateKey),null);
-  assert.equal(await page.evaluate(({fragmentKey,arrangementKey})=>
-    localStorage.getItem(fragmentKey)===`${realFragments}`&&localStorage.getItem(arrangementKey)===`${realArrangements}`,
-  {fragmentKey,arrangementKey}),true,'Offline rehearsal leaves the real stores untouched');
+  assert.equal(await page.evaluate(({fragmentKey,arrangementKey,realFragments,realArrangements})=>
+    localStorage.getItem(fragmentKey)===realFragments&&localStorage.getItem(arrangementKey)===realArrangements,
+  {fragmentKey,arrangementKey,realFragments,realArrangements}),true,'Offline rehearsal leaves the real stores untouched');
   assert.ok(requests.every(url=>url.startsWith(origin)||url.startsWith('blob:')),'No external request is made');
   console.log('NAVIGATOR MATRIX iPhone offline: precached HTML/module, mandate, invocation, export, Retrodansa and dissolution: OK');
 }finally{
