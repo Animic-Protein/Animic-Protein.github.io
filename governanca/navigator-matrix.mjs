@@ -41,6 +41,8 @@ const id=prefix=>`${prefix}-${Date.now().toString(36)}-${(++sequence).toString(3
 const digest=value=>createHash('sha256').update(String(value)).digest('hex');
 const denied=reason=>({accepted:false,reason,humanDecision:null});
 const current=session=>Boolean(session&&latestRevision.get(session.id)===session.revision);
+const mandateExpired=(session,at)=>Boolean(session?.expiresAt&&Date.parse(session.expiresAt)<=Date.parse(at));
+const hasEventCapacity=(session,count=1)=>session.usage.events+count<=session.budget.maxEvents;
 
 const validFixture=fixture=>Boolean(
   fixture&&fixture.kind==='fictional-fixture'&&fixture.isolation===MATRIX_ISOLATION&&
@@ -54,10 +56,15 @@ const normalizedBudget=budget=>Object.freeze({
   maxEvents:Number.isInteger(budget?.maxEvents)&&budget.maxEvents>0?budget.maxEvents:64
 });
 
-const validPrograms=programs=>Array.isArray(programs)&&programs.length>0&&programs.every(program=>
-  program&&typeof program.id==='string'&&program.id.trim()&&typeof program.source==='string'&&
-  program.virtual===true&&program.canonical===false
-);
+const validPrograms=programs=>{
+  if(!Array.isArray(programs)||programs.length===0)return false;
+  if(!programs.every(program=>
+    program&&typeof program.id==='string'&&program.id.trim()&&typeof program.source==='string'&&
+    program.virtual===true&&program.canonical===false
+  ))return false;
+  const programIds=programs.map(program=>program.id);
+  return new Set(programIds).size===programIds.length;
+};
 
 const addEvent=(session,event,extra={})=>{
   const next={...session,...extra,revision:session.revision+1,events:[...session.events,event]};
@@ -95,7 +102,7 @@ export function createMatrixSession({invokerKind,mandate,fixture,programs,at=now
   const session={
     id:id('MATRIX'),protocol:MATRIX_PROTOCOL,status:'active',phase:'observe',revision:0,
     invokerKind,actorKind:NAVIGATOR_ACTOR,mandateId:mandate.id,mission:mandate.mission,
-    fixtureRef:fixture.id,programScope:[...mandate.programs],capabilities:[...mandate.reversibleOperations],
+    fixtureRef:fixture.id,programScope:[...mandate.programs],capabilities:[...mandate.reversibleOperations],expiresAt:mandate.expiresAt,
     priorities:[...mandate.priorities],budget:mandate.budget,usage:{cycles:0,revisions:0,events:1},
     programs:virtualPrograms,directives:[],pendingBoundary:null,humanDecision:null,
     provenance:{localOnly:true,canonical:false,reversible:true,parentMandate:mandate.id},
@@ -108,6 +115,8 @@ export function createMatrixSession({invokerKind,mandate,fixture,programs,at=now
 export function recordHumanDirective(session,{actorKind,directive,priority=null,at=now()}={}){
   if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
   if(!current(session))return denied('stale-matrix-state');
+  if(mandateExpired(session,at))return denied('mandate-expired');
+  if(!hasEventCapacity(session))return denied('event-budget-exhausted');
   if(actorKind!=='human')return denied('human-directive-required');
   if(typeof directive!=='string'||!directive.trim())return denied('directive-required');
   if(priority&&!session.priorities.some(item=>item.id===priority))return denied('unknown-priority');
@@ -120,6 +129,7 @@ export function recordHumanDirective(session,{actorKind,directive,priority=null,
 export function runMatrixCycle(session,{observation,condition,operation='matrix.reprogram',programId,nextSource,testResult,rollbackSource,at=now()}={}){
   if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
   if(!current(session))return denied('stale-matrix-state');
+  if(mandateExpired(session,at))return denied('mandate-expired');
   if(session.pendingBoundary)return denied('human-decision-pending');
   if(!session.capabilities.includes(operation)||!MATRIX_OPERATIONS.includes(operation))return denied('operation-outside-mandate');
   if(session.usage.cycles>=session.budget.maxCycles)return denied('cycle-budget-exhausted');
@@ -153,9 +163,10 @@ export function runMatrixCycle(session,{observation,condition,operation='matrix.
   return{accepted:true,reason:null,outcome,event,session:next};
 }
 
-export function authorizeMandatedOperation(session,{operation,targetRef,effectClass,rollback}={}){
+export function authorizeMandatedOperation(session,{operation,targetRef,effectClass,rollback,at=now()}={}){
   if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
   if(!current(session))return denied('stale-matrix-state');
+  if(mandateExpired(session,at))return denied('mandate-expired');
   if(session.pendingBoundary)return denied('human-decision-pending');
   if(!session.capabilities.includes(operation)||!MATRIX_OPERATIONS.includes(operation))return denied('operation-outside-mandate');
   if(!session.programScope.includes(targetRef))return denied('program-outside-mandate');
@@ -174,6 +185,8 @@ export function authorizeMandatedOperation(session,{operation,targetRef,effectCl
 export function requestBoundaryAction(session,{operation,targetRef,effectClass,reason,at=now()}={}){
   if(!session||session.protocol!==MATRIX_PROTOCOL||session.status!=='active')return denied('invalid-or-inactive-matrix');
   if(!current(session))return denied('stale-matrix-state');
+  if(mandateExpired(session,at))return denied('mandate-expired');
+  if(!hasEventCapacity(session,2))return denied('event-budget-exhausted');
   if(session.pendingBoundary)return denied('human-decision-pending');
   if(![MATRIX_EFFECT.EXTERNAL,MATRIX_EFFECT.CANONICAL,MATRIX_EFFECT.IRREVERSIBLE].includes(effectClass))return denied('boundary-effect-required');
   if(typeof operation!=='string'||!operation.trim()||typeof targetRef!=='string'||!targetRef.trim())return denied('boundary-action-required');
@@ -191,6 +204,7 @@ export function resolveBoundaryAction(session,{actorKind,decision,boundaryId,bou
   if(!current(session))return denied('stale-matrix-state');
   if(actorKind!=='human')return denied('human-decision-required');
   if(!['approve','return','discard','quiet'].includes(decision))return denied('invalid-human-decision');
+  if(decision==='approve'&&mandateExpired(session,at))return denied('mandate-expired');
   if(boundaryId!==session.pendingBoundary.id||boundaryDigest!==session.pendingBoundary.digest)return denied('decision-not-bound-to-exact-action');
   const humanDecision={id:id('MXH'),actorKind:'human',decision,boundaryId,rationale:String(rationale).trim(),at};
   const event={id:id('MXE'),type:'boundary-human-decision',decisionId:humanDecision.id,boundaryId,decision,at};
