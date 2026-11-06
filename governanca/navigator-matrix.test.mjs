@@ -9,6 +9,7 @@ import {
   createMatrixSession,
   haltMatrixSession,
   recordHumanDirective,
+  recordMandatedOperation,
   requestBoundaryAction,
   resolveBoundaryAction,
   runMatrixCycle
@@ -154,6 +155,20 @@ test('a reversible Codex adapter can operate freely only inside the human mandat
   assert.equal(authorized.outcome,'ready-for-reversible-adapter');
   assert.equal(authorized.humanDecision,null);
   assert.equal(authorizeMandatedOperation(created.session,{operation:'codex.patch.reversible',targetRef:'DISSENSUS',effectClass:MATRIX_EFFECT.CODEX_REVERSIBLE,rollback:{verified:true,strategy:'restore',digest:'x'}}).reason,'program-outside-mandate');
+  const recorded=recordMandatedOperation(created.session,{
+    authorization:authorized,outcome:'applied',beforeDigest:authorized.rollback.digest,afterDigest:'after',
+    summary:'Adaptador sintètic aplicat i verificat.'
+  });
+  assert.equal(recorded.accepted,true);
+  assert.equal(recorded.session.events.at(-1).type,'mandated-adapter-operation');
+  assert.equal(recorded.session.events.at(-1).authorizationId,authorized.id);
+  assert.equal(recorded.session.humanDecision,null);
+  assert.equal(recordMandatedOperation(created.session,{
+    authorization:authorized,outcome:'applied',beforeDigest:authorized.rollback.digest,afterDigest:'after'
+  }).reason,'stale-matrix-state');
+  assert.equal(recordMandatedOperation(recorded.session,{
+    authorization:authorized,outcome:'applied',beforeDigest:authorized.rollback.digest,afterDigest:'after'
+  }).reason,'invalid-adapter-authorization');
 });
 
 test('external, canonical and irreversible effects stop at the human boundary',()=>{
