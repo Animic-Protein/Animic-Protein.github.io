@@ -57,6 +57,11 @@ jobs:
         run: |
           node --test codex-creature/navigator-matrix-adapter.test.mjs
           node codex-creature/navigator-matrix-adapter.browser.test.mjs
+      - name: Llindar mòbil NAVIGATOR MATRIX · iPhone
+        run: |
+          node --test codex-creature/navigator-matrix-iphone.test.mjs
+          node codex-creature/navigator-matrix-iphone.browser.test.mjs
+          node codex-creature/navigator-matrix-iphone.offline.browser.test.mjs
       - name: Adjunts Còdex Creature
         run: node --test codex-creature/attachments.test.mjs
       - name: Coherència del Site
@@ -67,3 +72,22 @@ jobs:
         run: node scripts/audit-portal.mjs
       - name: Vida constitucional
         run: node scripts/audit-constitutional.mjs
+
+  validate-webkit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Dependències de proves de navegador
+        run: npm ci
+      - name: Instal·la WebKit i dependències
+        run: npx playwright install --with-deps webkit
+      - name: Llindar mòbil NAVIGATOR MATRIX · WebKit
+        env:
+          NAVIGATOR_MATRIX_BROWSER: webkit
+        run: node codex-creature/navigator-matrix-iphone.browser.test.mjs

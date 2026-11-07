@@ -129,7 +129,8 @@ test('each attachment card exposes a local original-file download action', () =>
   assert.match(html, /accept="[^"]*\.nam/i);
   assert.match(html, /accept="[^"]*\.xml/i);
   assert.match(html, /\.nam` i `\.xml` es conserven com a originals; Creature no els interpreta/);
-  assert.doesNotMatch(html, /<script[^>]+src=/i);
+  const scriptSources=[...html.matchAll(/<script[^>]+src="([^"]+)"/gi)].map(match=>match[1]);
+  assert.deepEqual(scriptSources,['./navigator-matrix-iphone.mjs'],'Creature only loads the reviewed local MATRIX module');
 });
 
 
