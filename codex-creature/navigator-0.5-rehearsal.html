@@ -97,17 +97,18 @@ var state=null;
 var q=function(id){return document.getElementById(id)};
 var now=function(){return new Date().toISOString()};
 var id=function(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)};
+var canRecord=function(reserve){return !!state&&state.status==='active'&&Date.now()<Date.parse(state.mandate.expiresAt)&&state.events.length+(reserve||1)<=state.mandate.maxEvents};
 var save=function(){if(state)sessionStorage.setItem(KEY,JSON.stringify(state));render()};
-var add=function(type,data){state.events.push(Object.assign({id:id('N05'),type:type,at:now()},data||{}));save()};
+var add=function(type,data){if(!canRecord(1))return false;state.events.push(Object.assign({id:id('N05'),type:type,at:now()},data||{}));save();return true};
 var render=function(){
  var active=!!state;
  q('openMission').disabled=active;
- q('delegate').disabled=!active||!!(state&&state.boundary);
- q('requestBoundary').disabled=!active||!!(state&&state.boundary);
- q('resolveBoundary').disabled=!(state&&state.boundary);
+ q('delegate').disabled=!canRecord(1)||!!(state&&state.boundary);
+ q('requestBoundary').disabled=!canRecord(2)||!!(state&&state.boundary);
+ q('resolveBoundary').disabled=!(state&&state.boundary)||!canRecord(1);
  q('exportTrace').disabled=!active;
  q('clearTrace').disabled=!active;
- q('missionStatus').textContent=active?'Estat: mandat vigent · invocació activa · '+state.events.length+' esdeveniments.':'Estat: encara no obert.';
+ q('missionStatus').textContent=active?(Date.now()>=Date.parse(state.mandate.expiresAt)?'Estat: mandat caducat · noves operacions aturades.':'Estat: '+state.status+' · '+state.events.length+' esdeveniments de '+state.mandate.maxEvents+'.'):'Estat: encara no obert.';
  q('delegateStatus').textContent=state&&state.lastDelegation?state.lastDelegation:'Esperant mandat.';
  q('boundaryStatus').textContent=state&&state.boundary?'Petició pendent: '+state.boundary.operation+' sobre '+state.boundary.target+' · decisió humana necessària.':'Sense petició pendent.';
  q('traceSummary').textContent=active?'Invocador arrel: persona → NAVIGATOR · crèdit màxim: 12 esdeveniments · caducitat: '+state.mandate.expiresAt:'Encara no hi ha esdeveniments.';
@@ -123,7 +124,7 @@ q('openMission').addEventListener('click',function(){
  add('navigator-invoked',{actor:'artificial',detail:'NAVIGATOR actiu sota mandat; humanDecision continua null.'});
 });
 q('delegate').addEventListener('click',function(){
- if(!state||state.boundary)return;
+ if(!canRecord(1)||state.boundary)return;
  var instrument=q('instrument').value,operation=q('operation').value,programAllowed=state.mandate.programs.indexOf(instrument)>=0,operationAllowed=state.mandate.operations.indexOf(operation)>=0;
  if(!programAllowed||!operationAllowed){
   state.lastDelegation='Delegació denegada: '+(!programAllowed?'programa fora del mandat':'operació fora del mandat')+'. No s’ha obert invocació filla.';
@@ -135,13 +136,13 @@ q('delegate').addEventListener('click',function(){
  add('child-invocation-opened',{actor:instrument,detail:'permís heretat en subconjunt · '+operation+' · parent '+state.invocation.id});
 });
 q('requestBoundary').addEventListener('click',function(){
- if(!state||state.boundary)return;
+ if(!canRecord(2)||state.boundary)return;
  var target=q('boundaryTarget').value;
  state.boundary={id:id('BOUNDARY'),operation:'external',target:target,effectClass:'external',digest:'fixture-'+target+'-external-'+state.events.length,requestedAt:now(),humanDecision:null};
  add('permission-expansion-requested',{actor:'artificial',detail:'external · '+target+' · aturada abans de l’efecte.'});
 });
 q('resolveBoundary').addEventListener('click',function(){
- if(!state||!state.boundary)return;
+ if(!state||!state.boundary||!canRecord(1))return;
  var choice=q('humanChoice').value,b=state.boundary;
  if(choice==='halt'){
   add('mission-halted',{actor:'human',detail:'Aturada voluntària abans de qualsevol efecte.'});state.status='halted';state.boundary=null;state.lastDelegation='Missió aturada per decisió humana.';save();return;
