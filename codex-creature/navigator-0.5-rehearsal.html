@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09223c">
+<title>NAVIGATOR 0.5 · recorregut de permisos</title>
+<style>
+:root{color-scheme:dark;--bg:#071a2a;--panel:#102b43;--line:#31516a;--text:#edf6ff;--muted:#b8ccdc;--blue:#73c4ef;--gold:#f4c66a;--red:#ff978c;--green:#9ce0b2}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#143b58 0,#071a2a 62%);color:var(--text);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:820px;margin:auto;padding:24px 16px 64px}
+header,.card{background:rgba(16,43,67,.94);border:1px solid var(--line);border-radius:18px;padding:20px;margin:0 0 16px}
+h1{font-size:clamp(1.7rem,7vw,2.5rem);line-height:1.08;margin:.35rem 0 .7rem}
+h2{font-size:1.18rem;margin:0 0 10px}
+p{margin:.45rem 0;color:var(--muted)}
+.kicker{color:var(--blue);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem}
+.notice{border-left:4px solid var(--gold);padding:8px 12px;background:#172e40;border-radius:5px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+label{display:block;font-weight:650;margin:8px 0 4px}
+select,button{font:inherit;color:var(--text);background:#0a2033;border:1px solid #56758c;border-radius:10px;padding:12px;width:100%;min-height:48px}
+button{font-weight:700;cursor:pointer}
+button.primary{background:#164c70;border-color:#6bb5dd}
+button.secondary{background:#19364b}
+button.danger{border-color:#a95850;color:#ffd2cb}
+button:disabled,select:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-top:12px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pill{border:1px solid #5a7890;border-radius:999px;padding:4px 10px;color:#e6f4ff}
+.state{font-weight:750;color:var(--gold)}
+ol{padding-left:22px}
+li{padding:3px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#071725;border:1px solid var(--line);border-radius:10px;padding:12px;max-height:230px;overflow:auto;font-size:.85rem}
+.small{font-size:.9rem}
+footer{color:var(--muted);font-size:.88rem;padding:6px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media(max-width:520px){main{padding:12px 10px 40px}.card,header{padding:16px;border-radius:14px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="kicker">Còdex Viu · assaig local</div>
+<h1>NAVIGATOR 0.5</h1>
+<p>Recorregut manual de permisos, delegació i llindar humà.</p>
+<p class="notice"><strong>Fixture fictici.</strong> Aquesta pàgina simula el protocol en aquesta pestanya. No modifica instruments reals, no publica ni envia dades. Aprovar una petició només prepara el pas per a un executor separat; no executa l’efecte.</p>
+</header>
+
+<section class="card" aria-labelledby="phaseTitle">
+<h2 id="phaseTitle">1 · Obrir una missió</h2>
+<p>La persona emet un mandat curt per a dos espais de prova. NAVIGATOR actuarà com a agent artificial dins aquest abast.</p>
+<div class="grid">
+<div><strong>Programes de fixture</strong><div class="pills"><span class="pill">LIMEN</span><span class="pill">CODEX_CREATURE</span></div></div>
+<div><strong>Permisos arrel</strong><div class="pills"><span class="pill">observe</span><span class="pill">suggest</span><span class="pill">virtual-reversible</span></div></div>
+<div><strong>Límits</strong><p>4 cicles · 12 esdeveniments · 15 minuts · sense xarxa ni persistència externa</p></div>
+</div>
+<div class="actions"><button class="primary" id="openMission">Emetre mandat humà i invocar NAVIGATOR</button><button class="secondary" id="resetAll">Dissoldre el rastre</button></div>
+<p class="state" id="missionStatus" aria-live="polite">Estat: encara no obert.</p>
+</section>
+
+<section class="card" aria-labelledby="delegateTitle">
+<h2 id="delegateTitle">2 · Delegar un abast més estret</h2>
+<p>Tria un instrument receptor i limita’l a una part del mandat. La delegació queda registrada com a invocació filla.</p>
+<div class="grid">
+<div><label for="instrument">Instrument receptor</label><select id="instrument"><option value="LIMEN">LIMEN</option><option value="CODEX_CREATURE">Còdex Creature</option><option value="DISSENSUS">DISSENSUS (fora del mandat)</option></select></div>
+<div><label for="operation">Operació sol·licitada</label><select id="operation"><option value="observe">observe</option><option value="suggest">suggest</option><option value="virtual-reversible">virtual-reversible</option><option value="external">external (fora del mandat)</option></select></div>
+</div>
+<div class="actions"><button class="primary" id="delegate" disabled>Delegar permís seleccionat</button></div>
+<p class="state" id="delegateStatus" aria-live="polite">Esperant mandat.</p>
+</section>
+
+<section class="card" aria-labelledby="boundaryTitle">
+<h2 id="boundaryTitle">3 · Provar una petició fora d’abast</h2>
+<p>La petició external queda bloquejada i demana una decisió humana vinculada a aquesta acció. Cap resposta no executa l’efecte aquí.</p>
+<div class="grid">
+<div><label for="boundaryTarget">Objecte de prova</label><select id="boundaryTarget"><option value="LIMEN">LIMEN</option><option value="CODEX_CREATURE">CODEX_CREATURE</option></select></div>
+<div><label for="humanChoice">Resposta humana</label><select id="humanChoice"><option value="return">Retornar i reobservar</option><option value="deny">Denegar</option><option value="quiet">Quietud</option><option value="approve">Aprovar aquest pas concret</option><option value="halt">Aturar la missió</option></select></div>
+</div>
+<div class="actions"><button class="secondary" id="requestBoundary" disabled>Sol·licitar efecte external</button><button class="primary" id="resolveBoundary" disabled>Registrar resposta humana</button></div>
+<p class="state" id="boundaryStatus" aria-live="polite">Sense petició pendent.</p>
+</section>
+
+<section class="card" aria-labelledby="traceTitle">
+<h2 id="traceTitle">4 · Rastre del recorregut</h2>
+<p id="traceSummary">Encara no hi ha esdeveniments.</p>
+<ol id="traceList"></ol>
+<div class="actions"><button class="secondary" id="exportTrace" disabled>Exportar JSON</button><button class="danger" id="clearTrace" disabled>Esborrar rastre d’aquesta pestanya</button></div>
+<details><summary>Veure JSON</summary><pre id="jsonView">{}</pre></details>
+</section>
+<footer><p>En tancar aquesta pestanya s’esborra l’estat temporal. La decisió humana conserva l’última instància; la traça no és un permís.</p></footer>
+</main>
+<script>
+(function(){
+'use strict';
+var KEY='navigator-0.5-rehearsal-v1';
+var state=null;
+var q=function(id){return document.getElementById(id)};
+var now=function(){return new Date().toISOString()};
+var id=function(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)};
+var save=function(){if(state)sessionStorage.setItem(KEY,JSON.stringify(state));render()};
+var add=function(type,data){state.events.push(Object.assign({id:id('N05'),type:type,at:now()},data||{}));save()};
+var render=function(){
+ var active=!!state;
+ q('openMission').disabled=active;
+ q('delegate').disabled=!active||!!(state&&state.boundary);
+ q('requestBoundary').disabled=!active||!!(state&&state.boundary);
+ q('resolveBoundary').disabled=!(state&&state.boundary);
+ q('exportTrace').disabled=!active;
+ q('clearTrace').disabled=!active;
+ q('missionStatus').textContent=active?'Estat: mandat vigent · invocació activa · '+state.events.length+' esdeveniments.':'Estat: encara no obert.';
+ q('delegateStatus').textContent=state&&state.lastDelegation?state.lastDelegation:'Esperant mandat.';
+ q('boundaryStatus').textContent=state&&state.boundary?'Petició pendent: '+state.boundary.operation+' sobre '+state.boundary.target+' · decisió humana necessària.':'Sense petició pendent.';
+ q('traceSummary').textContent=active?'Invocador arrel: persona → NAVIGATOR · crèdit màxim: 12 esdeveniments · caducitat: '+state.mandate.expiresAt:'Encara no hi ha esdeveniments.';
+ var list=q('traceList');list.innerHTML='';
+ (state?state.events:[]).forEach(function(e){var li=document.createElement('li');li.textContent=e.at+' · '+e.type+(e.actor?' · '+e.actor:'')+(e.detail?' · '+e.detail:'');list.appendChild(li)});
+ q('jsonView').textContent=JSON.stringify(state||{},null,2);
+};
+q('openMission').addEventListener('click',function(){
+ if(state)return;
+ var issued=now();
+ state={format:'navigator-0.5-rehearsal',version:1,mode:'session-only-synthetic',status:'active',mandate:{id:id('NAVM'),actor:'human',programs:['LIMEN','CODEX_CREATURE'],operations:['observe','suggest','virtual-reversible'],maxEvents:12,expiresAt:new Date(Date.now()+15*60*1000).toISOString(),humanDecision:null},invocation:{id:id('NAVI'),actor:'artificial',invokerKind:'human',parentInvocationId:null,capabilities:['observe','suggest','virtual-reversible']},boundary:null,lastDelegation:'Esperant delegació.',events:[]};
+ add('human-mandate-issued',{actor:'human',detail:'Abast virtual i reversible emès per a LIMEN i CODEX_CREATURE.'});
+ add('navigator-invoked',{actor:'artificial',detail:'NAVIGATOR actiu sota mandat; humanDecision continua null.'});
+});
+q('delegate').addEventListener('click',function(){
+ if(!state||state.boundary)return;
+ var instrument=q('instrument').value,operation=q('operation').value,programAllowed=state.mandate.programs.indexOf(instrument)>=0,operationAllowed=state.mandate.operations.indexOf(operation)>=0;
+ if(!programAllowed||!operationAllowed){
+  state.lastDelegation='Delegació denegada: '+(!programAllowed?'programa fora del mandat':'operació fora del mandat')+'. No s’ha obert invocació filla.';
+  add('delegation-denied',{actor:'artificial',detail:instrument+' · '+operation+' · cap permís afegit.'});return;
+ }
+ var child={id:id('CHILD'),parentInvocationId:state.invocation.id,mandateId:state.mandate.id,invokerKind:'instrument',invokerId:instrument,programs:[instrument],operations:[operation],maxEvents:Math.max(1,Math.floor(state.mandate.maxEvents/2)),expiresAt:state.mandate.expiresAt};
+ state.child=child;
+ state.lastDelegation='Invocació filla oberta: '+instrument+' rep només '+operation+'; pressupost reduït a '+child.maxEvents+' esdeveniments.';
+ add('child-invocation-opened',{actor:instrument,detail:'permís heretat en subconjunt · '+operation+' · parent '+state.invocation.id});
+});
+q('requestBoundary').addEventListener('click',function(){
+ if(!state||state.boundary)return;
+ var target=q('boundaryTarget').value;
+ state.boundary={id:id('BOUNDARY'),operation:'external',target:target,effectClass:'external',digest:'fixture-'+target+'-external-'+state.events.length,requestedAt:now(),humanDecision:null};
+ add('permission-expansion-requested',{actor:'artificial',detail:'external · '+target+' · aturada abans de l’efecte.'});
+});
+q('resolveBoundary').addEventListener('click',function(){
+ if(!state||!state.boundary)return;
+ var choice=q('humanChoice').value,b=state.boundary;
+ if(choice==='halt'){
+  add('mission-halted',{actor:'human',detail:'Aturada voluntària abans de qualsevol efecte.'});state.status='halted';state.boundary=null;state.lastDelegation='Missió aturada per decisió humana.';save();return;
+ }
+ b.humanDecision={actor:'human',decision:choice,boundaryId:b.id,actionDigest:b.digest,at:now()};
+ if(choice==='approve'){
+  add('human-boundary-approved',{actor:'human',detail:'Autorització exacta d’un sol ús; estat: ready-for-external-executor. Efecte no executat.'});
+  state.status='ready-for-external-executor';state.lastDelegation='Autorització preparada per a un executor separat; aquesta pàgina no ha executat l’efecte.';
+ }else{
+  add('human-boundary-resolved',{actor:'human',detail:choice+' · cap efecte executat.'});
+  state.status=choice==='quiet'?'paused':choice==='deny'?'closed':'active';
+  state.lastDelegation=choice==='return'?'Retornat a QUIES / REOBSERVE.':choice==='quiet'?'En quietud.': 'Petició denegada i tancada.';
+ }
+ state.boundary=null;save();
+});
+q('exportTrace').addEventListener('click',function(){
+ if(!state)return;
+ var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+ var url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='navigator-0.5-recorregut.json';a.click();setTimeout(function(){URL.revokeObjectURL(url)},1000);
+});
+q('clearTrace').addEventListener('click',function(){sessionStorage.removeItem(KEY);state=null;render()});
+q('resetAll').addEventListener('click',function(){sessionStorage.removeItem(KEY);state=null;render()});
+try{var saved=sessionStorage.getItem(KEY);if(saved)state=JSON.parse(saved)}catch(e){sessionStorage.removeItem(KEY);state=null}
+render();
+})();
+</script>
+</body>
+</html>
