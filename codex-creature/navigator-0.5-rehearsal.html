@@ -100,7 +100,17 @@ var id=function(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.rando
 var canRecord=function(reserve){return !!state&&state.status==='active'&&Date.now()<Date.parse(state.mandate.expiresAt)&&state.events.length+(reserve||1)<=state.mandate.maxEvents};
 var save=function(){if(state)sessionStorage.setItem(KEY,JSON.stringify(state));render()};
 var add=function(type,data){if(!canRecord(1))return false;state.events.push(Object.assign({id:id('N05'),type:type,at:now()},data||{}));save();return true};
+var permissionRequest=function(boundary){return{boundaryId:boundary.id,mandateId:state.mandate.id,invocationId:state.invocation.id,operation:boundary.operation,program:boundary.target,target:boundary.target,effectClass:boundary.effectClass,actionDigest:boundary.digest,requestedAt:boundary.requestedAt}};
+var expirePendingBoundary=function(){
+ if(!state||!state.boundary||Date.now()<Date.parse(state.mandate.expiresAt))return false;
+ var boundary=state.boundary,request=permissionRequest(boundary);
+ state.events.push({id:id('N05'),type:'permission-request-expired',at:now(),actor:'system',boundaryId:boundary.id,actionDigest:boundary.digest,permissionRequest:request,humanDecision:null,outcome:'expired'});
+ state.boundary=null;state.status='expired';
+ sessionStorage.setItem(KEY,JSON.stringify(state));
+ return true;
+};
 var render=function(){
+ if(state&&state.boundary)expirePendingBoundary();
  var active=!!state;
  q('openMission').disabled=active;
  q('delegate').disabled=!canRecord(1)||!!(state&&state.boundary);
@@ -139,7 +149,7 @@ q('requestBoundary').addEventListener('click',function(){
  if(!canRecord(2)||state.boundary)return;
  var target=q('boundaryTarget').value;
  state.boundary={id:id('BOUNDARY'),operation:'external',target:target,effectClass:'external',digest:'fixture-'+target+'-external-'+state.events.length,requestedAt:now(),humanDecision:null};
- add('permission-expansion-requested',{actor:'artificial',detail:'external · '+target+' · aturada abans de l’efecte.'});
+ add('permission-expansion-requested',{actor:'artificial',boundaryId:state.boundary.id,actionDigest:state.boundary.digest,permissionRequest:permissionRequest(state.boundary),detail:'external · '+target+' · aturada abans de l’efecte.'});
 });
 q('resolveBoundary').addEventListener('click',function(){
  if(!state||!state.boundary||!canRecord(1))return;
@@ -147,12 +157,15 @@ q('resolveBoundary').addEventListener('click',function(){
  if(choice==='halt'){
   add('mission-halted',{actor:'human',detail:'Aturada voluntària abans de qualsevol efecte.'});state.status='halted';state.boundary=null;state.lastDelegation='Missió aturada per decisió humana.';save();return;
  }
- b.humanDecision={actor:'human',decision:choice,boundaryId:b.id,actionDigest:b.digest,at:now()};
+ var decision={actor:'human',decision:choice,boundaryId:b.id,actionDigest:b.digest,at:now()};
+ b.humanDecision=decision;
+ var request=permissionRequest(b);
+ var eventData={actor:'human',boundaryId:b.id,actionDigest:b.digest,permissionRequest:request,humanDecision:decision};
  if(choice==='approve'){
-  add('human-boundary-approved',{actor:'human',detail:'Autorització exacta d’un sol ús; estat: ready-for-external-executor. Efecte no executat.'});
+  add('human-boundary-approved',Object.assign({},eventData,{detail:'Autorització exacta d’un sol ús; estat: ready-for-external-executor. Efecte no executat.'}));
   state.status='ready-for-external-executor';state.lastDelegation='Autorització preparada per a un executor separat; aquesta pàgina no ha executat l’efecte.';
  }else{
-  add('human-boundary-resolved',{actor:'human',detail:choice+' · cap efecte executat.'});
+  add('human-boundary-resolved',Object.assign({},eventData,{detail:choice+' · cap efecte executat.'}));
   state.status=choice==='quiet'?'paused':choice==='deny'?'closed':'active';
   state.lastDelegation=choice==='return'?'Retornat a QUIES / REOBSERVE.':choice==='quiet'?'En quietud.': 'Petició denegada i tancada.';
  }
