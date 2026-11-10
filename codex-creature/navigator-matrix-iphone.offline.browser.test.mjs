@@ -48,18 +48,32 @@ try{
     return {
       cacheName:keys.find(key=>key.startsWith('codex-viu-canonical-')),
       html:urls.includes('/codex/codex-creature/index.html'),
-      module:urls.includes('/codex/codex-creature/navigator-matrix-iphone.mjs')
+      module:urls.includes('/codex/codex-creature/navigator-matrix-iphone.mjs'),
+      rehearsal:urls.includes('/codex/codex-creature/navigator-0.5-rehearsal.html')
     };
   });
   assert.ok(precache.cacheName,'The canonical service-worker cache is installed');
   assert.equal(precache.html,true,'Còdex Creature HTML is preloaded');
   assert.equal(precache.module,true,'The MATRIX module is preloaded');
+  assert.equal(precache.rehearsal,true,'NAVIGATOR 0.5 rehearsal page is preloaded');
   await page.evaluate(({fragmentKey,arrangementKey,realFragments,realArrangements})=>{
     localStorage.setItem(fragmentKey,realFragments);
     localStorage.setItem(arrangementKey,realArrangements);
   },{fragmentKey,arrangementKey,realFragments,realArrangements});
 
   await context.setOffline(true);
+  await page.goto(`${base}codex-creature/`);
+  const rehearsalLink=page.getByRole('link',{name:/NAVIGATOR 0\.5 · assaig manual per a iPhone/});
+  assert.equal(await rehearsalLink.getAttribute('href'),'./navigator-0.5-rehearsal.html');
+  await rehearsalLink.click();
+  await page.getByRole('heading',{name:'NAVIGATOR 0.5',exact:true}).waitFor();
+  await page.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  assert.match(await page.locator('#missionStatus').innerText(),/active/);
+  assert.equal(await page.evaluate(key=>!!sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'),true);
+  assert.equal(await page.evaluate(({fragmentKey,arrangementKey,realFragments,realArrangements})=>
+    localStorage.getItem(fragmentKey)===realFragments&&localStorage.getItem(arrangementKey)===realArrangements,
+  {fragmentKey,arrangementKey,realFragments,realArrangements}),true,'NAVIGATOR 0.5 rehearsal leaves real creative stores untouched');
+
   await page.goto(`${base}codex-creature/?navigator-matrix=1#matrix`);
   await page.locator('#matrix').waitFor();
   assert.equal(await page.locator('#matrixHeading').innerText(),'Mandat humà. Travessa sintètica. Retorn exacte.');
@@ -87,7 +101,7 @@ try{
     localStorage.getItem(fragmentKey)===realFragments&&localStorage.getItem(arrangementKey)===realArrangements,
   {fragmentKey,arrangementKey,realFragments,realArrangements}),true,'Offline rehearsal leaves the real stores untouched');
   assert.ok(requests.every(url=>url.startsWith(origin)||url.startsWith('blob:')),'No external request is made');
-  console.log('NAVIGATOR MATRIX iPhone offline: precached HTML/module, mandate, invocation, export, Retrodansa and dissolution: OK');
+  console.log('NAVIGATOR iPhone offline: MATRIX and NAVIGATOR 0.5 precache/navigation, synthetic rehearsal, existing-store isolation and MATRIX rollback: OK');
 }finally{
   await context?.close();
   await browser?.close();

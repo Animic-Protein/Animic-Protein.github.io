@@ -1,4 +1,4 @@
-const CACHE = 'codex-viu-canonical-v133';
+const CACHE = 'codex-viu-canonical-v134';
 const ASSETS = [
   './', './index.html', './styles.css', './rosa.css', './rosa-lamina.css', './rosa-enhanced.css', './rosa-inter-nos.css', './cartographia.css',
   './germinacio.css', './error-fertil-i.css', './radices-brodsky.css', './vortex-ant.css', './temps-nu.css', './app.js', './foundation.js', './core.js', './germinacio.js', './phase3.js', './seed-bridge.js', './compost-cycle.js', './error-fertil-i.js', './metabolism.js', './homeostasis.js', './lineage.js',
@@ -55,7 +55,7 @@ ASSETS.push(
   './experiments/dissensus/protocol.mjs',
   './experiments/dissensus/offline.mjs',
   './experiments/dissensus/DISSENSUS-guia-CAT-RU-KO-YUE-reparat.pdf',
-  './codex-creature/', './codex-creature/index.html', './codex-creature/navigator-matrix-iphone.mjs'
+  './codex-creature/', './codex-creature/index.html', './codex-creature/navigator-matrix-iphone.mjs', './codex-creature/navigator-0.5-rehearsal.html'
 );
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
