@@ -44,6 +44,32 @@ try{
   assert.deepEqual(availableOperations,[...NAVIGATOR_SANDBOX_OPERATIONS,'virtual-reversible'],'All contract operations plus the existing reversible fixture operation are selectable');
   await scopeCatalog.close();
 
+  for(const [group,label] of [['program','instrument'],['operation','operation']]){
+    const emptyMandate=await context.newPage();
+    await emptyMandate.goto(base);
+    await emptyMandate.locator(`[data-scope="${group}"]:checked`).evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+    await emptyMandate.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+    assert.equal(await emptyMandate.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'),null,`An empty ${label} selection does not issue a mandate`);
+    assert.match(await emptyMandate.locator('#missionStatus').textContent(),/Tria almenys un instrument i una operació/);
+    await emptyMandate.close();
+  }
+
+  const exactExport=await context.newPage();
+  await exactExport.goto(base);
+  await exactExport.locator('[data-scope="program"]:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await exactExport.locator('[data-scope="operation"]:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await exactExport.locator('#programScope input[value="HARMONIA"]').check();
+  await exactExport.locator('#operationScope input[value="creature.harmonia.fixture"]').check();
+  assert.equal(await exactExport.evaluate(()=>localStorage.length),0,'The rehearsal starts without local creative data');
+  await exactExport.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  const downloadedTrace=await exportTrace(exactExport);
+  assert.equal(downloadedTrace.mode,'session-only-synthetic','The exported trace remains synthetic and session-only');
+  assert.deepEqual(downloadedTrace.mandate.programs,['HARMONIA'],'The downloaded JSON preserves exactly the selected instrument');
+  assert.deepEqual(downloadedTrace.mandate.operations,['creature.harmonia.fixture'],'The downloaded JSON preserves exactly the selected operation');
+  assert.deepEqual(downloadedTrace.invocation.capabilities,['creature.harmonia.fixture']);
+  assert.equal(await exactExport.evaluate(()=>localStorage.length),0,'The rehearsal does not write to local creative data');
+  await exactExport.close();
+
   const outOfScope=await context.newPage();
   await outOfScope.goto(base);
   await outOfScope.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
@@ -162,8 +188,9 @@ try{
   assert.equal(await dissolved.getByRole('button',{name:'Exportar JSON'}).isDisabled(),true);
   await dissolved.close();
   await context.close();
-  console.log('NAVIGATOR 0.5 synthetic rehearsal: permission catalog, scoped delegation, paired transfer, boundary approval, denial, quiet, expiry and dissolution: OK');
+  console.log('NAVIGATOR 0.5 synthetic rehearsal: permission catalog, empty mandates, exact scoped export, scoped delegation, paired transfer, boundary approval, denial, quiet, expiry and dissolution: OK');
 }finally{
   await browser?.close();
   await new Promise(resolve=>server.close(resolve));
 }
+
