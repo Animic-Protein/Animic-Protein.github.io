@@ -3,6 +3,7 @@ import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {chromium} from 'playwright';
+import {NAVIGATOR_INSTRUMENTS,NAVIGATOR_SANDBOX_OPERATIONS} from '../governanca/navigator-contract.mjs';
 
 const root=process.cwd();
 const file=path.join(root,'codex-creature','navigator-0.5-rehearsal.html');
@@ -34,6 +35,102 @@ try{
     await (await import('node:fs/promises')).unlink(target);
     return trace;
   }
+
+  const scopeCatalog=await context.newPage();
+  await scopeCatalog.goto(base);
+  const availableInstruments=await scopeCatalog.locator('#programScope input').evaluateAll(inputs=>inputs.map(input=>input.value));
+  const availableOperations=await scopeCatalog.locator('#operationScope input').evaluateAll(inputs=>inputs.map(input=>input.value));
+  assert.deepEqual(availableInstruments,[...NAVIGATOR_INSTRUMENTS,'CODEX_CREATURE'],'All contract instruments plus the existing Creature fixture are selectable');
+  assert.deepEqual(availableOperations,[...NAVIGATOR_SANDBOX_OPERATIONS,'virtual-reversible'],'All contract operations plus the existing reversible fixture operation are selectable');
+  await scopeCatalog.close();
+
+  for(const [group,label] of [['program','instrument'],['operation','operation']]){
+    const emptyMandate=await context.newPage();
+    await emptyMandate.goto(base);
+    await emptyMandate.locator(`[data-scope="${group}"]:checked`).evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+    await emptyMandate.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+    assert.equal(await emptyMandate.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'),null,`An empty ${label} selection does not issue a mandate`);
+    assert.match(await emptyMandate.locator('#missionStatus').textContent(),/Tria almenys un instrument i una operació/);
+    await emptyMandate.close();
+  }
+
+  const exactExport=await context.newPage();
+  await exactExport.goto(base);
+  await exactExport.locator('[data-scope="program"]:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await exactExport.locator('[data-scope="operation"]:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await exactExport.locator('#programScope input[value="HARMONIA"]').check();
+  await exactExport.locator('#operationScope input[value="creature.harmonia.fixture"]').check();
+  assert.equal(await exactExport.evaluate(()=>localStorage.length),0,'The rehearsal starts without local creative data');
+  await exactExport.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  const downloadedTrace=await exportTrace(exactExport);
+  assert.equal(downloadedTrace.mode,'session-only-synthetic','The exported trace remains synthetic and session-only');
+  assert.deepEqual(downloadedTrace.mandate.programs,['HARMONIA'],'The downloaded JSON preserves exactly the selected instrument');
+  assert.deepEqual(downloadedTrace.mandate.operations,['creature.harmonia.fixture'],'The downloaded JSON preserves exactly the selected operation');
+  assert.deepEqual(downloadedTrace.invocation.capabilities,['creature.harmonia.fixture']);
+  assert.equal(await exactExport.evaluate(()=>localStorage.length),0,'The rehearsal does not write to local creative data');
+  await exactExport.close();
+
+  const outOfScope=await context.newPage();
+  await outOfScope.goto(base);
+  await outOfScope.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  await outOfScope.locator('#instrument').selectOption('DISSENSUS');
+  await outOfScope.locator('#operation').selectOption('dissensus.fixture');
+  await outOfScope.getByRole('button',{name:'Delegar permís seleccionat'}).click();
+  const outOfScopeState=JSON.parse(await outOfScope.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'));
+  assert.equal(outOfScopeState.events.at(-1).type,'delegation-denied');
+  assert.equal(outOfScopeState.child,undefined,'An available option remains denied when it is absent from the human mandate');
+  await outOfScope.close();
+
+  const scopedDissensus=await context.newPage();
+  await scopedDissensus.goto(base);
+  await scopedDissensus.locator('#programScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await scopedDissensus.locator('#operationScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await scopedDissensus.locator('#programScope input[value="DISSENSUS"]').check();
+  await scopedDissensus.locator('#operationScope input[value="dissensus.fixture"]').check();
+  await scopedDissensus.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  assert.equal(await scopedDissensus.locator('#programScope input[value="DISSENSUS"]').isDisabled(),true,'The human mandate scope is frozen after issue');
+  await scopedDissensus.locator('#instrument').selectOption('DISSENSUS');
+  await scopedDissensus.locator('#operation').selectOption('dissensus.fixture');
+  await scopedDissensus.getByRole('button',{name:'Delegar permís seleccionat'}).click();
+  const dissensusState=JSON.parse(await scopedDissensus.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'));
+  assert.deepEqual(dissensusState.mandate.programs,['DISSENSUS']);
+  assert.deepEqual(dissensusState.mandate.operations,['dissensus.fixture']);
+  assert.deepEqual(dissensusState.child.programs,['DISSENSUS']);
+  assert.deepEqual(dissensusState.child.operations,['dissensus.fixture']);
+  assert.deepEqual(dissensusState.child.capabilities,['dissensus.fixture']);
+  await scopedDissensus.close();
+
+  const incompleteTransfer=await context.newPage();
+  await incompleteTransfer.goto(base);
+  await incompleteTransfer.locator('#programScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await incompleteTransfer.locator('#operationScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await incompleteTransfer.locator('#programScope input[value="HARMONIA"]').check();
+  await incompleteTransfer.locator('#operationScope input[value="creature.transfer.fixture"]').check();
+  await incompleteTransfer.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  await incompleteTransfer.locator('#instrument').selectOption('HARMONIA');
+  await incompleteTransfer.locator('#operation').selectOption('creature.transfer.fixture');
+  await incompleteTransfer.getByRole('button',{name:'Delegar permís seleccionat'}).click();
+  const incompleteState=JSON.parse(await incompleteTransfer.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'));
+  assert.equal(incompleteState.events.at(-1).type,'delegation-denied','A transfer is denied unless both required instruments are in the mandate');
+  assert.equal(incompleteState.child,undefined);
+  await incompleteTransfer.close();
+
+  const pairedTransfer=await context.newPage();
+  await pairedTransfer.goto(base);
+  await pairedTransfer.locator('#programScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await pairedTransfer.locator('#operationScope input:checked').evaluateAll(inputs=>inputs.forEach(input=>{input.checked=false;input.dispatchEvent(new Event('change',{bubbles:true}))}));
+  await pairedTransfer.locator('#programScope input[value="HARMONIA"]').check();
+  await pairedTransfer.locator('#programScope input[value="MELODIA"]').check();
+  await pairedTransfer.locator('#operationScope input[value="creature.transfer.fixture"]').check();
+  await pairedTransfer.getByRole('button',{name:'Emetre mandat humà i invocar NAVIGATOR'}).click();
+  await pairedTransfer.locator('#instrument').selectOption('HARMONIA');
+  await pairedTransfer.locator('#operation').selectOption('creature.transfer.fixture');
+  await pairedTransfer.getByRole('button',{name:'Delegar permís seleccionat'}).click();
+  const pairedState=JSON.parse(await pairedTransfer.evaluate(key=>sessionStorage.getItem(key),'navigator-0.5-rehearsal-v1'));
+  assert.deepEqual(pairedState.child.programs,['HARMONIA','MELODIA'],'A valid transfer delegation carries exactly the mandated pair');
+  assert.deepEqual(pairedState.child.operations,['creature.transfer.fixture']);
+  assert.deepEqual(pairedState.child.capabilities,['creature.transfer.fixture']);
+  await pairedTransfer.close();
 
   const approved=await newMission();
   await approved.locator('#humanChoice').selectOption('approve');
@@ -91,8 +188,9 @@ try{
   assert.equal(await dissolved.getByRole('button',{name:'Exportar JSON'}).isDisabled(),true);
   await dissolved.close();
   await context.close();
-  console.log('NAVIGATOR 0.5 synthetic rehearsal: approval, denial, quiet, expiry and dissolution: OK');
+  console.log('NAVIGATOR 0.5 synthetic rehearsal: permission catalog, empty mandates, exact scoped export, scoped delegation, paired transfer, boundary approval, denial, quiet, expiry and dissolution: OK');
 }finally{
   await browser?.close();
   await new Promise(resolve=>server.close(resolve));
 }
+
