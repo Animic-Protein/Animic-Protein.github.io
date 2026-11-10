@@ -34,6 +34,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#071725;border:1px so
 .small{font-size:.9rem}
 footer{color:var(--muted);font-size:.88rem;padding:6px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.scope-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin:8px 0 14px}.scope-choice{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:9px;padding:8px;background:#0a2033}.scope-choice input{width:20px;height:20px;accent-color:#73c4ef}
 @media(max-width:520px){main{padding:12px 10px 40px}.card,header{padding:16px;border-radius:14px}}
 </style>
 </head>
@@ -48,12 +49,11 @@ footer{color:var(--muted);font-size:.88rem;padding:6px}
 
 <section class="card" aria-labelledby="phaseTitle">
 <h2 id="phaseTitle">1 · Obrir una missió</h2>
-<p>La persona emet un mandat curt per a dos espais de prova. NAVIGATOR actuarà com a agent artificial dins aquest abast.</p>
-<div class="grid">
-<div><strong>Programes de fixture</strong><div class="pills"><span class="pill">LIMEN</span><span class="pill">CODEX_CREATURE</span></div></div>
-<div><strong>Permisos arrel</strong><div class="pills"><span class="pill">observe</span><span class="pill">suggest</span><span class="pill">virtual-reversible</span></div></div>
+<p>La persona tria un subconjunt explícit dels instruments i operacions de fixture disponibles. NAVIGATOR només rep l’abast marcat en aquest mandat humà.</p>
+<div><strong>Instruments del mandat</strong><div id="programScope" class="scope-grid" aria-label="Instruments permesos"></div></div>
+<div><strong>Operacions del mandat</strong><div id="operationScope" class="scope-grid" aria-label="Operacions permeses"></div></div>
+<div class="notice small">Les operacions només registren efectes ficticis, locals i reversibles. Els efectes externs continuen fora del mandat i requereixen una decisió humana exacta.</div>
 <div><strong>Límits</strong><p>4 cicles · 12 esdeveniments · 15 minuts · sense xarxa ni persistència externa</p></div>
-</div>
 <div class="actions"><button class="primary" id="openMission">Emetre mandat humà i invocar NAVIGATOR</button><button class="secondary" id="resetAll">Dissoldre el rastre</button></div>
 <p class="state" id="missionStatus" aria-live="polite">Estat: encara no obert.</p>
 </section>
@@ -62,8 +62,8 @@ footer{color:var(--muted);font-size:.88rem;padding:6px}
 <h2 id="delegateTitle">2 · Delegar un abast més estret</h2>
 <p>Tria un instrument receptor i limita’l a una part del mandat. La delegació queda registrada com a invocació filla.</p>
 <div class="grid">
-<div><label for="instrument">Instrument receptor</label><select id="instrument"><option value="LIMEN">LIMEN</option><option value="CODEX_CREATURE">Còdex Creature</option><option value="DISSENSUS">DISSENSUS (fora del mandat)</option></select></div>
-<div><label for="operation">Operació sol·licitada</label><select id="operation"><option value="observe">observe</option><option value="suggest">suggest</option><option value="virtual-reversible">virtual-reversible</option><option value="external">external (fora del mandat)</option></select></div>
+<div><label for="instrument">Instrument receptor</label><select id="instrument" aria-label="Instrument receptor"></select></div>
+<div><label for="operation">Operació sol·licitada</label><select id="operation" aria-label="Operació sol·licitada"></select></div>
 </div>
 <div class="actions"><button class="primary" id="delegate" disabled>Delegar permís seleccionat</button></div>
 <p class="state" id="delegateStatus" aria-live="polite">Esperant mandat.</p>
@@ -73,7 +73,7 @@ footer{color:var(--muted);font-size:.88rem;padding:6px}
 <h2 id="boundaryTitle">3 · Provar una petició fora d’abast</h2>
 <p>La petició external queda bloquejada i demana una decisió humana vinculada a aquesta acció. Cap resposta no executa l’efecte aquí.</p>
 <div class="grid">
-<div><label for="boundaryTarget">Objecte de prova</label><select id="boundaryTarget"><option value="LIMEN">LIMEN</option><option value="CODEX_CREATURE">CODEX_CREATURE</option></select></div>
+<div><label for="boundaryTarget">Objecte de prova</label><select id="boundaryTarget" aria-label="Objecte de prova"></select></div>
 <div><label for="humanChoice">Resposta humana</label><select id="humanChoice"><option value="return">Retornar i reobservar</option><option value="deny">Denegar</option><option value="quiet">Quietud</option><option value="approve">Aprovar aquest pas concret</option><option value="halt">Aturar la missió</option></select></div>
 </div>
 <div class="actions"><button class="secondary" id="requestBoundary" disabled>Sol·licitar efecte external</button><button class="primary" id="resolveBoundary" disabled>Registrar resposta humana</button></div>
@@ -97,6 +97,42 @@ var state=null;
 var q=function(id){return document.getElementById(id)};
 var now=function(){return new Date().toISOString()};
 var id=function(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)};
+var INSTRUMENTS=['MUTATIO','SEMENT','HOMEOSTASIS','COMPOST','ZAJJ-VIU','RETRODANSA','ARCHIVUM','KREATOR-RPG','LIMEN','DISSENSUS','HARMONIA','MELODIA','RITME','LYRICS','AUDIO-VIDEO','MISCE','ARRANJAMENTS','CODEX_CREATURE'];
+var OPERATIONS=['observe','suggest','traverse.fixture','creature.harmonia.fixture','creature.melodia.fixture','creature.ritme.fixture','creature.lyrics.fixture','creature.audio-video.fixture','creature.misce.fixture','arrangement.fixture','creature.transfer.fixture','mutatio.fixture','seed.fixture','homeostasis.check','compost.fixture','zajj-viv.fixture','retrodansa.fixture','archivum.draft','kreator-rpg.fixture','limen.fixture','dissensus.fixture','virtual-reversible'];
+var REQUIRED_INSTRUMENTS={
+ 'creature.harmonia.fixture':['HARMONIA'],'creature.melodia.fixture':['MELODIA'],'creature.ritme.fixture':['RITME'],
+ 'creature.lyrics.fixture':['LYRICS'],'creature.audio-video.fixture':['AUDIO-VIDEO'],'creature.misce.fixture':['MISCE'],
+ 'arrangement.fixture':['ARRANJAMENTS'],'creature.transfer.fixture':['HARMONIA','MELODIA'],
+ 'mutatio.fixture':['MUTATIO'],'seed.fixture':['SEMENT'],'homeostasis.check':['HOMEOSTASIS'],
+ 'compost.fixture':['COMPOST'],'zajj-viv.fixture':['ZAJJ-VIU'],'retrodansa.fixture':['RETRODANSA'],
+ 'archivum.draft':['ARCHIVUM'],'kreator-rpg.fixture':['KREATOR-RPG'],'limen.fixture':['LIMEN'],'dissensus.fixture':['DISSENSUS']
+};
+var defaults={program:['LIMEN','CODEX_CREATURE'],operation:['observe','suggest','virtual-reversible']};
+var scopeValues=function(group){return Array.from(document.querySelectorAll('[data-scope="'+group+'"]:checked')).map(function(input){return input.value})};
+var addScopeChoices=function(containerId,group,values,selected){
+ var container=q(containerId);
+ values.forEach(function(value){
+  var label=document.createElement('label'),input=document.createElement('input'),text=document.createElement('span');
+  label.className='scope-choice';input.type='checkbox';input.value=value;input.dataset.scope=group;input.checked=selected.indexOf(value)>=0;
+  text.textContent=value;label.appendChild(input);label.appendChild(text);container.appendChild(label);
+ });
+};
+var addSelectOptions=function(select,values,includeExternal){
+ values.forEach(function(value){var option=document.createElement('option');option.value=value;option.textContent=value;select.appendChild(option)});
+ if(includeExternal){var external=document.createElement('option');external.value='external';external.textContent='external (fora del mandat)';select.appendChild(external)}
+};
+var syncBoundaryTargets=function(programs){
+ var select=q('boundaryTarget'),values=programs||scopeValues('program'),previous=select.value;
+ select.innerHTML='';
+ values.forEach(function(value){var option=document.createElement('option');option.value=value;option.textContent=value;select.appendChild(option)});
+ if(values.indexOf(previous)>=0)select.value=previous;
+};
+addScopeChoices('programScope','program',INSTRUMENTS,defaults.program);
+addScopeChoices('operationScope','operation',OPERATIONS,defaults.operation);
+addSelectOptions(q('instrument'),INSTRUMENTS,false);q('instrument').value='LIMEN';
+addSelectOptions(q('operation'),OPERATIONS,true);q('operation').value='observe';
+syncBoundaryTargets();
+q('programScope').addEventListener('change',function(){if(!state)syncBoundaryTargets()});
 var canRecord=function(reserve){return !!state&&state.status==='active'&&Date.now()<Date.parse(state.mandate.expiresAt)&&state.events.length+(reserve||1)<=state.mandate.maxEvents};
 var save=function(){if(state)sessionStorage.setItem(KEY,JSON.stringify(state));render()};
 var add=function(type,data){if(!canRecord(1))return false;state.events.push(Object.assign({id:id('N05'),type:type,at:now()},data||{}));save();return true};
@@ -113,6 +149,7 @@ var render=function(){
  if(state&&state.boundary)expirePendingBoundary();
  var active=!!state;
  q('openMission').disabled=active;
+ document.querySelectorAll('[data-scope]').forEach(function(input){input.disabled=active});
  q('delegate').disabled=!canRecord(1)||!!(state&&state.boundary);
  q('requestBoundary').disabled=!canRecord(2)||!!(state&&state.boundary);
  q('resolveBoundary').disabled=!(state&&state.boundary)||!canRecord(1);
@@ -128,21 +165,29 @@ var render=function(){
 };
 q('openMission').addEventListener('click',function(){
  if(state)return;
+ var programs=scopeValues('program'),operations=scopeValues('operation');
+ if(!programs.length||!operations.length){q('missionStatus').textContent='Tria almenys un instrument i una operació abans d’emetre el mandat.';return}
  var issued=now();
- state={format:'navigator-0.5-rehearsal',version:1,mode:'session-only-synthetic',status:'active',mandate:{id:id('NAVM'),actor:'human',programs:['LIMEN','CODEX_CREATURE'],operations:['observe','suggest','virtual-reversible'],maxEvents:12,expiresAt:new Date(Date.now()+15*60*1000).toISOString(),humanDecision:null},invocation:{id:id('NAVI'),actor:'artificial',invokerKind:'human',parentInvocationId:null,capabilities:['observe','suggest','virtual-reversible']},boundary:null,lastDelegation:'Esperant delegació.',events:[]};
- add('human-mandate-issued',{actor:'human',detail:'Abast virtual i reversible emès per a LIMEN i CODEX_CREATURE.'});
- add('navigator-invoked',{actor:'artificial',detail:'NAVIGATOR actiu sota mandat; humanDecision continua null.'});
+ state={format:'navigator-0.5-rehearsal',version:1,mode:'session-only-synthetic',status:'active',mandate:{id:id('NAVM'),actor:'human',programs:programs,operations:operations,maxEvents:12,expiresAt:new Date(Date.now()+15*60*1000).toISOString(),humanDecision:null},invocation:{id:id('NAVI'),actor:'artificial',invokerKind:'human',parentInvocationId:null,capabilities:operations.slice()},boundary:null,lastDelegation:'Esperant delegació.',events:[]};
+ syncBoundaryTargets(programs);
+ add('human-mandate-issued',{actor:'human',detail:'Abast local, sintètic i reversible emès per a '+programs.join(', ')+' · '+operations.join(', ')+'.'});
+ add('navigator-invoked',{actor:'artificial',detail:'NAVIGATOR actiu sota mandat humà; humanDecision continua null.'});
 });
 q('delegate').addEventListener('click',function(){
  if(!canRecord(1)||state.boundary)return;
- var instrument=q('instrument').value,operation=q('operation').value,programAllowed=state.mandate.programs.indexOf(instrument)>=0,operationAllowed=state.mandate.operations.indexOf(operation)>=0;
- if(!programAllowed||!operationAllowed){
-  state.lastDelegation='Delegació denegada: '+(!programAllowed?'programa fora del mandat':'operació fora del mandat')+'. No s’ha obert invocació filla.';
-  add('delegation-denied',{actor:'artificial',detail:instrument+' · '+operation+' · cap permís afegit.'});return;
+ var instrument=q('instrument').value,operation=q('operation').value,required=REQUIRED_INSTRUMENTS[operation]||[];
+ var operationAllowed=state.mandate.operations.indexOf(operation)>=0;
+ var instrumentsAllowed=required.length?required.every(function(name){return state.mandate.programs.indexOf(name)>=0}):state.mandate.programs.indexOf(instrument)>=0;
+ var receiverAllowed=required.length?required.indexOf(instrument)>=0:instrumentsAllowed;
+ if(!operationAllowed||!instrumentsAllowed||!receiverAllowed){
+  var reason=!operationAllowed?'operació fora del mandat':!instrumentsAllowed?'l’operació requereix instruments fora del mandat':'instrument receptor fora del mandat';
+  state.lastDelegation='Delegació denegada: '+reason+'. No s’ha obert invocació filla.';
+  add('delegation-denied',{actor:'artificial',detail:instrument+' · '+operation+' · '+reason+'.'});return;
  }
- var child={id:id('CHILD'),parentInvocationId:state.invocation.id,mandateId:state.mandate.id,invokerKind:'instrument',invokerId:instrument,programs:[instrument],operations:[operation],maxEvents:Math.max(1,Math.floor(state.mandate.maxEvents/2)),expiresAt:state.mandate.expiresAt};
+ var childPrograms=required.length?required:[instrument];
+ var child={id:id('CHILD'),parentInvocationId:state.invocation.id,mandateId:state.mandate.id,invokerKind:'instrument',invokerId:instrument,programs:childPrograms,operations:[operation],capabilities:[operation],maxEvents:Math.max(1,Math.floor(state.mandate.maxEvents/2)),expiresAt:state.mandate.expiresAt};
  state.child=child;
- state.lastDelegation='Invocació filla oberta: '+instrument+' rep només '+operation+'; pressupost reduït a '+child.maxEvents+' esdeveniments.';
+ state.lastDelegation='Invocació filla oberta: '+childPrograms.join(' + ')+' rep només '+operation+'; pressupost reduït a '+child.maxEvents+' esdeveniments.';
  add('child-invocation-opened',{actor:instrument,detail:'permís heretat en subconjunt · '+operation+' · parent '+state.invocation.id});
 });
 q('requestBoundary').addEventListener('click',function(){
