@@ -43,7 +43,7 @@ Droit-Volet, S., Monier, F. & Martinelli, N. N. (2026). “When does the feeling
 
 ## Conseqüència de disseny
 
-La Cambra ofereix, després d’escriure la durada percebuda i abans de revelar el rellotge, quatre respostes opcionals: velocitat sentida (més lenta/habitual/més ràpida), avorriment, implicació i si s’han notat canvis corporals. Es desen només al mateix registre local i es poden dissoldre. No es calcula cap perfil ni puntuació composta. La seqüència de preguntes i el fet d’autoobservar-se poden influir en la resposta; per tant, no és una rèplica experimental dels articles.
+La Cambra ofereix, després d’escriure la durada percebuda i abans de revelar el rellotge, cinc respostes opcionals: velocitat sentida (més lenta/habitual/més ràpida), avorriment, implicació, confiança en la durada estimada i si s’han notat canvis corporals. Es desen només al mateix registre local i es poden dissoldre. La confiança és una autovaloració, no una mesura d’exactitud ni de calibratge. No es calcula cap perfil ni puntuació composta. La seqüència de preguntes i el fet d’autoobservar-se poden influir en la resposta; per tant, no és una rèplica experimental dels articles.
 
 **Interpretació poètica del Còdex:** «El rellotge compta. El cos negocia. Tu decideixes quan aturar-te.»  
 **Límit epistemològic:** la frase és una formulació artística; no és una conclusió dels estudis.
