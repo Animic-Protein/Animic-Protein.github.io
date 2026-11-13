@@ -26,7 +26,7 @@ function renderHistory(){
     const label=record.fragment?.exerciseLabel||'Temps ocult';
     const title=document.createElement('strong');title.textContent=`Captura ${captures.length-index} · ${label}`;
     const shown=Number.isFinite(record.fragment?.displayedTime)?` · mostrat ${formatDuration(record.fragment.displayedTime)}`:'';
-    const detail=document.createElement('small');detail.textContent=`Cronològic ${formatDuration(record.fragment?.chronological)}${shown} · percebut ${formatDuration(record.fragment?.perceived)} · diferència ${Number(record.fragment?.difference||0).toFixed(1)} s${record.fragment?.timingIntegrity==='backgrounded'?' · sessió en segon pla; cronologia potencialment incompleta':''}`;
+    const r=record.fragment?.reflection||{};const labels={slower:'pas sentit més lent',usual:'pas sentit habitual',faster:'pas sentit més ràpid'};const answers=[labels[r.passageSpeed],r.boredom!=null?`avorriment ${r.boredom}/4`:null,r.engagement!=null?`implicació ${r.engagement}/4`:null,r.bodyAwareness==='yes'?'canvis corporals notats':r.bodyAwareness==='no'?'cap canvi corporal notat':null].filter(Boolean);const detail=document.createElement('small');detail.textContent=`Cronològic ${formatDuration(record.fragment?.chronological)}${shown} · durada percebuda ${formatDuration(record.fragment?.perceived)} · diferència ${Number(record.fragment?.difference||0).toFixed(1)} s${answers.length?' · retorn: '+answers.join(', '):''}${record.fragment?.timingIntegrity==='backgrounded'?' · sessió en segon pla; cronologia potencialment incompleta':''}`;
     card.append(title,detail);list.append(card);
   });
 }
