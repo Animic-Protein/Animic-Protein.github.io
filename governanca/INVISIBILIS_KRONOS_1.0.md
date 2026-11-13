@@ -38,6 +38,14 @@ Després de declarar el temps percebut i veure el temps cronològic real, la per
 - Les notes creatives no s’afegeixen al rastre ni s’envien. La recollida centralitzada requereix un protocol separat, consentiment/informació adequats i supervisió ètica.
 - Estat de recerca: pregunta oberta; cap conclusió sobre cultura, edat, sexe, gènere o causa s’infereix de l’ús individual.
 
+## Evidència i interpretació
+
+Bibliografia comentada i procedència dels sis articles: [Archivum · Temps subjectiu / Invisibilis Kronos](../archivum/recerca/CAMBRA_NUA_TEMPS_SUBJECTIU_2026-11.md).
+
+La Cambra diferencia quatre nivells: durada cronològica (rellotge monotònic), estimació declarada de durada, judici subjectiu sobre la velocitat del pas del temps i retorn afectiu opcional (avorriment/implicació). Les respostes corporals són una autoobservació i no una mesura d’interocepció. Aquests camps no diagnostiquen, no atribueixen causalitat i no demostren que la Cambra reprodueixi els paradigmes de laboratori citats.
+
+**Interpretació poètica:** «El rellotge compta. El cos negocia. Tu decideixes quan aturar-te» és una formulació artística del Còdex, no una troballa experimental. La recerca només orienta preguntes i distincions de disseny.
+
 ## Relacions
 
 - **Brodsky · Elogi de l’avorriment:** l’avorriment com a trobada amb la durada i la repetició.
@@ -51,5 +59,10 @@ Després de declarar el temps percebut i veure el temps cronològic real, la per
 - Brodsky, J. (1995). «In Praise of Boredom», a *On Grief and Reason: Essays*. Farrar, Straus and Giroux. [Editorial](https://us.macmillan.com/books/9780374525095/ongriefandreason/).
 - Mann, S. & Cadman, R. (2014). [Does Being Bored Make Us More Creative?](https://doi.org/10.1080/10400419.2014.901073). *Creativity Research Journal*, 26(2), 165–173.
 - Zeißig, A., Kansok-Dusche, J., Fischer, S. M., Moeller, J. & Bilz, L. (2024). [The association between boredom and creativity in educational contexts: A scoping review on research approaches and empirical findings](https://doi.org/10.1002/rev3.3470). *Review of Education*, 12, e3470. Resultats heterogenis; el context i l’operacionalització importen.
-- Martarelli, C. S. et al. (2024). [Time in suspense: investigating boredom and related states in a virtual waiting room](https://doi.org/10.1080/02699931.2024.2349279). *Cognition and Emotion*, 38(7), 1080–1094.
+- Martarelli, C. S. et al. (2024). [Time in suspense: investigating boredom and related states in a virtual waiting room](https://doi.org/10.1080/02699931.2024.2349279). *Cognition and Emotion*, 38(7), 1080–1094. 66 participants; boredom covaried with slower passage judgments, but clock-speed information did not alter boredom. A virtual waiting-room study, not a causal test of the Cambra.
+- Durada breu sense telèfon: [Effect of task nature during short digital deprivation on time perception and psychophysiological state](https://doi.org/10.1038/s41598-025-94316-3). *Scientific Reports* (2025). N=90; passive waiting related to greater boredom and slower passage judgments; the duration estimates did not significantly differ by condition. Artificial 7.5-minute lab wait; replication/generalization remain open.
+- Judicis i emoció: Cécillon, F.-X. et al. (2026). [Time perception during emotional reviviscence: distinct contributions of duration estimation and passage-of-time judgment](https://doi.org/10.1080/02699931.2026.2714422). *Cognition and Emotion*. Two 76-second autobiographical-recall studies; passage judgments were more affect-sensitive than duration estimates. Brief instructed recall; exploratory factor analysis is provisional.
+- Recerca metodològica: Bonifácio, T. A. de S. et al. (2026). [Self-report measures of subjective time: an overview of existing measures and their semantic similarities](https://doi.org/10.3758/s13423-026-02987-4). *Psychonomic Bulletin & Review*, 33, 218. Review of 30 scales; notes construct/measure overlap. Literature search ended 2023, despite 2026 publication.
+- Walker, J. A. et al. (2026). [How duration, difficulty, and boredom impact prospective and retrospective passage of time judgements and duration estimates](https://doi.org/10.3758/s13414-026-03366-w). *Attention, Perception, & Psychophysics*, 88(8). N=841; boredom/engagement related to passage judgments, not duration estimates. Not preregistered; visual/memory task in a lab.
+- Droit-Volet, S., Monier, F. & Martinelli, N. N. (2026). [When does the feeling of time passing faster or slower emerge? The role of interoceptive awareness](https://doi.org/10.1016/j.concog.2026.104102). *Consciousness and Cognition*. In a 15-minute video task, slowing judgments associated with boredom/interoceptive-awareness scores, and speeding judgments with happiness/attention. Self-report laboratory associations, not causal or Cambra validation.
 - Sheeran, E. (2024). [Session 24: Ed Sheeran, *Therapuss with Jake Shane*](https://podcasts.apple.com/es/podcast/session-24-ed-sheeran/id1723626781?i=1000657994281) — testimoni personal sobre temps sense telèfon i idees musicals; exemple cultural, no evidència científica.
