@@ -42,7 +42,7 @@ Després de declarar el temps percebut i veure el temps cronològic real, la per
 
 Bibliografia comentada i procedència dels sis articles: [Archivum · Temps subjectiu / Invisibilis Kronos](../archivum/recerca/CAMBRA_NUA_TEMPS_SUBJECTIU_2026-11.md).
 
-La Cambra diferencia quatre nivells: durada cronològica (rellotge monotònic), estimació declarada de durada, judici subjectiu sobre la velocitat del pas del temps i retorn afectiu opcional (avorriment/implicació). Les respostes corporals són una autoobservació i no una mesura d’interocepció. Aquests camps no diagnostiquen, no atribueixen causalitat i no demostren que la Cambra reprodueixi els paradigmes de laboratori citats.
+La Cambra diferencia quatre nivells: durada cronològica (rellotge monotònic), estimació declarada de durada, judici subjectiu sobre la velocitat del pas del temps i retorn afectiu opcional (avorriment/implicació). Després de l’estimació, es pot declarar confiança en una escala de 0–4. És una autovaloració, no una mesura d’exactitud ni de calibratge. Les respostes corporals són una autoobservació i no una mesura d’interocepció. Aquests camps no diagnostiquen, no atribueixen causalitat i no demostren que la Cambra reprodueixi els paradigmes de laboratori citats.
 
 **Interpretació poètica:** «El rellotge compta. El cos negocia. Tu decideixes quan aturar-te» és una formulació artística del Còdex, no una troballa experimental. La recerca només orienta preguntes i distincions de disseny.
 
