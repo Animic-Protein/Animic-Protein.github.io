@@ -33,11 +33,12 @@ footer{color:var(--muted);font-size:.9rem}:focus-visible{outline:3px solid var(-
 <section class="card" aria-labelledby="missionTitle">
 <h2 id="missionTitle">Missió sintètica</h2>
 <p><strong>Fixture:</strong> Una proposta artificial suggereix transferir un fragment fictici de HARMONIA a MELODIA. No hi ha cap fragment real.</p>
-<p id="proposal"><strong>Proposta de NAVIGATOR:</strong> “Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.”</p>
+<p id="proposal"></p>
+<label for="proposalEdit">Escriu una correcció o una substitució sintètica</label><textarea id="proposalEdit" placeholder="Opcional: redacta una versió nova dins del fixture fictici"></textarea>
 <p><strong>Autoría:</strong> proposta d’agent; cap avaluació ni autorització humana registrada.</p>
 <div class="actions">
 <button class="primary" id="start">Obrir travessa sintètica</button><button class="secondary" id="resume" disabled>Reprendre des de QUIES</button>
-<button class="secondary" id="reviewProposal" disabled>Rebutjar proposta</button>
+<button class="primary" id="acceptProposal" disabled>Acceptar per a l’assaig</button><button class="secondary" id="correctProposal" disabled>Corregir / substituir</button><button class="secondary" id="restoreAlternative" disabled>Recuperar alternativa anterior</button><button class="secondary" id="reviewProposal" disabled>Rebutjar proposta</button>
 <button class="secondary" id="quiet" disabled>Entrar en quietud</button>
 <button class="danger" id="halt" disabled>Aturar travessa</button>
 </div>
@@ -84,11 +85,15 @@ var now=function(){return new Date().toISOString()};
 var id=function(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)};
 var save=function(){if(state)sessionStorage.setItem(KEY,JSON.stringify(state));render()};
 var add=function(type,data){if(!state)return;state.events.push(Object.assign({id:id('N06'),type:type,at:now()},data||{}));save()};
-var current=function(){return state&&state.status==='active'&&state.phaseIndex<PHASES.length};
+var current=function(){return state&&state.status==='active'&&state.proposal.reviewed===true&&state.phaseIndex<PHASES.length};
 var render=function(){
  var active=!!state,open=current();
- q('start').disabled=active;\n q('resume').disabled=!(state&&state.status==='paused');
- q('reviewProposal').disabled=!open;
+ q('start').disabled=active;
+ q('resume').disabled=!(state&&state.status==='paused');
+ q('acceptProposal').disabled=!(state&&state.status==='active'&&state.proposal.status==='pending');
+ q('correctProposal').disabled=!(state&&state.status==='active'&&state.proposal.status==='pending');
+ q('restoreAlternative').disabled=!(state&&state.status==='active'&&state.alternatives&&state.alternatives.length);
+ q('reviewProposal').disabled=!(state&&state.status==='active'&&state.proposal.status==='pending');
  q('quiet').disabled=!open;
  q('halt').disabled=!open;
  q('reobserve').disabled=!open;
@@ -97,7 +102,8 @@ var render=function(){
  q('revoke').disabled=!(state&&state.delegation&&state.delegation.status==='active');
  q('export').disabled=!active;
  q('dissolve').disabled=!active;
- q('missionStatus').textContent=active?'Estat: '+state.status+' · proposta '+state.proposal.status+'.':'Encara no oberta.';
+ q('missionStatus').textContent=active?(state.proposal.reviewed?'Estat: '+state.status+' · proposta '+state.proposal.status+'.':'Estat: '+state.status+' · revisa la proposta abans d’obrir la travessa.'):'Encara no oberta.';
+ q('proposal').textContent=state?'Proposta · '+(state.proposal.actorKind==='artificial'?'NAVIGATOR':'correcció humana')+' · '+state.proposal.text:'Proposta de NAVIGATOR: “Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.”';
  q('phaseStatus').textContent=open?'Disposició actual: '+PHASES[state.phaseIndex].id+' · llindar '+(state.threshold?state.threshold.choice:'pendent')+'.':active?(state.status==='paused'?'En quietud; pots reprendre la travessa.':'Travessa tancada: '+state.status+'.'):'Obre una missió per començar.';
  q('delegationStatus').textContent=state&&state.delegation?'Delegació '+state.delegation.status+' · '+state.delegation.operation+' · '+state.delegation.id:(active?'Cap delegació oberta.':'Obre una missió per assajar-ne una.');
  q('traceSummary').textContent=active?'Fixture: '+state.fixture.id+' · disposició '+Math.min(state.phaseIndex+1,PHASES.length)+' de '+PHASES.length+' · '+state.events.length+' esdeveniments.':'Encara no hi ha esdeveniments.';
@@ -124,11 +130,10 @@ var render=function(){
 };
 q('start').addEventListener('click',function(){
  if(state)return;
- state={format:'navigator-0.6-synthetic-pass',version:1,mode:'session-only-synthetic',status:'active',fixture:{id:'fixture:limen-five-dispositions',synthetic:true,localOnly:true,canonical:false,reversible:true,containsUserData:false},invokerKind:'human',actorKind:'artificial',phaseIndex:0,threshold:null,proposal:{id:id('PROP'),actorKind:'artificial',status:'pending',text:'Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.'},alternatives:[],delegation:null,events:[]};
+ state={format:'navigator-0.6-synthetic-pass',version:1,mode:'session-only-synthetic',status:'active',fixture:{id:'fixture:limen-five-dispositions',synthetic:true,localOnly:true,canonical:false,reversible:true,containsUserData:false},invokerKind:'human',actorKind:'artificial',phaseIndex:0,threshold:null,proposal:{id:id('PROP'),revision:1,actorKind:'artificial',status:'pending',reviewed:false,text:'Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.'},alternatives:[],delegation:null,events:[]};
  add('mission-opened',{actor:'human',detail:'Mandat limitat al fixture sintètic de cinc disposicions.'});
  add('agent-proposal',{actor:'artificial',proposalId:state.proposal.id,detail:state.proposal.text});
 });
-q('thresholdChoice').addEventListener;
 document.addEventListener('change',function(event){if(event.target&&event.target.id==='thresholdChoice'&&state){state.threshold={choice:event.target.value,by:'human'};render()}});
 q('advance').addEventListener('click',function(){
  if(!current()||!state.threshold||state.threshold.choice!=='met')return;
@@ -139,13 +144,12 @@ q('advance').addEventListener('click',function(){
  else add('phase-entered',{actor:'artificial',phase:PHASES[state.phaseIndex].id,detail:'Entrada simulada; llindar pendent de revisió humana.'});
  save();
 });
-q('resume').addEventListener('click',function(){if(!state||state.status!=='paused')return;state.status='active';add('resumed-from-quiet',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'La persona reprèn la mateixa disposició després de la pausa.'})});\nq('reobserve').addEventListener('click',function(){if(current())add('reobserve',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Retorn a la mateixa disposició; el llindar anterior no s’ha superat.'})});
-q('reviewProposal').addEventListener('click',function(){
- if(!current()||state.proposal.status!=='pending')return;
- state.proposal.status='rejected';
- add('human-evaluation',{actor:'human',proposalId:state.proposal.id,choice:'reject',detail:'Proposta rebutjada; cap operació de fixture executada.'});
- state.status='rejected';save();
-});
+q('resume').addEventListener('click',function(){if(!state||state.status!=='paused')return;state.status='active';add('resumed-from-quiet',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'La persona reprèn la mateixa disposició després de la pausa.'})});
+q('reobserve').addEventListener('click',function(){if(current())add('reobserve',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Retorn a la mateixa disposició; el llindar anterior no s’ha superat.'})});
+q('acceptProposal').addEventListener('click',function(){if(!state||state.status!=='active'||state.proposal.status!=='pending')return;state.proposal.status='accepted-for-fixture';state.proposal.reviewed=true;add('human-evaluation',{actor:'human',proposalId:state.proposal.id,revision:state.proposal.revision,choice:'accept-for-fixture',detail:'Acceptada només per continuar l’assaig sintètic; cap efecte executat.'})});
+q('correctProposal').addEventListener('click',function(){if(!state||state.status!=='active'||state.proposal.status!=='pending')return;var text=q('proposalEdit').value.trim();if(!text)return;var previous=state.proposal;previous.status='superseded';state.alternatives.push(previous);add('human-evaluation',{actor:'human',proposalId:previous.id,revision:previous.revision,choice:'correct-or-replace',detail:'Proposta anterior preservada com a alternativa.'});state.proposal={id:id('PROP'),revision:previous.revision+1,actorKind:'human',status:'pending',reviewed:false,text:text,supersedes:previous.id};q('proposalEdit').value='';add('human-corrected-proposal',{actor:'human',proposalId:state.proposal.id,revision:state.proposal.revision,supersedes:previous.id,detail:'Nova versió pendent d’avaluació; no hereta cap autorització.'})});
+q('restoreAlternative').addEventListener('click',function(){if(!state||state.status!=='active'||!state.alternatives.length)return;var currentProposal=state.proposal;currentProposal.status='superseded';state.alternatives.push(currentProposal);var restored=state.alternatives.splice(state.alternatives.length-2,1)[0];restored.status='pending';restored.reviewed=false;state.proposal=restored;add('alternative-restored',{actor:'human',proposalId:restored.id,revision:restored.revision,detail:'Alternativa recuperada per avaluació nova; autoritzacions prèvies no restaurades.'})});
+q('reviewProposal').addEventListener('click',function(){if(!state||state.status!=='active'||state.proposal.status!=='pending')return;state.proposal.status='rejected';state.proposal.reviewed=true;add('human-evaluation',{actor:'human',proposalId:state.proposal.id,revision:state.proposal.revision,choice:'reject',detail:'Proposta rebutjada; cap operació de fixture executada.'});state.status='rejected';save()});
 q('quiet').addEventListener('click',function(){if(!current())return;state.status='paused';add('quiet',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Pausa voluntària; no implica acceptació.'});save()});
 q('halt').addEventListener('click',function(){if(!current())return;state.status='halted';add('halted',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Aturada voluntària abans de qualsevol efecte.'});save()});
 q('delegate').addEventListener('click',function(){
