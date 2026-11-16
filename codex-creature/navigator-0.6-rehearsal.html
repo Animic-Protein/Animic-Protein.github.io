@@ -105,6 +105,7 @@ var render=function(){
  q('dissolve').disabled=!active;
  q('missionStatus').textContent=active?(state.proposal.reviewed?'Estat: '+state.status+' · proposta '+state.proposal.status+'.':'Estat: '+state.status+' · revisa la proposta abans d’obrir la travessa.'):'Encara no oberta.';
  q('proposal').textContent=state?'Proposta · '+(state.proposal.actorKind==='artificial'?'NAVIGATOR':'correcció humana')+' · '+state.proposal.text:'Proposta de NAVIGATOR: “Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.”';
+ q('proposalMeta').textContent=state?'Procedència: '+(state.proposal.actorKind==='artificial'?'NAVIGATOR':'persona')+' · estat d’avaluació: '+(state.proposal.reviewed?state.proposal.status:'pendent de decisió humana')+'.':'Procedència: proposta de NAVIGATOR; encara no avaluada per la persona.';
  q('phaseStatus').textContent=open?'Disposició actual: '+PHASES[state.phaseIndex].id+' · llindar '+(state.threshold?state.threshold.choice:'pendent')+'.':active?(state.status==='paused'?'En quietud; pots reprendre la travessa.':'Travessa tancada: '+state.status+'.'):'Obre una missió per començar.';
  q('delegationStatus').textContent=state&&state.delegation?'Delegació '+state.delegation.status+' · '+state.delegation.operation+' · '+state.delegation.id:(active?'Cap delegació oberta.':'Obre una missió per assajar-ne una.');
  q('traceSummary').textContent=active?'Fixture: '+state.fixture.id+' · disposició '+Math.min(state.phaseIndex+1,PHASES.length)+' de '+PHASES.length+' · '+state.events.length+' esdeveniments.':'Encara no hi ha esdeveniments.';
@@ -141,7 +142,7 @@ q('advance').addEventListener('click',function(){
  var phase=PHASES[state.phaseIndex];
  add('human-threshold-recorded',{actor:'human',phase:phase.id,choice:'met',detail:'Llindar declarat assolit per la persona; no és una avaluació automàtica.'});
  state.phaseIndex++;state.threshold=null;
- if(state.phaseIndex>=PHASES.length){state.status='completed';state.proposal.status='review-pending';add('pass-completed',{actor:'human',detail:'Cinc disposicions travessades; cap efecte extern executat.'})}
+ if(state.phaseIndex>=PHASES.length){state.status='completed';add('pass-completed',{actor:'human',detail:'Cinc disposicions travessades; cap efecte extern executat.'})}
  else add('phase-entered',{actor:'artificial',phase:PHASES[state.phaseIndex].id,detail:'Entrada simulada; llindar pendent de revisió humana.'});
  save();
 });
