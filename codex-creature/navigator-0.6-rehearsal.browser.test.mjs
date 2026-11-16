@@ -42,6 +42,8 @@ try{
  await uncertain.getByRole('button',{name:'Entrar en quietud'}).click();
  const paused=JSON.parse(await uncertain.locator('#json').textContent());
  assert.equal(paused.status,'paused');assert.ok(paused.events.some(event=>event.type==='quiet'));
+ await uncertain.getByRole('button',{name:'Reprendre des de QUIES'}).click();
+ const resumed=JSON.parse(await uncertain.locator('#json').textContent());assert.equal(resumed.status,'active');assert.ok(resumed.events.some(event=>event.type==='resumed-from-quiet'));
  await uncertain.close();
 
  const alternatives=await context.newPage();await alternatives.goto(base);
