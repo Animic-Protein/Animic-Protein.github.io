@@ -21,9 +21,7 @@ En corregir o substituir una proposta, la versió anterior continua al rastre i 
 Recuperar una alternativa no la reactiva automàticament, no restaura una autorització anterior ni repeteix cap efecte. Cal una nova avaluació humana vinculada a la versió seleccionada.
 
 ### 3. Revocar delegacions
-Una delegació és un permís fill identificat i limitat a un subconjunt del mandat. La persona pot retirar-la abans del tancament. La revocació bloqueja operacions futures de la invocació filla, queda registrada com a esdeveniment nou i conserva el permís original i les activitats prèvies. No desfà per si sola cap efecte ja produït.
-
-En l’assaig actual no hi ha operacions reals; la revocació es prova només sobre estat sintètic.
+La delegació fictícia és un permís fill identificat i limitat a una operació del fixture. La persona pot simular una operació i retirar el permís. La revocació desactiva el control d’operació, queda registrada com a esdeveniment nou i conserva el permís original i l’esdeveniment simulat previ. Cap instrument real no és invocat.
 
 ### 4. Mantenir obertes les sortides de pausa i reobservació
 Durant cada fase, quietud, reobservació i aturada continuen accessibles. La pausa es pot reprendre en la mateixa disposició. La proposta es pot rebutjar abans de travessar les disposicions. La falta de resposta no supera un llindar ni es converteix en aprovació.
@@ -47,11 +45,11 @@ La nota humana és opcional i no ha de requerir dades personals. El rastre no in
 4. Revocar una delegació sintètica desactiva el control per simular operacions futures; l’operació ja registrada roman al rastre.
 5. Quietud, reobservació i aturada continuen accessibles; la pausa es reprèn a la mateixa disposició.
 6. Silenci, caducitat o tancament de pestanya no autoritzen cap acció.
-7. Exportació i importació preserven relacions, versions i revocacions, sense convertir el fixture en contingut canònic.
+7. L’exportació JSON preserva relacions, versions i revocacions, sense convertir el fixture en contingut canònic.
 8. Es manté el mode session-only-synthetic; no s’afegeixen xarxa, persistència externa, instruments reals ni escrits a Archivum.
 
 ## Límits
-Aquesta proposta no prova que l’avaluació humana sigui efectiva només perquè apareix a la interfície. Tampoc demostra que recuperar alternatives eviti l’erosió d’agència; transforma una hipòtesi de disseny en comprovacions revisables. No altera els instruments LIMEN o DISSENSUS ni habilita NAVIGATOR fora del sandbox. Les avaluacions de llindar les declara la persona; la interfície no verifica si són correctes.
+Aquesta interfície no prova que l’avaluació humana sigui efectiva només perquè apareix a la interfície. Tampoc demostra que recuperar alternatives eviti l’erosió d’agència; transforma una hipòtesi de disseny en comprovacions revisables. No altera els instruments LIMEN o DISSENSUS ni habilita NAVIGATOR fora del sandbox. Les avaluacions de llindar les declara la persona; la interfície no verifica si són correctes.
 
 ## Decisió pendent
-La interfície i les comprovacions d’acceptació encara s’han d’implementar. Fins llavors, aquest document és una especificació de revisió, no una capacitat disponible.
+El recorregut i la prova automatitzada formen part de la PR. La fusió, canonització i qualsevol extensió a travesses reals dels instruments continuen pendents de revisió humana.
