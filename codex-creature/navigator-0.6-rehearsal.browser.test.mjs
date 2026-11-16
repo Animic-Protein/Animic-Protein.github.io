@@ -14,6 +14,7 @@ try{
  const page=await context.newPage(),base='http://127.0.0.1:'+server.address().port+'/';
  await page.goto(base);
  await page.getByRole('button',{name:'Obrir travessa sintètica'}).click();
+ await page.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
  assert.equal(await page.locator('#json').textContent().then(text=>JSON.parse(text).mode),'session-only-synthetic');
  assert.deepEqual(await page.locator('.phase h3').allTextContents(),['1 · ATTENTIO','2 · RETENTIO','3 · DISCRIMEN','4 · QUIES / REOBSERVE','5 · METACOGNITIO']);
  for(let i=0;i<5;i++){
@@ -35,12 +36,26 @@ try{
 
  const uncertain=await context.newPage();await uncertain.goto(base);
  await uncertain.getByRole('button',{name:'Obrir travessa sintètica'}).click();
+ await uncertain.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
  await uncertain.locator('#thresholdChoice').selectOption('unknown');
  assert.equal(await uncertain.getByRole('button',{name:'Registrar llindar i continuar'}).isDisabled(),true,'Unobserved threshold cannot advance the pass');
  await uncertain.getByRole('button',{name:'Entrar en quietud'}).click();
  const paused=JSON.parse(await uncertain.locator('#json').textContent());
  assert.equal(paused.status,'paused');assert.ok(paused.events.some(event=>event.type==='quiet'));
  await uncertain.close();
+
+ const alternatives=await context.newPage();await alternatives.goto(base);
+ await alternatives.getByRole('button',{name:'Obrir travessa sintètica'}).click();
+ const firstProposal=JSON.parse(await alternatives.locator('#json').textContent()).proposal.id;
+ await alternatives.locator('#proposalEdit').fill('Proposta corregida, només dins del fixture.');
+ await alternatives.getByRole('button',{name:'Corregir / substituir'}).click();
+ let revised=JSON.parse(await alternatives.locator('#json').textContent());
+ assert.equal(revised.alternatives[0].id,firstProposal);assert.equal(revised.proposal.reviewed,false);
+ await alternatives.getByRole('button',{name:'Recuperar alternativa anterior'}).click();
+ revised=JSON.parse(await alternatives.locator('#json').textContent());
+ assert.equal(revised.proposal.id,firstProposal);assert.equal(revised.proposal.reviewed,false);
+ assert.ok(revised.events.some(event=>event.type==='alternative-restored'));
+ await alternatives.close();
 
  const rejected=await context.newPage();await rejected.goto(base);
  await rejected.getByRole('button',{name:'Obrir travessa sintètica'}).click();
@@ -53,6 +68,7 @@ try{
 
  const revoked=await context.newPage();await revoked.goto(base);
  await revoked.getByRole('button',{name:'Obrir travessa sintètica'}).click();
+ await revoked.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
  await revoked.getByRole('button',{name:'Obrir delegació de fixture'}).click();
  await revoked.getByRole('button',{name:'Retirar delegació'}).click();
  const revokedTrace=JSON.parse(await revoked.locator('#json').textContent());
