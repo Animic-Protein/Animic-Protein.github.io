@@ -17,7 +17,8 @@ try{
  await page.getByRole('button',{name:'Obrir travessa sintètica'}).click();
  await page.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
  const opened=JSON.parse(await page.locator('#json').textContent());
- assert.equal(opened.mode,'session-only-synthetic',JSON.stringify(opened));
+ assert.equal(opened.format,'navigator-0.6-synthetic-pass',JSON.stringify(opened));
+ assert.equal(opened.fixture.synthetic,true,'Only a synthetic fixture can start the pass');
  assert.deepEqual(await page.locator('.phase h3').allTextContents(),['1 · ATTENTIO','2 · RETENTIO','3 · DISCRIMEN','4 · QUIES / REOBSERVE','5 · METACOGNITIO']);
  for(let i=0;i<5;i++){
   if(i===2){
