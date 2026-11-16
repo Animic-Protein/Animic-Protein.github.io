@@ -64,6 +64,8 @@ jobs:
           node codex-creature/navigator-matrix-iphone.offline.browser.test.mjs
       - name: Autoritzacions NAVIGATOR 0.5 · rastre sintètic
         run: node codex-creature/navigator-0.5-rehearsal.browser.test.mjs
+      - name: Travesses sintètiques NAVIGATOR 0.6 · cinc disposicions i llindars
+        run: node codex-creature/navigator-0.6-rehearsal.browser.test.mjs
       - name: Adjunts Còdex Creature
         run: node --test codex-creature/attachments.test.mjs
       - name: Coherència del Site
