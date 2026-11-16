@@ -99,6 +99,7 @@ var render=function(){
  q('reobserve').disabled=!open;
  q('advance').disabled=!open||!state.threshold||state.threshold.choice!=='met';
  q('delegate').disabled=!open||!!(state&&state.delegation&&state.delegation.status==='active');
+ q('simulateDelegated').disabled=!(open&&state.delegation&&state.delegation.status==='active');
  q('revoke').disabled=!(state&&state.delegation&&state.delegation.status==='active');
  q('export').disabled=!active;
  q('dissolve').disabled=!active;
