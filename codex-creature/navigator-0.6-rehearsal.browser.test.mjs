@@ -12,10 +12,12 @@ try{
  browser=await chromium.launch({headless:true});
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
  const page=await context.newPage(),base='http://127.0.0.1:'+server.address().port+'/';
+ page.on('pageerror',error=>console.log('NAVIGATOR page error:',error.message));
  await page.goto(base);
  await page.getByRole('button',{name:'Obrir travessa sintètica'}).click();
  await page.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
- assert.equal(await page.locator('#json').textContent().then(text=>JSON.parse(text).mode),'session-only-synthetic');
+ const opened=JSON.parse(await page.locator('#json').textContent());
+ assert.equal(opened.mode,'session-only-synthetic',JSON.stringify(opened));
  assert.deepEqual(await page.locator('.phase h3').allTextContents(),['1 · ATTENTIO','2 · RETENTIO','3 · DISCRIMEN','4 · QUIES / REOBSERVE','5 · METACOGNITIO']);
  for(let i=0;i<5;i++){
   if(i===2){
