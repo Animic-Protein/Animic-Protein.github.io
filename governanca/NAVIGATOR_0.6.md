@@ -33,7 +33,9 @@ Durant cada fase, quietud, reobservació i aturada continuen accessibles. La pau
 | agent-proposal | proposalId, actorKind, revision, contentRef, rationale, at |
 | human-evaluation | proposalId, revision, choice, note, actorKind: human, at |
 | alternative-restored | proposalId, revision, restoredBy: human, at |
+| human-threshold-recorded | phaseId, choice: met, actor: human, at |
 | delegation-revoked | delegationId, revokedBy: human, scope, at |
+| delegated-fixture-operation | delegationId, actorKind: artificial, effect: simulated-record-only, at |
 | quiet / reobserve / rejected / halted | referència, actor humà, resultat, at |
 
 La nota humana és opcional i no ha de requerir dades personals. El rastre no infereix que la persona hagi verificat el contingut només perquè ha triat una opció.
