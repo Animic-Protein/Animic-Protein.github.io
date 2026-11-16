@@ -58,7 +58,7 @@ footer{color:var(--muted);font-size:.9rem}:focus-visible{outline:3px solid var(-
 <h2 id="delegationHeading">Delegació fictícia</h2>
 <p>Assaja un permís fill per a una sola operació de fixture. Retirar-lo bloqueja els passos futurs simulats i conserva tots els esdeveniments previs al rastre.</p>
 <p id="delegationStatus" class="state">Cap delegació oberta.</p>
-<div class="actions"><button class="secondary" id="delegate" disabled>Obrir delegació de fixture</button><button class="danger" id="revoke" disabled>Retirar delegació</button></div>
+<div class="actions"><button class="secondary" id="delegate" disabled>Obrir delegació de fixture</button><button class="primary" id="simulateDelegated" disabled>Simular operació delegada</button><button class="danger" id="revoke" disabled>Retirar delegació</button></div>
 </section>
 <section class="card" aria-labelledby="traceHeading">
 <h2 id="traceHeading">Rastre de la travessa</h2>
@@ -157,6 +157,7 @@ q('delegate').addEventListener('click',function(){
  state.delegation={id:id('DELEG'),operation:'creature.transfer.fixture',scope:['HARMONIA','MELODIA'],status:'active',actorKind:'human'};
  add('delegation-opened',{actor:'human',delegationId:state.delegation.id,detail:'Abast sintètic i limitat: creature.transfer.fixture.'});save();
 });
+q('simulateDelegated').addEventListener('click',function(){if(!current()||!state.delegation||state.delegation.status!=='active')return;add('delegated-fixture-operation',{actor:'artificial',delegationId:state.delegation.id,detail:'Operació fictícia simulated-record-only; cap instrument real invocat.'})});
 q('revoke').addEventListener('click',function(){
  if(!state||!state.delegation||state.delegation.status!=='active')return;
  state.delegation.status='revoked';
