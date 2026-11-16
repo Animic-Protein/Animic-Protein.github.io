@@ -117,8 +117,8 @@ var render=function(){
   row.append(title,question,status);
   if(open&&index===state.phaseIndex){
    var select=document.createElement('select');select.id='thresholdChoice';select.setAttribute('aria-label','Resultat del llindar');
-   [['met','Assolit'],['unknown','No observat'],['ambiguous','Ambigüitat']].forEach(function(pair){var option=document.createElement('option');option.value=pair[0];option.textContent=pair[1];select.appendChild(option)});
-   select.value=state.threshold?state.threshold.choice:'met';
+   [['','Tria un resultat...'],['met','Assolit'],['unknown','No observat'],['ambiguous','Ambigüitat']].forEach(function(pair){var option=document.createElement('option');option.value=pair[0];option.textContent=pair[1];select.appendChild(option)});
+   select.value=state.threshold?state.threshold.choice:'';
    select.addEventListener('change',function(){state.threshold={choice:select.value,by:'human'};save()});
    row.appendChild(select);
   }
