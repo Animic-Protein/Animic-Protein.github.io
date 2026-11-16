@@ -70,11 +70,14 @@ try{
  await revoked.getByRole('button',{name:'Obrir travessa sintètica'}).click();
  await revoked.getByRole('button',{name:'Acceptar per a l’assaig'}).click();
  await revoked.getByRole('button',{name:'Obrir delegació de fixture'}).click();
+ await revoked.getByRole('button',{name:'Simular operació delegada'}).click();
  await revoked.getByRole('button',{name:'Retirar delegació'}).click();
+ assert.equal(await revoked.getByRole('button',{name:'Simular operació delegada'}).isDisabled(),true);
  const revokedTrace=JSON.parse(await revoked.locator('#json').textContent());
  assert.equal(revokedTrace.delegation.status,'revoked');
  assert.ok(revokedTrace.events.some(event=>event.type==='delegation-revoked'));
  assert.ok(revokedTrace.events.some(event=>event.type==='delegation-opened'));
+ assert.equal(revokedTrace.events.filter(event=>event.type==='delegated-fixture-operation').length,1);
  await context.close();
  console.log('NAVIGATOR 0.6 synthetic passes: five human-set thresholds, uncertainty gate, reobservation, rejection, quiet, delegation revocation and reversible dissolution: OK');
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve))}
