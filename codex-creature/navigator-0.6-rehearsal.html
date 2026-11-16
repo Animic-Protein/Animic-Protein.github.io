@@ -36,7 +36,7 @@ footer{color:var(--muted);font-size:.9rem}:focus-visible{outline:3px solid var(-
 <p id="proposal"><strong>Proposta de NAVIGATOR:</strong> “Provar una transferència sintètica i observar si canvia la relació entre les dues cambres.”</p>
 <p><strong>Autoría:</strong> proposta d’agent; cap avaluació ni autorització humana registrada.</p>
 <div class="actions">
-<button class="primary" id="start">Obrir travessa sintètica</button>
+<button class="primary" id="start">Obrir travessa sintètica</button><button class="secondary" id="resume" disabled>Reprendre des de QUIES</button>
 <button class="secondary" id="reviewProposal" disabled>Rebutjar proposta</button>
 <button class="secondary" id="quiet" disabled>Entrar en quietud</button>
 <button class="danger" id="halt" disabled>Aturar travessa</button>
@@ -87,7 +87,7 @@ var add=function(type,data){if(!state)return;state.events.push(Object.assign({id
 var current=function(){return state&&state.status==='active'&&state.phaseIndex<PHASES.length};
 var render=function(){
  var active=!!state,open=current();
- q('start').disabled=active;
+ q('start').disabled=active;\n q('resume').disabled=!(state&&state.status==='paused');
  q('reviewProposal').disabled=!open;
  q('quiet').disabled=!open;
  q('halt').disabled=!open;
@@ -139,7 +139,7 @@ q('advance').addEventListener('click',function(){
  else add('phase-entered',{actor:'artificial',phase:PHASES[state.phaseIndex].id,detail:'Entrada simulada; llindar pendent de revisió humana.'});
  save();
 });
-q('reobserve').addEventListener('click',function(){if(current())add('reobserve',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Retorn a la mateixa disposició; el llindar anterior no s’ha superat.'})});
+q('resume').addEventListener('click',function(){if(!state||state.status!=='paused')return;state.status='active';add('resumed-from-quiet',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'La persona reprèn la mateixa disposició després de la pausa.'})});\nq('reobserve').addEventListener('click',function(){if(current())add('reobserve',{actor:'human',phase:PHASES[state.phaseIndex].id,detail:'Retorn a la mateixa disposició; el llindar anterior no s’ha superat.'})});
 q('reviewProposal').addEventListener('click',function(){
  if(!current()||state.proposal.status!=='pending')return;
  state.proposal.status='rejected';
