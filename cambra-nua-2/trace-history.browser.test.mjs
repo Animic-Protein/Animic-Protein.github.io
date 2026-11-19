@@ -120,9 +120,6 @@ try {
   await assertConfidence("hidden", 0);
   assert.match(await timePage.locator("#historyList .capture").textContent(), /cronologia potencialment incompleta/);
   assert.equal(await timePage.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true, "l’exercici no ha de desbordar en mòbil");
-  await timePage.reload({ waitUntil: "networkidle" });
-  assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
-  assert.equal(await timePage.locator("#emergence").inputValue(), "", "la nota creativa no es conserva en recarregar");
   assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
 
   await timePage.locator("#toFast").tap();
@@ -151,6 +148,8 @@ try {
 
   await timePage.reload({ waitUntil: "networkidle" });
   assert.equal(await timePage.locator("#historyList .capture").count(), 3, "les tres captures persisteixen després de recarregar");
+  assert.equal(await timePage.locator("#emergence").inputValue(), "", "la nota creativa no es conserva en recarregar");
+  assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
   await assertConfidence("hidden", 0);
   await assertConfidence("fast", 4);
   await assertConfidence("slow", null);
