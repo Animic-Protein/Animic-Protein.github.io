@@ -94,18 +94,65 @@ try {
   assert.match(await timePage.locator("#instruction").textContent(), /pot ser incompleta/);
   await timePage.locator("#start").tap();
   await timePage.locator("#perceived").fill("09:33");
+  await timePage.locator("#hiddenConfidence").selectOption("0");
+  assert.equal(await timePage.locator("#chrono").textContent(), "—", "la confiança es declara abans de revelar el temps cronològic");
+  assert.equal(await timePage.locator("#result").isVisible(), false, "la selecció de confiança no revela el resultat");
   await timePage.locator("#reveal").tap();
   assert.equal(await timePage.locator("#canonTitle").isVisible(), true, "la disposició canònica es mostra després de la comparació");
   assert.equal(await timePage.locator("#chrono").textContent(), "11′08″");
   assert.equal(await timePage.locator("#felt").textContent(), "9′33″");
   await timePage.locator("#emergence").fill("idea de prova no persistent");
   assert.equal(await timePage.locator("#historyList .capture").count(), 1);
+  const temporalStore = "animic.codex.temporal-fragments/v1";
+  const confidenceFor = async (mode) => timePage.evaluate((exerciseMode) => {
+    const records = Object.values(JSON.parse(localStorage.getItem("animic.codex.temporal-fragments/v1") || "{}"));
+    return records.find((record) => record.fragment?.exerciseMode === exerciseMode)?.fragment || null;
+  }, mode);
+  const assertConfidence = async (mode, expected) => {
+    const fragment = await confidenceFor(mode);
+    assert.ok(fragment, `la captura ${mode} existeix`);
+    assert.equal(fragment.reflection.confidence, expected, `la confiança ${mode} es conserva literalment`);
+    assert.equal(Object.hasOwn(fragment, "confidence"), false, "la confiança no es transforma en una mesura directa");
+    for (const derived of ["accuracy", "score", "compositeScore", "scientificConclusion"]) {
+      assert.equal(Object.hasOwn(fragment, derived), false, `no es genera ${derived}`);
+    }
+  };
+  await assertConfidence("hidden", 0);
   assert.match(await timePage.locator("#historyList .capture").textContent(), /cronologia potencialment incompleta/);
   assert.equal(await timePage.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true, "l’exercici no ha de desbordar en mòbil");
+  assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
+
+  await timePage.locator("#toFast").tap();
+  await timePage.locator("#fastStart").tap();
+  await timePage.evaluate(() => window.advanceTestClock(10000));
+  await timePage.locator("#fastStart").tap();
+  await timePage.locator("#fastPerceived").fill("00:10");
+  await timePage.locator("#fastConfidence").selectOption("4");
+  assert.equal(await timePage.locator("#fastReal").textContent(), "—", "la confiança ràpida es declara abans de revelar el temps real");
+  assert.equal(await timePage.locator("#fastResult").isVisible(), false);
+  assert.equal(await timePage.evaluate((key) => Object.keys(JSON.parse(localStorage.getItem(key) || "{}")).length, temporalStore), 1, "la nova captura es registra en revelar el resultat");
+  await timePage.locator("#fastReveal").tap();
+  await assertConfidence("fast", 4);
+
+  await timePage.locator("#toSlow").tap();
+  await timePage.locator("#slowStart").tap();
+  await timePage.evaluate(() => window.advanceTestClock(10000));
+  await timePage.locator("#slowStart").tap();
+  await timePage.locator("#slowPerceived").fill("00:10");
+  await timePage.locator("#slowConfidence").selectOption("");
+  assert.equal(await timePage.locator("#slowReal").textContent(), "—", "la resposta en blanc també es fa abans de revelar el temps real");
+  assert.equal(await timePage.locator("#slowResult").isVisible(), false);
+  await timePage.locator("#slowReveal").tap();
+  await assertConfidence("slow", null);
+  assert.equal(await timePage.locator("#historyList .capture").count(), 3, "les tres respostes de confiança tenen captura");
+
   await timePage.reload({ waitUntil: "networkidle" });
-  assert.equal(await timePage.locator("#historyList .capture").count(), 1, "la captura local persisteix en recarregar");
+  assert.equal(await timePage.locator("#historyList .capture").count(), 3, "les tres captures persisteixen després de recarregar");
   assert.equal(await timePage.locator("#emergence").inputValue(), "", "la nota creativa no es conserva en recarregar");
   assert.equal(await timePage.evaluate(() => localStorage.getItem("animic.codex.temporal-fragments/v1").includes("idea de prova no persistent")), false, "la nota creativa no entra a l’historial");
+  await assertConfidence("hidden", 0);
+  await assertConfidence("fast", 4);
+  await assertConfidence("slow", null);
   await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/fragment-circulation.html?from=espera`, { waitUntil: "networkidle" });
   await timePage.locator("#reveal").tap();
   const organLinks = await timePage.locator("[data-open-organ]").evaluateAll((links) => Object.fromEntries(links.map((link) => [link.dataset.openOrgan, new URL(link.href).pathname + new URL(link.href).hash])));
@@ -120,7 +167,7 @@ try {
   assert.match(await timePage.locator("#routeStatus").textContent(), /Relació guardada amb Compost/);
   assert.equal(await timePage.evaluate(() => {
     const records = Object.values(JSON.parse(localStorage.getItem("animic.codex.temporal-fragments/v1")));
-    return records[0].relation.filter((item) => item.kind === "return-to-compost").length;
+    return records.reduce((total, record) => total + record.relation.filter((item) => item.kind === "return-to-compost").length, 0);
   }), 1, "la selecció desa una sola relació reversible");
   await Promise.all([
     timePage.waitForURL((url) => url.pathname === "/fusio-total/index.html" && url.hash === "#compost"),
@@ -130,7 +177,8 @@ try {
   assert.equal(new URL(timePage.url()).hash, "#compost");
   await timePage.goto(`http://127.0.0.1:${server.address().port}/cambra-nua-2/espera.html`, { waitUntil: "networkidle" });
   await timePage.locator("#clearHistory").tap();
-  assert.equal(await timePage.locator("#historyList .capture").count(), 0, "la retirada explícita dissol les captures d’aquest exercici");
+  assert.equal(await timePage.locator("#historyList .capture").count(), 0, "la retirada explícita dissol les tres captures d’aquest exercici");
+  assert.equal(await timePage.evaluate((key) => Object.keys(JSON.parse(localStorage.getItem(key) || "{}")).length, temporalStore), 0, "dissoldre l’historial elimina les tres captures locals");
   console.log("Cambra Nua · proves Chromium mòbil: OK");
 } finally {
   await browser?.close();
