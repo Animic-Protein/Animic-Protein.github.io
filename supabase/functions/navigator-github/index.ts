@@ -107,13 +107,13 @@ const routeGithub = async (token: string, operation: string, resource: string, d
     return await jsonResponse(ghBase + "/git/refs", token, "POST", { ref: "refs/heads/" + resource, sha });
   }
   if (["file.create", "file.update"].includes(operation)) {
-    if (!contentsPath || !required(details.message, 200) || typeof details.content !== "string" || details.content.length > 64000) throw Object.assign(new Error("invalid_file_request"), { status: 400 });
+    if (!contentsPath || !/^navigator\\/[a-zA-Z0-9._/-]{1,100}$/.test(String(details.branch || "")) || !required(details.message, 200) || typeof details.content !== "string" || details.content.length > 64000) throw Object.assign(new Error("invalid_file_request"), { status: 400 });
     if (operation === "file.update" && !required(details.sha, 100)) throw Object.assign(new Error("file_sha_required"), { status: 400 });
     if (operation === "file.create" && details.sha) throw Object.assign(new Error("create_must_not_replace"), { status: 400 });
     const bytes = encoder.encode(details.content);
     let binary = ""; for (const b of bytes) binary += String.fromCharCode(b);
     return await jsonResponse(ghBase + "/contents/" + contentsPath, token, "PUT", {
-      message: details.message, content: btoa(binary), branch: "main", ...(details.sha ? { sha: details.sha } : {})
+      message: details.message, content: btoa(binary), branch: details.branch, ...(details.sha ? { sha: details.sha } : {})
     });
   }
   if (operation === "issue.create") {
@@ -125,7 +125,7 @@ const routeGithub = async (token: string, operation: string, resource: string, d
     return await jsonResponse(ghBase + "/" + resource, token, "POST", { body: details.body });
   }
   if (operation === "pull-request.draft.create") {
-    if (resource !== "pulls" || !required(details.title, 250) || !required(details.head, 200) || details.base !== "main" || !required(details.body, 10000)) throw Object.assign(new Error("invalid_draft_request"), { status: 400 });
+    if (resource !== "pulls" || !required(details.title, 250) || !/^navigator\\/[a-zA-Z0-9._/-]{1,100}$/.test(String(details.head || "")) || details.base !== "main" || !required(details.body, 10000)) throw Object.assign(new Error("invalid_draft_request"), { status: 400 });
     return await jsonResponse(ghBase + "/pulls", token, "POST", { title: details.title, head: details.head, base: "main", body: details.body, draft: true });
   }
   if (operation === "workflow.dispatch" || operation === "pages.deploy") {
@@ -141,6 +141,8 @@ const routeGithub = async (token: string, operation: string, resource: string, d
   }
   if (operation === "pull-request.merge" && /^pulls\/[1-9]\d*$/.test(resource)) {
     if (!required(details.sha, 100) || !["merge", "squash", "rebase"].includes(String(details.mergeMethod))) throw Object.assign(new Error("merge_sha_and_method_required"), { status: 400 });
+    const currentPr = await jsonResponse(ghBase + "/" + resource, token) as Record<string, unknown>;
+    if (currentPr.draft === true || currentPr.state !== "open" || (currentPr.head as Record<string, unknown> | undefined)?.sha !== details.sha) throw Object.assign(new Error("pull_request_state_or_head_mismatch"), { status: 409 });
     const checks = await jsonResponse(ghBase + "/commits/" + encodeURIComponent(String(details.sha)) + "/check-runs", token) as Record<string, unknown>;
     const checkRuns = Array.isArray(checks.check_runs) ? checks.check_runs as Array<Record<string, unknown>> : [];
     if (checkRuns.length === 0 || checkRuns.some(c => c.status !== "completed" || c.conclusion !== "success")) throw Object.assign(new Error("required_checks_not_green"), { status: 409 });
