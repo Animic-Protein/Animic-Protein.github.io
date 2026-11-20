@@ -52,12 +52,13 @@ if (mandate.zone !== ZONE || mandate.repository !== REPOSITORY) fail('mandate is
 if (mandate.issuedBy !== 'human' || mandate.actorKind !== 'artificial') fail('human-issued mandate required');
 if (!Array.isArray(mandate.capabilities) || !mandate.capabilities.includes('repository.read')) fail('repository.read capability is missing');
 if (!mandate.usage || !Number.isInteger(mandate.usage.requests) || !Number.isInteger(mandate.usage.maxRequests) ||
-    mandate.usage.requests < 1 || mandate.usage.requests > mandate.usage.maxRequests) fail('mandate request budget is invalid');
+    mandate.usage.requests < 1 || mandate.usage.requests > mandate.usage.maxRequests || mandate.usage.maxRequests > 20) fail('mandate request budget is invalid');
 if (!mandate.expiresAt || !Number.isFinite(Date.parse(mandate.expiresAt)) || Date.parse(mandate.expiresAt) <= Date.now()) fail('mandate has expired');
 
 const matches = Array.isArray(trace.requests) ? trace.requests.filter(request => request.id === requestId) : [];
 if (matches.length !== 1) fail('request ID must identify exactly one request in the trace');
 const request = matches[0];
+if (!Number.isInteger(mandate.revision) || !Number.isInteger(request.mandateRevision) || request.mandateRevision < 0 || request.mandateRevision >= mandate.revision) fail('mandate revision does not cover this request');
 if (request.mandateId !== mandate.id || request.zone !== ZONE || request.repository !== REPOSITORY) fail('request and mandate do not match');
 if (request.operation !== 'repository.read' || request.status !== 'authorized-awaiting-adapter' || request.execution !== 'not-executed') {
   fail('request is not an unexecuted authorized repository.read operation');
@@ -141,10 +142,10 @@ const markdown = [
   '- Zona: <code>' + ZONE + '</code>',
   '- Recurs: <code>' + escapeHtml(request.resource) + '</code>',
   '- Referència: <code>main</code> · commit <code>' + escapeHtml(result.commit) + '</code>',
-  '- Blob: <code>' + result.blobSha + '</code> · ' + result.contentBytes + ' bytes',
-  '- Mandat: <code>' + mandate.id + '</code> · petició <code>' + escapeHtml(request.id) + '</code>',
+  '- Blob: <code>' + escapeHtml(result.blobSha) + '</code> · ' + result.contentBytes + ' bytes',
+  '- Mandat: <code>' + escapeHtml(mandate.id) + '</code> · petició <code>' + escapeHtml(request.id) + '</code>',
   '- Empremta validada: <code>' + escapeHtml(request.actionDigest) + '</code>',
-  '- Executat per GitHub: <code>' + actor + '</code> · run <code>' + escapeHtml(result.workflowRunId) + '</code>',
+  '- Executat per GitHub: <code>' + escapeHtml(actor) + '</code> · run <code>' + escapeHtml(result.workflowRunId) + '</code>',
   '- Moment: <code>' + escapeHtml(result.executedAt) + '</code>',
   '',
   'La sortida JSON del resultat és a continuació; la resta del rastre local no s’ha modificat.',
