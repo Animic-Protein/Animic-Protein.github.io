@@ -1,0 +1,47 @@
+name: NAVIGATOR 0.8 · lectura autenticada de zona
+
+on:
+  workflow_dispatch:
+    inputs:
+      request_json:
+        description: Enganxa el JSON exportat de NAVIGATOR 0.7
+        required: true
+        type: string
+      request_id:
+        description: ID exacte de la petició repository.read autoritzada
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  scoped-read:
+    name: Executa una lectura autoritzada
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout sense persistir credencials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Configura Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Valida mandat i executa només repository.read
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          NAVIGATOR_REQUEST_JSON: ${{ inputs.request_json }}
+          NAVIGATOR_REQUEST_ID: ${{ inputs.request_id }}
+        run: node scripts/navigator-zone-read-adapter.mjs
