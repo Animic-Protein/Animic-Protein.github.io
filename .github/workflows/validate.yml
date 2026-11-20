@@ -66,6 +66,10 @@ jobs:
         run: node codex-creature/navigator-0.5-rehearsal.browser.test.mjs
       - name: Travesses sintètiques NAVIGATOR 0.6 · cinc disposicions i llindars
         run: node codex-creature/navigator-0.6-rehearsal.browser.test.mjs
+      - name: Permisos NAVIGATOR 0.7 · zones i peticions delimitades
+        run: |
+          node --test governanca/navigator-zones.test.mjs
+          node codex-creature/navigator-0.7-zones.browser.test.mjs
       - name: Adjunts Còdex Creature
         run: node --test codex-creature/attachments.test.mjs
       - name: Coherència del Site
