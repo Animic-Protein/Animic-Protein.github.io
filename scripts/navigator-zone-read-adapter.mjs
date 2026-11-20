@@ -129,7 +129,8 @@ const result = {
   contentBytes: bytes.length,
   content
 };
-const escapedContent = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const escapeHtml = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const escapedContent = escapeHtml(content);
 const resultRecord = { ...result };
 delete resultRecord.content;
 const markdown = [
@@ -138,20 +139,20 @@ const markdown = [
   '- Estat: <code>executed</code>',
   '- Operació: <code>repository.read</code>',
   '- Zona: <code>' + ZONE + '</code>',
-  '- Recurs: <code>' + request.resource + '</code>',
-  '- Referència: <code>main</code> · commit <code>' + result.commit + '</code>',
+  '- Recurs: <code>' + escapeHtml(request.resource) + '</code>',
+  '- Referència: <code>main</code> · commit <code>' + escapeHtml(result.commit) + '</code>',
   '- Blob: <code>' + result.blobSha + '</code> · ' + result.contentBytes + ' bytes',
-  '- Mandat: <code>' + mandate.id + '</code> · petició <code>' + request.id + '</code>',
-  '- Empremta validada: <code>' + request.actionDigest + '</code>',
-  '- Executat per GitHub: <code>' + actor + '</code> · run <code>' + result.workflowRunId + '</code>',
-  '- Moment: <code>' + result.executedAt + '</code>',
+  '- Mandat: <code>' + mandate.id + '</code> · petició <code>' + escapeHtml(request.id) + '</code>',
+  '- Empremta validada: <code>' + escapeHtml(request.actionDigest) + '</code>',
+  '- Executat per GitHub: <code>' + actor + '</code> · run <code>' + escapeHtml(result.workflowRunId) + '</code>',
+  '- Moment: <code>' + escapeHtml(result.executedAt) + '</code>',
   '',
   'La sortida JSON del resultat és a continuació; la resta del rastre local no s’ha modificat.',
   '',
   '<details><summary>Contingut llegit</summary><pre>' + escapedContent + '</pre></details>',
   '',
   '<details><summary>Registre JSON d’execució</summary><pre>' +
-    JSON.stringify(resultRecord, null, 2).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+    escapeHtml(JSON.stringify(resultRecord, null, 2)) +
     '</pre></details>',
   ''
 ].join('\n');
